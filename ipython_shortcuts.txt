@@ -1,0 +1,29 @@
+# run cell
+S-Enter       : run cell
+C-Enter       : run cell in-place
+A-Enter       : run cell, insert below
+
+# copy, paste
+C-m c         : copy cell
+C-m v         : paste cell
+C-m x         : cut cell
+C-m d         : delete cell
+
+# insert
+C-m a         : insert cell above
+C-m b         : insert cell below
+
+# save
+C-m s         : save notebook
+
+# move
+C-m j         : move cell down
+C-m k         : move cell up
+
+# cell execution
+C-m i         : interrupt kernel
+C-m .         : restart kernel
+
+# help
+C-m h         : show shortcuts
+

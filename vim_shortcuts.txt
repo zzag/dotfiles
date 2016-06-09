@@ -1,0 +1,106 @@
+NORMAL:
+- dd           : cut
+- 10dd         : cut 10 lines
+- daw          : cut word
+- d2w          : cut two words
+- %d           : cut all content
+- y            : copy
+- 10yy         : copy 10 lines
+- p            : paste after cursor
+- P            : paste before cursor
+- x            : delete after cursor
+- X            : delete before cursor
+- /            : search (n - next result, N - previous)
+- u            : undo
+- Ctrl+R       : redo
+- Sex          : file explorer
+- Ctrl+W,s     : create horizontal split
+- sp           : create horizontal split
+- Ctrl+W,v     : create vertical split
+- vsp          : create vertical split
+- Ctrl+W,arrow : move to split
+- Ctrl+W,+     : resize pane by 1 row
+- Ctrl+W,-     : resize pane by 1 row
+- Ctrl+W,<     : resize pane by 1 column
+- Ctrl+W,>     : resize pane by 1 column
+- :resize +N   : resize split
+- :resize -N   : resize split
+- :ls          : list buffers
+- :b N         : move to buffer
+- w or W       : move one word forward
+- b or B       : move one word backward
+- 0            : reach the beginning of a line
+- $            : reach the end of a line
+- %            : match parentheses
+- *            : next occurence of the word under cursor
+- #            : previous occurence of the word under cursor
+
+
+COMMAND-LINE HISTORY
+- q:           : open command-line window for commands
+- q/           : open command-line window for searches
+- Enter        : execute command
+- twice C-c    : close the command line window
+
+
+VISUAL:
+- v      : visual mode per character
+- V      : visual mode per line
+- Ctrl+V : visual mode blockwise
+
+- ~ : switch case
+- d : delete
+- y : yank
+- > : shift right(10>)
+- < : shift left(10<)
+- U : make uppercase
+- u : make lowercase
+- I : insert before block
+- A : insert after block
+- o : go to start of the highlighted text
+- O : go to end of the highlighted text
+- r : replace
+
+- aw : select word with white space
+- iw : select word
+- as : select sentence with white space
+- is : select sentence
+- ap : select paragraph with white space
+- ip : select paragraph
+- ab : select () block with parenthesis
+- ib : select inner () block
+- aB : select {} block with braces
+- iB : select inner {} block
+- at : select <tag></tag> block with tags
+- it : select inner <tag></tag> block
+- a< : select <> block with <>
+- i< : select inner <> block
+- a[ : select [] block with []
+- i[ : select inner [] block
+- a" : select quoted string with quotes
+- i" : select inner double quoted string
+- a' : select single quoted string with quotes
+- i' : select inner single quoted string
+- a` : select string with graves
+- i` : select inner string
+
+
+FIND AND REPLACE:
+:[range]s/{pattern}/{string}/[flags] [count]
+
+- range:
+   * % - all text(%s/...)
+   * S,E - range(%1,4s/...)
+   * - within line(s/...)
+
+- flags:
+   * c - confirm each substitution
+   * g - replace all occurences in the line
+   * i - ignore case for the pattern
+ 
+- count:
+   * N - do substitution in N lines from the current line
+
+ %s/pattern/str/g
+ :s/pattern/str/g N
+ 
