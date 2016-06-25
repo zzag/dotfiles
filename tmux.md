@@ -126,7 +126,7 @@ tmux swap-panes -UDLR
 #### Move to the next pane
 
 ```
-tmux select-pane -[UDLR]
+tmux select-pane -UDLR
 ```
 
 or
