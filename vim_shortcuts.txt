@@ -35,6 +35,8 @@ NORMAL:
 - *            : next occurence of the word under cursor
 - #            : previous occurence of the word under cursor
 
+- m{char}      : set mark
+- `{char}      : jump to mark
 
 COMMAND-LINE HISTORY
 - q:           : open command-line window for commands
