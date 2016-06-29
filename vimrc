@@ -1,3 +1,18 @@
+"
+" Quick reference
+"
+"  * map: recursive mapping
+"  * noremap: non-recursive mapping
+"  * [m]map: recursive mapping that works in m mode
+"  * [m]noremap: non-recursive mapping that works in m mode
+"     Mode letters:
+"       - n: normal mode
+"       - i: insert mode
+"       - v: visual mode
+"       - ...
+"
+
+
 """ no backup or swap files
 set nobackup
 set noswapfile
@@ -119,4 +134,4 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts=1
 
 """ tagbar
-nmap <F8> :TagbarToggle<CR>
+nnoremap <F8> :TagbarToggle<CR>
