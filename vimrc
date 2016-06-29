@@ -52,7 +52,7 @@ set number
 set numberwidth=5
 
 """ display invisible characters
-set list listchars=tab:»·,trail:·,nbsp:·
+set list listchars=eol:¬,tab:»·,trail:·,nbsp:·
 
 """ tab completion
 set wildmenu
@@ -122,6 +122,7 @@ Plug 'neomake/neomake'
 Plug 'godlygeek/tabular'
 Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
+Plug 'Yggdroot/indentLine'
 call plug#end()
 
 """ color scheme
