@@ -1,10 +1,11 @@
 NORMAL:
-- dd           : cut
+- dd           : cut line
 - 10dd         : cut 10 lines
 - daw          : cut word
 - d2w          : cut two words
 - %d           : cut all content
 - y            : copy
+- yy           : yank line
 - 10yy         : copy 10 lines
 - p            : paste after cursor
 - P            : paste before cursor
@@ -34,9 +35,19 @@ NORMAL:
 - %            : match parentheses
 - *            : next occurence of the word under cursor
 - #            : previous occurence of the word under cursor
+- zz           : scroll current line to the middle
+- zt           : scroll current line to the top
+- zb           : scroll current line to the bottom
+- "{reg}y      : yank into register reg
+- "{reg}p      : put the text from register reg after cursor
+- "{reg}P      : put the text from register reg before cursor
+- "+y          : copy to clipboard
+- "+p          : paste from clipboard
 
 - m{char}      : set mark
 - `{char}      : jump to mark
+
+- .            : repeat last command
 
 COMMAND-LINE HISTORY
 - q:           : open command-line window for commands
@@ -55,6 +66,7 @@ VISUAL:
 - y : yank
 - > : shift right(10>)
 - < : shift left(10<)
+- = : reindent selection
 - U : make uppercase
 - u : make lowercase
 - I : insert before block
