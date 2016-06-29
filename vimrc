@@ -1,5 +1,13 @@
-""" no backup files
+""" no backup or swap files
 set nobackup
+set noswapfile
+
+""" use vim defaults
+set nocompatible
+
+""" switch between multiple buffers
+"""   without saving a changed buffer
+set hidden
 
 """ show cursor line
 set cursorline
@@ -65,6 +73,16 @@ elseif $TERM == "xterm-256color" || $TERM == "screen"
   set t_Co=256
 endif
 
+""" gvim
+if has('gui_running')
+  set guifont=Hack\ 9
+  set guioptions-=m " menubar
+  set guioptions-=T " toolbar
+  set guioptions-=L " left-hand scrollbar
+  set guioptions-=r " right-hand scrollbar
+  set guicursor=n-i-v-c:block-Cursor
+endif
+
 """ plugins
 if has('nvim')
   set rtp+=~/.config/nvim/plugged
@@ -101,4 +119,4 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts=1
 
 """ tagbar
-nnoremap <C-\> :TagbarToggle<CR>
+nmap <F8> :TagbarToggle<CR>
