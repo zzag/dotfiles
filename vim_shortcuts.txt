@@ -118,3 +118,11 @@ FIND AND REPLACE:
  %s/pattern/str/g
  :s/pattern/str/g N
  
+PASTE
+
+1st way:
+:set paste
+# paste code
+:set nopaste
+
+2nd way: use register '+' or '*'
