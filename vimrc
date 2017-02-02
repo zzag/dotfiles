@@ -1,138 +1,118 @@
+call plug#begin('~/.vim/plugged')
+Plug 'morhetz/gruvbox'
+Plug 'jiangmiao/auto-pairs'
+Plug 'fatih/vim-go'
+call plug#end()
+
+
 "
-" Quick reference
-"
-"  * map: recursive mapping
-"  * noremap: non-recursive mapping
-"  * [m]map: recursive mapping that works in m mode
-"  * [m]noremap: non-recursive mapping that works in m mode
-"     Mode letters:
-"       - n: normal mode
-"       - i: insert mode
-"       - v: visual mode
-"       - ...
+" General
 "
 
+" set history size
+set history=1000
 
-""" no backup or swap files
-set nobackup
-set noswapfile
-
-""" use vim defaults
-set nocompatible
-
-""" switch between multiple buffers
-"""   without saving a changed buffer
-set hidden
-
-""" show cursor line
-set cursorline
-
-""" parens
-set showmatch
-
-""" syntax
-filetype indent on
+" enable filetype plugins
 filetype plugin on
-syntax on
-set smartindent
-set autoindent
+filetype indent on
 
-""" tabs
-set tabstop=2
-set shiftwidth=2
-set shiftround
-set expandtab
+" read a file if it has been changed outside
+set autoread
 
-""" max text width
-set textwidth=120
-set colorcolumn=120
 
-""" line numbers
-set number
-set numberwidth=5
+"
+" UI
+"
 
-""" display invisible characters
-set list listchars=eol:¬,tab:»·,trail:·,nbsp:·
+" 5 lines below and above the cursor
+set so=5
 
-""" tab completion
+" turn on wildmenu
 set wildmenu
 set wildmode=longest:list:full
 
-""" case insensitive search
+" ignore case when searching
 set ignorecase
+
+" use smartcase
 set smartcase
 
-""" split navigation
-nnoremap <C-H> <C-W><C-H><CR>
-nnoremap <C-L> <C-W><C-L><CR>
-nnoremap <C-J> <C-W><C-J><CR>
-nnoremap <C-K> <C-W><C-K><CR>
+" highlight search results
+set hlsearch
 
-""" tab navigation in tmux
-if &term =~ '^screen'
-  execute "set <xUp>=\e[1;*A"
-  execute "set <xDown>=\e[1;*B"
-  execute "set <xRight>=\e[1;*C"
-  execute "set <xLeft>=\e[1;*D"
-endif
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
+" turn on incremental search
+set incsearch
 
-""" show command
+" highlight matching brackets
+set showmatch
+set mat=3
+
+" turn off error sounds
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" always show current position
+set ruler
+
+" show command in status line
 set showcmd
 
-""" colors...
-if has('nvim')
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-elseif $TERM == "xterm-256color" || $TERM == "screen"
-  set t_Co=256
-endif
+" show line numbers
+set number
+set numberwidth=7
 
-""" gvim
-if has('gui_running')
-  set guifont=Hack\ 9
-  set guioptions-=m " menubar
-  set guioptions-=T " toolbar
-  set guioptions-=L " left-hand scrollbar
-  set guioptions-=r " right-hand scrollbar
-  set guicursor=n-i-v-c:block-Cursor
-endif
+" display invisible characters
+set list listchars=tab:»·,trail:·,nbsp:·
 
-""" plugins
-if has('nvim')
-  set rtp+=~/.config/nvim/plugged
-else
-  set rtp+=/.vim/plugged
-endif
-
-call plug#begin()
-Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'rust-lang/rust.vim'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-Plug 'lervag/vimtex'
-Plug 'junegunn/vim-easy-align'
-Plug 'fatih/vim-go'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'neomake/neomake'
-Plug 'godlygeek/tabular'
-Plug 'airblade/vim-gitgutter'
-Plug 'majutsushi/tagbar'
-Plug 'Yggdroot/indentLine'
-call plug#end()
-
-""" color scheme
+set termguicolors
 set background=dark
 colorscheme gruvbox
 
-""" airline
-set laststatus=2
-let g:airline#extensions#tabline#enabled=1
-let g:airline_powerline_fonts=1
 
-""" tagbar
-nnoremap <F8> :TagbarToggle<CR>
+"
+" Editing
+"
+
+" smart indent
+set si
+
+"
+" Linux:
+"
+
+autocmd FileType c call ConfigureLinuxStyle()
+autocmd FileType diff set ts=8
+autocmd FileType kconfig call ApplyLinuxCodingStyle()
+autocmd FileType dts call ApplyLinuxCodingStyle()
+
+function! ConfigureLinuxStyle()
+	call ApplyLinuxCodingStyle()
+	call AddLinuxKeywords()
+endfunction
+
+function! ApplyLinuxCodingStyle()
+	set tabstop=8
+	set softtabstop=8
+	set shiftwidth=8
+	set textwidth=80
+	set noexpandtab
+endfunction
+
+function! AddLinuxKeywords()
+	syn keyword cOperator likely unlikely
+	syn keyword cType u8 u16 u32 u64
+	syn keyword cType s8 s16 s32 s64
+	syn keyword cType __u8 __u16 __u32 __u64
+	syn keyword cType __s8 __s16 __s32 __s64
+endfunction
+
+" Python:
+autocmd FileType python set ts=4 sw=4 sts=4 et
+
+" HTML:
+autocmd FileType html set ts=2 sw=2 sts=2 et
+
+" JavaScript:
+autocmd FileType javascript set ts=4 sw=4 sts=4 et
