@@ -4,6 +4,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'fatih/vim-go'
 Plug 'vim-airline/vim-airline'
 Plug 'Yggdroot/indentLine'
+Plug 'rust-lang/rust.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 call plug#end()
 
 
@@ -21,8 +23,9 @@ filetype indent on
 " read a file if it has been changed outside
 set autoread
 
-" highlight current line
-set cursorline
+" uncomment to highlight current line
+"  set cursorline
+"  set lazyredraw
 
 
 "
@@ -81,7 +84,7 @@ highlight Normal guibg=none
 set laststatus=2
 let g:airline_powerline_fonts=1
 
-let g:indentLine_char = '┆'
+" let g:indentLine_char = '┆'
 
 
 "
