@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=MPD
+Comment=Start MPD daemon
+Exec=/home/vlad/.mpd-utils/launch.sh
+Icon=/home/vlad/.mpd-utils/mpd-notifier/player.png
+Type=Application
+Terminal=false
