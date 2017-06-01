@@ -5,13 +5,17 @@ Plug 'fatih/vim-go'
 Plug 'vim-airline/vim-airline'
 Plug 'Yggdroot/indentLine'
 Plug 'rust-lang/rust.vim'
+Plug 'pangloss/vim-javascript'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 
 "
 " General
 "
+
+set nocompatible
 
 " set history size
 set history=1000
@@ -24,8 +28,8 @@ filetype indent on
 set autoread
 
 " uncomment to highlight current line
-"  set cursorline
-"  set lazyredraw
+set cursorline
+set lazyredraw
 
 
 "
@@ -77,8 +81,6 @@ set list listchars=tab:»·,trail:·,nbsp:·
 set termguicolors
 set background=dark
 colorscheme gruvbox
-
-highlight Normal guibg=none
 
 " airline
 set laststatus=2
