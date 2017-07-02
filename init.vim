@@ -1,8 +1,11 @@
+" Preferred font: Fira Mono
+
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'jiangmiao/auto-pairs'
 Plug 'fatih/vim-go'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'Yggdroot/indentLine'
 Plug 'rust-lang/rust.vim'
 Plug 'pangloss/vim-javascript'
@@ -78,6 +81,7 @@ set numberwidth=7
 " display invisible characters
 set list listchars=tab:»·,trail:·,nbsp:·
 
+syntax enable
 set termguicolors
 set background=dark
 colorscheme gruvbox
@@ -88,6 +92,15 @@ let g:airline_powerline_fonts=1
 
 " let g:indentLine_char = '┆'
 
+" resize splits like a boss
+"  < - decrease width
+"  > - increase width
+"  - - decrease height
+"  + - increase height
+nnoremap <C-Left>   <C-w><
+nnoremap <C-Right>  <C-w>>
+nnoremap <C-Up>     <C-w>+
+nnoremap <C-Down>   <C-w>-
 
 "
 " Editing
