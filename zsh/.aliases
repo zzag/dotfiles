@@ -1,0 +1,1 @@
+alias ls='ls -hF --color --group-directories-first'
