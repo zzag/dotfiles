@@ -11,6 +11,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'scrooloose/nerdtree'
 call plug#end()
 
 
@@ -101,6 +102,9 @@ nnoremap <C-Left>   <C-w><
 nnoremap <C-Right>  <C-w>>
 nnoremap <C-Up>     <C-w>+
 nnoremap <C-Down>   <C-w>-
+
+" Toggle nerd tree
+map <C-n> :NERDTreeToggle<CR>
 
 "
 " Editing
