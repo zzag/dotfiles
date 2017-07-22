@@ -1,4 +1,4 @@
-" Preferred font: Fira Mono
+" Preferred font: Fira Mono, 14
 
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'morhetz/gruvbox'
@@ -12,6 +12,8 @@ Plug 'pangloss/vim-javascript'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'scrooloose/nerdtree'
+Plug 'elzr/vim-json'
+Plug 'mattn/emmet-vim'
 call plug#end()
 
 
@@ -93,6 +95,9 @@ let g:airline_powerline_fonts=1
 
 " let g:indentLine_char = '┆'
 
+" show double quotes in json files
+let g:vim_json_syntax_conceal=0
+
 " resize splits like a boss
 "  < - decrease width
 "  > - increase width
@@ -109,6 +114,9 @@ map <C-n> :NERDTreeToggle<CR>
 "
 " Editing
 "
+
+" Use emmet with <C-Z>,
+let g:user_emmet_leader_key='<C-Z>'
 
 " smart indent
 set si
