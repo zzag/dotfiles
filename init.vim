@@ -93,6 +93,9 @@ colorscheme gruvbox
 set laststatus=2
 let g:airline_powerline_fonts=1
 
+" uncomment to make background transparent
+"autocmd VimEnter * hi Normal guibg=NONE ctermbg=NONE
+
 " let g:indentLine_char = '┆'
 
 " show double quotes in json files
