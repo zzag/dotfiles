@@ -13,6 +13,15 @@ ZSH_THEME_GIT_PROMPT_DIRTY=" %{%F{yellow}%}*%{%f%k%b%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 PROMPT='%{%f%k%b%} %{%b%F{yellow}%}%~%{%F{green}%}$(git_prompt_info)%E%{%f%k%b%} %# %{%f%k%b%}'
 
+ZSHRC_BLUR_BEHIND_TERMINAL=true # KDE only
+ZSHRC_USE_FZF=true
+ZSHRC_USE_ANACONDA=true
+ZSHRC_USE_GVM=true
+ZSHRC_USE_RUSTUP=true
+ZSHRC_USE_ANDROID_SDK=true
+ZSHRC_USE_EMSCRIPTEN=false
+ZSHRC_SHOW_GREETING=true
+
 for f in $HOME/.zshrc.d/*.sh; do
     source $f
 done
