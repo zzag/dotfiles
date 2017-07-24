@@ -78,7 +78,7 @@ set ruler
 set showcmd
 
 " show line numbers
-set number
+set relativenumber
 set numberwidth=7
 
 " display invisible characters
@@ -112,6 +112,13 @@ nnoremap <C-Left>   <C-w><
 nnoremap <C-Right>  <C-w>>
 nnoremap <C-Up>     <C-w>+
 nnoremap <C-Down>   <C-w>-
+
+" disable arrow keys in normal mode
+" (arrow keys are still useful in insert mode)
+noremap <Left>   <Nop>
+noremap <Right>  <Nop>
+noremap <Up>     <Nop>
+noremap <Down>   <Nop>
 
 " Toggle nerd tree
 map <C-n> :NERDTreeToggle<CR>
