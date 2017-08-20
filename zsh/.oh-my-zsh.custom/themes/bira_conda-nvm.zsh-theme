@@ -10,21 +10,21 @@ fi
 
 local _current_dir="%{$terminfo[bold]$fg[blue]%}%~%{$reset_color%}"
 
-_conda_env () {
-  if [[ -n "${CONDA_DEFAULT_ENV}" ]]; then
-    echo "%{$fg[blue]%}‹${CONDA_DEFAULT_ENV}›%{$reset_color%} "
+_python_ver () {
+  if which python &> /dev/null; then
+    echo "%{$terminfo[bold]$fg[blue]%}\ue73c $(python -V 2>&1 | egrep -o '([0-9]\.)+[0-9]+')%{$reset_color%}  "
   fi
 }
 
-_nvm_ver () {
-  if which nvm &> /dev/null; then
-    echo "%{$fg[yellow]%}‹$(nvm current)›%{$reset_color%} "
+_node_ver () {
+  if which node &> /dev/null; then
+    echo "%{$terminfo[bold]$fg[yellow]%}\ue781 $(node -v)%{$reset_color%}  "
   fi
 }
 
-_rbenv_ver () {
-  if which rbenv &> /dev/null; then
-    echo "%{$fg[red]%}‹$(rbenv version | sed -e "s/ (set.*$//")›%{$reset_color%} "
+_ruby_ver () {
+  if which ruby &> /dev/null; then
+    echo "%{$terminfo[bold]$fg[red]%}\ue791 $(ruby --version 2>&1 | egrep -o '([0-9]+\.)+[0-9]+')%{$reset_color%}  "
   fi
 }
 
@@ -34,9 +34,9 @@ _git_branch () {
 
 local _return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}‹"
-ZSH_THEME_GIT_PROMPT_SUFFIX="› %{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$terminfo[bold]$fg[yellow]%}\ue702 "
+ZSH_THEME_GIT_PROMPT_SUFFIX=" %{$reset_color%}"
 
-PROMPT='╭─${_user_host} ${_current_dir} $(_conda_env)$(_nvm_ver)$(_git_branch)
+PROMPT='╭─${_user_host} ${_current_dir} $(_ruby_ver)$(_python_ver)$(_node_ver)$(_git_branch)
 ╰─%B${_user_symbol}%b '
 RPS1="%B${_return_code}%b"
