@@ -1,0 +1,3 @@
+- Binary Buddy Memory Allocator: memory alignment;
+- Binary Buddy Memory Allocator: use bitmap to indicate free blocks;
+- Pool Memory Allocator: memory alignment.

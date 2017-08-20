@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.0)
+project(SimpleProject)
+
+find_package(LLVM REQUIRED CONFIG)
+
+include_directories(${LLVM_INCLUDE_DIRS})
+add_definitions(${LLVM_DEFINITIONS})
+
+add_executable(tool tool.cpp)
+llvm_map_components_to_libnames(llvm_libs support core)
+target_link_libraries(tool ${llvm_libs})

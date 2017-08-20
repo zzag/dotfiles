@@ -1,0 +1,4 @@
+= form_for @payment do |f|
+  = Rails.application.secrets.secret_publishable_key
+  %script.stripe-button{ src: "https://checkout.stripe.com/checkout.js", data: { amount: '1500', key: Rails.application.secrets.stripe_publishable_key } }
+

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AngRails</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body ng-app="ang-rails">
+
+<div ng-controller="MainController">
+	<ul>
+		<li ng-repeat="post in posts">{{ post.title }}</li>
+	</ul>
+</div>
+
+</body>
+</html>

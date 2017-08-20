@@ -1,0 +1,40 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	border: 0;
+	box-sizing: border-box;
+}
+
+
+.container {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+
+.header_text {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 2.5em;
+	font-weight: 300;
+	margin: 2em 0 0 0;
+}
+
+
+.gallery {
+	width: 1000px;
+	margin: 2em auto;
+	padding: 1em;
+
+	background-color: #efefef;
+}
+
+
+.gallery img {
+	padding: 0.2em;
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Menus</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <section class="section">
+      <h3 class="section-title">Demo sample #1</h3>
+      <ul class="menu-list" id="demo-1">
+        <li class="menu-item menu-current"><a class="menu-link" href="#">Home</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Menu</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Pizza</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Section</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">About</a></li>
+        <li class="menu-line"></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3 class="section-title">Demo sample #2</h3>
+      <ul class="menu-list" id="demo-2">
+        <li class="menu-item menu-current"><a class="menu-link" href="#">Home</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Menu</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Pizza</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Section</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">About</a></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3 class="section-title">Demo sample #3</h3>
+      <ul class="menu-list" id="demo-3">
+        <li class="menu-item menu-current"><a class="menu-link" href="#">Home</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Menu</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Pizza</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Section</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">About</a></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3 class="section-title">Demo sample #4</h3>
+      <ul class="menu-list" id="demo-4">
+        <li class="menu-item menu-current"><a class="menu-link" href="#">Home</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Menu</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Pizza</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Section</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">About</a></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3 class="section-title">Demo sample #5</h3>
+      <ul class="menu-list" id="demo-5">
+        <li class="menu-item menu-current"><a class="menu-link" href="#">Home</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Menu</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Pizza</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Section</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">About</a></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3 class="section-title">Demo sample #6</h3>
+      <ul class="menu-list" id="demo-6">
+        <li class="menu-item menu-current"><a class="menu-link" href="#">Home</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Menu</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Pizza</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Section</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">About</a></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3 class="section-title">Demo sample #7</h3>
+      <ul class="menu-list" id="demo-7">
+        <li class="menu-item menu-current"><a class="menu-link" href="#">Home</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Menu</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Pizza</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Section</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">About</a></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3 class="section-title">Demo sample #8</h3>
+      <ul class="menu-list" id="demo-8">
+        <li class="menu-item menu-current"><a class="menu-link" href="#">Home</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Menu</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Pizza</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Section</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">About</a></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3 class="section-title">Demo sample #9</h3>
+      <ul class="menu-list" id="demo-9">
+        <li class="menu-item menu-current"><a class="menu-link" href="#">Home</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Menu</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Pizza</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">Section</a></li>
+        <li class="menu-item"><a class="menu-link" href="#">About</a></li>
+      </ul>
+    </section>
+
+    <script src="js/jquery.js"></script>
+    <script>
+      // inject menu-current class
+      $(function () {
+        $(".menu-list").each(function () {
+          var menu = $(this);
+          $(this).find("a").each(function () {
+            $(this).on("click", function (e) {
+              e.preventDefault();
+              var item = $(this).parent();
+
+              if (item.hasClass("menu-current")) { return; }
+              var prevCurrent = menu.find(".menu-current");
+
+              prevCurrent.removeClass("menu-current");
+              item.addClass("menu-current");
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

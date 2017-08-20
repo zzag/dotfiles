@@ -1,0 +1,35 @@
+cmake_minimum_required(VERSION 2.8)
+project(tests)
+
+#
+# template
+#
+add_executable(test_template template.cc)
+target_link_libraries(test_template gtest gtest_main)
+add_test(test_template test_template)
+
+
+add_executable(test_roundup roundup.cc)
+target_link_libraries(test_roundup gtest gtest_main memory_manager)
+add_test(roundup test_roundup)
+
+
+add_executable(test_first_fit_free_list_memory_allocator first_fit_free_list_memory_allocator.cc)
+target_link_libraries(test_first_fit_free_list_memory_allocator gtest gtest_main memory_manager)
+add_test(first_fit_free_list_ma test_first_fit_free_list_memory_allocator)
+
+
+add_executable(test_binary_buddy_memory_allocator binary_buddy_memory_allocator.cc)
+target_link_libraries(test_binary_buddy_memory_allocator gtest gtest_main memory_manager)
+add_test(binary_buddy_ma test_binary_buddy_memory_allocator)
+
+
+add_executable(test_pool_memory_allocator pool_memory_allocator.cc)
+target_link_libraries(test_pool_memory_allocator gtest gtest_main memory_manager)
+add_test(pool_ma test_pool_memory_allocator)
+
+
+
+add_executable(test_lifo_memory_allocator lifo_memory_allocator.cc)
+target_link_libraries(test_lifo_memory_allocator gtest gtest_main memory_manager)
+add_test(lifo_ma test_lifo_memory_allocator)

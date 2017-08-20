@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>kd-tree</title>
+    <style media="screen">
+      body {
+        margin: 0;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <script src="kd-tree.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+
+      // resize canvas
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // add random data
+      var tree = new KDTree();
+      var numPoints = 400;
+      for (var i = 0; i < numPoints; i++) {
+        tree.insert(samplePoint());
+      }
+      tree.balance();
+
+      var searchPoint = samplePoint();
+      var neighbors = tree.nearest(searchPoint, 20, function (a, b) {
+        return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
+      });
+
+      draw(tree.root, 0, canvas.width, 0, canvas.height);
+
+      ctx.beginPath();
+      ctx.arc(searchPoint.x, searchPoint.y, 4, 0, 2 * Math.PI);
+      ctx.closePath();
+      ctx.fillStyle = '#D81B60';
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(searchPoint.x, searchPoint.y, 6, 0, 2 * Math.PI);
+      ctx.closePath();
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = '#D81B60';
+      ctx.stroke();
+
+      for (var i = 0; i < neighbors.length; i++) {
+        ctx.beginPath();
+        ctx.arc(neighbors[i].point.x, neighbors[i].point.y, 6, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#D81B60';
+        ctx.stroke();
+      }
+
+      function samplePoint() {
+        return {
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height
+        };
+      }
+
+      // draw kd-tree
+      function draw(tree, minX, maxX, minY, maxY) {
+        var axis = tree.axis;
+        var point = tree.point;
+
+        if (!point) {
+          return;
+        }
+
+        if (!tree.leaf) {
+          if (axis == 'x') {
+            ctx.beginPath();
+            ctx.moveTo(point[axis], minY);
+            ctx.lineTo(point[axis], maxY);
+            ctx.closePath();
+            ctx.strokeStyle = '#2196F3';
+            ctx.stroke();
+            draw(tree.left, minX, point[axis], minY, maxY);
+            draw(tree.right, point[axis], maxX, minY, maxY);
+          } else if (axis == 'y') {
+            ctx.beginPath();
+            ctx.moveTo(minX, point[axis]);
+            ctx.lineTo(maxX, point[axis]);
+            ctx.closePath();
+            ctx.strokeStyle = '#2196F3';
+            ctx.stroke();
+            draw(tree.left, minX, maxX, minY, point[axis]);
+            draw(tree.right, minX, maxX, point[axis], maxY);
+          }
+        }
+
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 4, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.fillStyle = '#0D47A1';
+        ctx.fill();
+      }
+    </script>
+  </body>
+</html>

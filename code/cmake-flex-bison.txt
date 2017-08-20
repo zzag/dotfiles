@@ -1,0 +1,9 @@
+find_package(BISON)
+find_package(FLEX)
+
+bison_target(Parser parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.cpp)
+flex_target(Scanner lexer.l  ${CMAKE_CURRENT_BINARY_DIR}/lexer.cpp)
+add_flex_bison_dependency(Scanner Parser)
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+add_executable(Foo Foo.cc ${BISON_Parser_OUTPUTS} ${FLEX_Scanner_OUTPUTS})

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Upload image</title>
+  </head>
+  <body>
+    <div>
+      <label for="">Image:</label><br>
+      <input id="file" type="file"><br>
+      <button id="submit" type="submit">Upload</button>
+    </div>
+
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript">
+      var server = "http://localhost:3000";
+
+      $(function () {
+        $("#submit").click(function () {
+          var file = $("#file")[0].files[0];
+          var contentType = file.type;
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            var text = reader.result;
+            var fileUploaded = contentType + ":" + btoa(text);
+            var data = {
+              picture: {
+                file: fileUploaded
+              }
+            };
+
+            $.post({
+              type: "POST",
+              url: `${server}/pictures`,
+              data: data
+            }).done(function () {
+              console.log("success");
+            }).fail(function () {
+              console.log("failure");
+            })
+          }
+
+          reader.readAsBinaryString(file);
+        })
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<h1>Dudes</h1>
+
+
+<table>
+  <tr>
+    <th><%= sort_link :id, "id" %></th>
+    <th><%= sort_link :first_name, "first name" %></th>
+    <th><%= sort_link :last_name, "last name" %></th>
+    <th><%= sort_link :birthday, "birthday" %></th>
+    <th><%= sort_link :country, "country" %></th>
+  </tr>
+  <% @dudes.each do |dude| %>
+  <tr>
+    <td><%= dude.id %></td>
+    <td><%= dude.first_name %></td>
+    <td><%= dude.last_name %></td>
+    <td><%= dude.birthday %></td>
+    <td><%= dude.country %></td>
+  </tr>
+  <% end %>
+</table>

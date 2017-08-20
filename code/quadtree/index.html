@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>quadtree</title>
+    <style media="screen">
+      body {
+        margin: 2px;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <script src="quadtree.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+
+      // canvas.width = window.innerWidth;
+      // canvas.height = window.innerHeight;
+      var halfWidth = canvas.width / 2;
+      var halfHeight = canvas.height / 2;
+
+      var tree = new QuadTree(
+        new Box(new Point(halfWidth, halfHeight),
+        halfWidth, halfHeight));
+      for (var i = 0; i < 300; i++) {
+        tree.insert(Point.randomPoint(
+          5, canvas.width - 5,
+          5, canvas.height - 5));
+      }
+
+      var searchPoint = Point.randomPoint(
+        5, canvas.width - 5,
+        5, canvas.height - 5);
+      var neighbors = tree.nearest(searchPoint, 15, function (a, b) {
+        return Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2);
+      });
+
+      // draw bounding box
+      ctx.beginPath();
+      ctx.rect(0, 0, canvas.width, canvas.height);
+      ctx.closePath();
+      ctx.strokeStyle = '#42A5F5';
+      ctx.stroke();
+
+      drawTree(tree);
+
+      // draw search point
+      fillPoint(searchPoint, '#AD1457');
+      strokeOutline(searchPoint, '#AD1457');
+
+      for (var i = 0; i < neighbors.length; i++) {
+        strokeOutline(neighbors[i].value, '#0D47A1');
+      }
+
+      function drawTree(tree) {
+        if (!tree.leaf) {
+          for (var i = 0; i < tree.children.length; i++) {
+            drawTree(tree.children[i]);
+          }
+
+          var center = tree.box.center;
+          var halfWidth = tree.box.halfWidth,
+            halfHeight = tree.box.halfHeight;
+          ctx.beginPath();
+          ctx.moveTo(center.x - halfWidth, center.y);
+          ctx.lineTo(center.x + halfWidth, center.y);
+          ctx.moveTo(center.x, center.y - halfHeight);
+          ctx.lineTo(center.x, center.y + halfHeight);
+          ctx.closePath();
+          ctx.strokeStyle = '#42A5F5';
+          ctx.stroke();
+
+        } else {
+          for (var i = 0; i < tree.points.length; i++) {
+            fillPoint(tree.points[i], '#0D47A1');
+          }
+        }
+      }
+
+      function fillPoint(point, color) {
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+
+      function strokeOutline(point, color) {
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.strokeStyle = color;
+        ctx.stroke();
+      }
+    </script>
+  </body>
+</html>

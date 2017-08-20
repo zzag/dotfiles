@@ -1,0 +1,83 @@
+extern func putchar(c: i32): i32
+
+///
+/// Get squared norm of a complex number
+///
+///  @param re: real part of a complex number
+///  @param im: imaginary part of a complex number
+///
+/// @returns: squared norm
+///
+func squared_norm(re: f32, im: f32): f32 {
+  return re*re + im*im;
+}
+
+
+///
+/// Calculate z = z^2 + c
+///
+///  @param re: real part of a complex number
+///  @param im: imaginary part of a complex number
+///  @param c_re: TODO
+///  @param c_im: TODO
+///  @param max_iter: max number of iterations
+///
+///  @returns: actual number of iterations
+///
+func fractal(re: f32, im: f32, c_re: f32, c_im: f32, max_iters: i32): i32 {
+  var iters = 0;
+  var _re = re;
+  var _im = im;
+
+  while iters < max_iters && squared_norm(_re, _im) < 4.0 {
+    var tmp = _re*_re - _im*_im + c_re;
+    _im = 2.0*_re*_im + c_im;
+    _re = tmp;
+    iters++;
+  }
+
+  return iters;
+}
+
+
+///
+/// Print density
+///
+///  @param density: TODO
+///
+func print(density: i32) {
+  if density > 34 {
+    putchar(42); // put '*'
+  } else if density > 14 {
+    putchar(46); // put '.'
+  } else {
+    putchar(32); // put space
+  }
+}
+
+
+func main() {
+  // range
+  var x_min = -2.5;
+  var x_max = 1.5;
+  var y_min = -1.0;
+  var y_max = 1.0;
+
+  // window size
+  var width = 100;
+  var height = 30;
+
+  var delta_x = (x_max - x_min) / width as f32;
+  var delta_y = (y_max - y_min) / height as f32;
+
+  for var i = 0, i < height, i++ {
+    for var j = 0, j < width, j++ {
+      var re = x_min + delta_x * (j as f32);
+      var im = y_min + delta_y * (i as f32);
+
+      var density = fractal(re, im, re, im, 100);
+      print(density);
+    }
+    putchar(10);
+  }
+}

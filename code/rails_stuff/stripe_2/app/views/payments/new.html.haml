@@ -1,0 +1,27 @@
+= form_for @payment do |f|
+  = javascript_include_tag "https://js.stripe.com/v2/"
+  :javascript
+    Stripe.setPublishableKey("#{Rails.application.secrets.stripe_publishable_key}")
+
+  = label_tag "Email", nil, required: true
+  %br
+  = text_field_tag :email, nil
+  %br
+
+  = label_tag "Card number", nil, required: true
+  %br
+  = text_field_tag :card_number, nil, "data-stripe" => "number"
+  %br
+  
+  = label_tag "Card verification", nil, required: true
+  %br
+  = text_field_tag :card_verification, nil, "data-stripe" => "cvv"
+  %br
+  
+  = label_tag "Card Expires", nil, required: true
+  %br
+  = select_tag :exp_month, options_for_select(Date::MONTHNAMES.compact.each_with_index.map { |name, i| ["#{i+1} - #{name}", i+1] }), include_blank: false, "data-stripe" => "exp-month"
+  = select_tag :exp_year, options_for_select((Date.today.year..(Date.today.year+10)).to_a), include_blank: false, "data-stripe" => "exp-year"
+  %br
+
+  = f.submit "Pay"

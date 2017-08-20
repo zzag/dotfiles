@@ -1,0 +1,13 @@
+{
+  "name": "test",
+  "main": "main.js",
+  "dependencies": {
+    "react": "^0.13.3",
+    "react-bootstrap": "^0.25.2"
+  },
+  "devDependencies": {
+    "electron-prebuilt": "^0.33.4",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1"
+  }
+}

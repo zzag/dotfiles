@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>VP-Tree</title>
+    <style media="screen">
+      body {
+        margin: 0;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <script src="vp-tree.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      function generatePoint(width, height) {
+        return {
+          x: Math.random() * width,
+          y: Math.random() * height
+        };
+      }
+
+      var points = [];
+      for (var i = 0; i < 300; i++) {
+        points.push(generatePoint(canvas.width, canvas.height));
+      }
+
+      var tree = new VPTree(points, function (a, b) {
+        return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
+      });
+
+      var searchPoint = generatePoint(canvas.width, canvas.height);
+      var nearest = tree.nearest(searchPoint, 10);
+
+      showBoundaries(tree.root);
+      showCenters(tree.root);
+
+      ctx.beginPath();
+      ctx.arc(searchPoint.x, searchPoint.y, 4, 0, 2 * Math.PI);
+      ctx.closePath();
+      ctx.fillStyle = '#F44336';
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(searchPoint.x, searchPoint.y, 6, 0, 2 * Math.PI);
+      ctx.closePath();
+      ctx.strokeStyle = '#F44336';
+      ctx.stroke();
+
+      for (var i = 0; i < nearest.length; i++) {
+        var p = nearest[i].item;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 6, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.strokeStyle = '#4A148C';
+        ctx.stroke();
+      }
+
+      function showBoundaries(tree) {
+        var center = tree.vantagePoint;
+        if (!tree.leaf) {
+          showBoundaries(tree.leftChild);
+          showBoundaries(tree.rightChild);
+
+          ctx.beginPath();
+          ctx.arc(center.x, center.y, tree.radius, 0, 2 * Math.PI);
+          ctx.closePath();
+          ctx.fillStyle = 'rgba(100, 100, 100, 0.05)';
+          ctx.fill();
+        }
+      }
+
+      function showCenters(tree) {
+        var center = tree.vantagePoint;
+        if (!center) {
+          return;
+        }
+
+        ctx.beginPath();
+        ctx.arc(center.x, center.y, 4, 0, 2 * Math.PI);
+        ctx.closePath();
+        ctx.fillStyle = '#4A148C';
+        ctx.fill();
+
+        if (!tree.leaf) {
+          showCenters(tree.leftChild);
+          showCenters(tree.rightChild);
+        }
+      }
+    </script>
+  </body>
+</html>
