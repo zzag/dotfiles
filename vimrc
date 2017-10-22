@@ -218,14 +218,15 @@ let g:fzf_colors =
 
 let g:fzf_layout = { 'down': '~40%' }
 
-function! s:fzf_statusline()
-  " gruvbox colors
-  highlight fzf1 guifg=#7c6f64 guibg=#3c3836
-  setlocal statusline=%#fzf1#\ FZF
-endfunction
+if has('nvim')
+    function! s:fzf_statusline()
+      " gruvbox colors
+      highlight fzf1 guifg=#7c6f64 guibg=#3c3836
+      setlocal statusline=%#fzf1#\ FZF
+    endfunction
 
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
-
+    autocmd! User FzfStatusLine call <SID>fzf_statusline()
+endif
 
 " --------------------------------------------------
 " goyo.vim
