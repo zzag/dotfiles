@@ -18,6 +18,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 " Editing
 Plug 'mattn/emmet-vim'
@@ -125,10 +126,28 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
+" Delete over autoindent, line breaks and the start of insert.
+set backspace=indent,eol,start
 
 " ==================================================
-"                       MISC
+"                   KEY MAPPINGS
 " ==================================================
+
+" Map <leader> to the ','(default is '\').
+let mapleader = ','
+
+" Clear search highlighting.
+nmap <silent> <leader>c :nohlsearch<CR>
+
+" Editing helpers.
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+map <leader>ew :e %%
+map <leader>es :sp %%
+map <leader>ev :vsp %%
+map <leader>et :tabe %%
+
+" Yank from the cursor to the end of the line.
+nnoremap Y y$
 
 " Resize splits like a boss.
 "  < - decrease width
@@ -146,6 +165,11 @@ noremap <Left>   <Nop>
 noremap <Right>  <Nop>
 noremap <Up>     <Nop>
 noremap <Down>   <Nop>
+
+
+" ==================================================
+"                       MISC
+" ==================================================
 
 " Jump to the last known cursor position.
 autocmd BufReadPost *
@@ -218,15 +242,6 @@ let g:fzf_colors =
 
 let g:fzf_layout = { 'down': '~40%' }
 
-if has('nvim')
-    function! s:fzf_statusline()
-      " gruvbox colors
-      highlight fzf1 guifg=#7c6f64 guibg=#3c3836
-      setlocal statusline=%#fzf1#\ FZF
-    endfunction
-
-    autocmd! User FzfStatusLine call <SID>fzf_statusline()
-endif
 
 " --------------------------------------------------
 " goyo.vim
@@ -239,6 +254,7 @@ function! s:goyo_enter()
     endif
     set noshowmode
     set noshowcmd
+    Limelight
 endfunction
 
 function! s:goyo_leave()
@@ -248,6 +264,7 @@ function! s:goyo_leave()
     endif
     set showmode
     set showcmd
+    Limelight!
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
