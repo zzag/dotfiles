@@ -28,6 +28,18 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'editorconfig/editorconfig-vim'
 
+" Autocompletion
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+Plug 'zchee/deoplete-go', { 'do': 'make' }
+Plug 'zchee/deoplete-jedi'
+
 " Themes
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline-themes'
@@ -189,6 +201,9 @@ autocmd BufReadPost *
 set laststatus=2
 let g:airline_powerline_fonts=1
 
+" Uncomment to show tab line.
+" let g:airline#extensions#tabline#enabled = 1
+
 
 " --------------------------------------------------
 " indentLine
@@ -290,3 +305,20 @@ nmap ga <Plug>(EasyAlign)
 " nmap gc  <Plug>Commentary
 " omap gc  <Plug>Commentary
 " nmap gcc <Plug>CommentaryLine
+
+
+" --------------------------------------------------
+" deoplete.nvim
+" --------------------------------------------------
+
+" Hide preview window.
+set completeopt-=preview
+
+" deoplete.nvim
+let g:deoplete#enable_at_startup = 1
+
+" deoplete-go
+let g:deoplete#sources#go#gocode_binary = "/usr/local/bin/gocode"
+
+" deoplete-jedi
+let g:python3_host_prog = "/usr/bin/python3"
