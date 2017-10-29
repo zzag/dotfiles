@@ -1,1 +1,2 @@
 alias ls='ls -hF --color --group-directories-first'
+alias rm='rm -i'

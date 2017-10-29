@@ -21,7 +21,7 @@ local _current_dir="%{$terminfo[bold]$fg[blue]%}%~%{$reset_color%}"
 
 local _conda_env () {
   if [[ $CONDA_DEFAULT_ENV ]]; then
-    echo "  %{$terminfo[bold]$fg[blue]%}‹\ue73c $CONDA_DEFAULT_ENV›%{$reset_color%}"
+    echo "%{$terminfo[bold]$fg[blue]%}‹$CONDA_DEFAULT_ENV›%{$reset_color%} "
   fi
 }
 
@@ -32,7 +32,7 @@ local _conda_env () {
 
 local _nvm_ver () {
   if [[ $commands[node] ]]; then
-    echo "  %{$terminfo[bold]$fg[yellow]%}‹\ue781 $(node -v)›%{$%{$reset_color%}"
+    echo "%{$terminfo[bold]$fg[yellow]%}‹$(node -v)›%{$%{$reset_color%} "
   fi
 }
 
@@ -43,7 +43,7 @@ local _nvm_ver () {
 
 local _rbenv_ver () {
   if [[ $commands[rbenv] ]]; then
-    echo "  %{$terminfo[bold]$fg[red]%}‹\ue791 $(rbenv version-name)›%{$%{$reset_color%}"
+    echo "%{$terminfo[bold]$fg[red]%}‹$(rbenv version-name)›%{$%{$reset_color%} "
   fi
 }
 
@@ -56,7 +56,7 @@ local _git_branch () {
   echo "$(git_prompt_info)%{$reset_color%}"
 }
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$terminfo[bold]$fg[yellow]%}‹\ue0a0 "
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$terminfo[bold]$fg[yellow]%}‹"
 ZSH_THEME_GIT_PROMPT_SUFFIX="› %{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="*"
 
@@ -66,10 +66,10 @@ ZSH_THEME_GIT_PROMPT_DIRTY="*"
 #
 
 local _return_code() {
-  echo "%(?..%{$fg[red]%}%? \ue231%{$reset_color%})"
+  echo "%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 }
 
 
-PROMPT='╭─${_user_host} ${_current_dir} $(_git_branch)
+PROMPT='╭─${_user_host} ${_current_dir} $(_conda_env)$(_git_branch)
 ╰─%B${_user_symbol}%b '
-RPS1='%B$(_return_code)$(_conda_env)%b'
+RPS1='%B$(_return_code)%b'
