@@ -1,2 +1,15 @@
+# list directories
 alias ls='ls -hF --color --group-directories-first'
-alias rm='rm -i'
+alias tree='tree --dirsfirst'
+
+# create folders, remove files, etc.
+alias mkdir="mkdir -p"
+alias rm='rm -iv'
+alias mv='mv -v'
+alias cp='cp -v'
+
+# fancy utils
+alias ports='sudo netstat -vatnp'
+
+# apps
+# alias atom='atom --ignore-gpu-blacklist'
