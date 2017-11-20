@@ -58,10 +58,19 @@ local _segment_gvm () {
 # _segment_git shows git branch.
 ZSH_THEME_GIT_PROMPT_PREFIX="‹"
 ZSH_THEME_GIT_PROMPT_SUFFIX="›"
-ZSH_THEME_GIT_PROMPT_DIRTY="*"
+ZSH_THEME_GIT_PROMPT_SEPARATOR=""
+ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"
+ZSH_THEME_GIT_PROMPT_STAGED=" %{$fg_bold[red]%}%{•%G%}"
+ZSH_THEME_GIT_PROMPT_CONFLICTS=" %{$fg_bold[red]%}%{×%G%}"
+ZSH_THEME_GIT_PROMPT_CHANGED=" %{$fg_bold[red]%}%{±%G%}"
+ZSH_THEME_GIT_PROMPT_BEHIND=" %{$fg_bold[white]%}%{↓%G%}"
+ZSH_THEME_GIT_PROMPT_AHEAD=" %{$fg_bold[white]%}%{↑%G%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED=" %{$fb_bold[red]%}%{…%G%}"
+ZSH_THEME_GIT_PROMPT_CLEAN=""
 
 local _segment_git () {
-  _segment bold yellow "$(git_prompt_info)"
+  # TODO: use _segment
+  echo "$(git_super_status)"
 }
 
 

@@ -14,12 +14,17 @@ ZSH_THEME="foobar"
 
 # User defined plugins:
 #  - android-sdk
-#  - anaconda
+#  - conda
 #  - fzf
 #  - gvm
 #  - rustup
 #
-plugins=(git nvm npm gvm anaconda)
+plugins=(git git-prompt     # git
+         nvm npm            # js: node.js
+         gvm                # go: gvm
+         conda              # python: anaconda
+         rustup             # rust: rustup
+         )
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.aliases
