@@ -1,5 +1,5 @@
 # list directories
-alias ls='ls -hF --color --group-directories-first'
+alias ls='LC_ALL=C ls -hF --color --group-directories-first'
 alias tree='tree --dirsfirst'
 
 # create folders, remove files, etc.
