@@ -99,6 +99,29 @@ set showcmd
 " Display invisible characters.
 set list listchars=tab:»·,trail:·,nbsp:·
 
+" Override italics escape sequence.
+"
+" YOU SHOULDN'T OVERRIDE IT. INSTEAD, CHANGE YOUR
+" TERM DATABASE, SEE BELOW.
+"
+" Make sure your terminal supports italics:
+"   $ echo -e "\e[3mfoobar\e[23m"
+"
+" Check values of sitm and ritm:
+"   $ infocmp $TERM | grep sitm
+"   $ infocmp $TERM | grep ritm
+"
+" it should be \E[3m and \E[23m, respectively.
+" If not then make a new TERM database with correct
+" sitm and ritm values:
+"   $ tic $TERM-italic.terminfo
+"
+" and set TERM to the new value:
+"   $ echo "$TERM-italic" >> ~/.zshrc # or .bashrc
+
+"set t_ZH=[3m
+"set t_ZR=[23m
+
 
 " ==================================================
 "                      THEME
@@ -109,9 +132,11 @@ set termguicolors
 
 set background=dark
 let g:gruvbox_contrast_dark = 'soft'
-
 colorscheme gruvbox
 
+" Show comments in italics.
+" (should be set after colorscheme)
+highlight Comment cterm=italic
 
 
 " ==================================================
