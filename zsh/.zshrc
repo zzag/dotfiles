@@ -2,14 +2,7 @@ export ZSH=$HOME/.oh-my-zsh
 ZSH_CUSTOM=$HOME/.oh-my-zsh.custom
 COMPLETION_WAITING_DOTS="true"
 
-# Available segments:
-#  - conda
-#  - rbenv
-#  - nvm
-#  - gvm
-#  - git
-#
-ZSH_THEME_FOOBAR_SEGMENTS=(gvm conda git)
+# Use custom theme.
 ZSH_THEME="foobar"
 
 # User defined plugins:
@@ -19,7 +12,7 @@ ZSH_THEME="foobar"
 #  - gvm
 #  - rustup
 #
-plugins=(git git-prompt     # git
+plugins=(git                # git
          nvm npm            # js: node.js
          gvm                # go: gvm
          conda              # python: anaconda
