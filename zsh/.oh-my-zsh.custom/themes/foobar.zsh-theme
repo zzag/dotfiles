@@ -2,7 +2,7 @@
 #                            GIT
 # ============================================================
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%{\e[3m%}git%{\e[0m%} %{$FG[245]$terminfo[bold]%}"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{\e[3m%}git%{\e[23m%} %{$FG[245]$terminfo[bold]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 
 
@@ -20,7 +20,7 @@ local _ret_status="%(?:%{$fg_bold[white]%}❯:%{$fg_bold[red]%}❯)%{$reset_colo
 #                          PROMPT..
 # ============================================================
 
-PROMPT=$'${_user} %{\e[3m%}at%{\e[0m%} ${_host} %{\e[3m%}in%{\e[0m%} ${_current_dir} $(git_prompt_info)\n %B${_ret_status}%b '
+PROMPT=$'${_user} %{\e[3m%}at%{\e[23m%} ${_host} %{\e[3m%}in%{\e[23m%} ${_current_dir} $(git_prompt_info)\n %B${_ret_status}%b '
 RPS1=''
 
 
