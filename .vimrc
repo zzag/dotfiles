@@ -122,13 +122,16 @@ set list listchars=tab:»·,trail:·,nbsp:·
 "set t_ZH=[3m
 "set t_ZR=[23m
 
+" Enable TrueColor support.
+" (available on Vim>=8.0 or Neovim)
+if has("termguicolors")
+  set termguicolors
+endif
+
 
 " ==================================================
 "                      THEME
 " ==================================================
-
-" Use TrueColor.
-set termguicolors
 
 set background=dark
 let g:gruvbox_contrast_dark = 'soft'
