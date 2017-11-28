@@ -2,7 +2,7 @@
 #                            GIT
 # ============================================================
 
-ZSH_THEME_GIT_PROMPT_PREFIX="%{\e[3m%}git%{\e[23m%} %{$FG[245]$terminfo[bold]%}"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{\e[3m%}on%{\e[23m%} %{$FG[245]$terminfo[bold]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 
 
