@@ -30,11 +30,11 @@ Plug 'editorconfig/editorconfig-vim'
 
 " Autocompletion
 if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
 Plug 'zchee/deoplete-go', { 'do': 'make' }
@@ -294,23 +294,23 @@ let g:fzf_layout = { 'down': '~40%' }
 " --------------------------------------------------
 
 function! s:goyo_enter()
-    if exists('$TMUX')
-        silent !tmux set status off
-        silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-    endif
-    set noshowmode
-    set noshowcmd
-    Limelight
+  if exists('$TMUX')
+    silent !tmux set status off
+    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  endif
+  set noshowmode
+  set noshowcmd
+  Limelight
 endfunction
 
 function! s:goyo_leave()
-    if exists('$TMUX')
-        silent !tmux set status on
-        silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-    endif
-    set showmode
-    set showcmd
-    Limelight!
+  if exists('$TMUX')
+    silent !tmux set status on
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  endif
+  set showmode
+  set showcmd
+  Limelight!
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
@@ -353,3 +353,10 @@ let g:deoplete#sources#go#gocode_binary = "/usr/local/bin/gocode"
 
 " deoplete-jedi
 let g:python3_host_prog = "/usr/bin/python3"
+
+
+" ==================================================
+"                       EOF
+" ==================================================
+
+" vim:ft=vim ts=2 sw=2 sts=2
