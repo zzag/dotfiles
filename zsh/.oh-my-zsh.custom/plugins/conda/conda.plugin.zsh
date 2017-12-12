@@ -3,7 +3,7 @@
 # ZSHRC_ANACONDA_ROOT : string
 
 if [[ ! $ZSHRC_ANACONDA_ROOT ]]; then
-    ZSHRC_ANACONDA_ROOT=$HOME/Anaconda
+    ZSHRC_ANACONDA_ROOT=$HOME/.local/Anaconda
 fi
 
 if [[ -d $ZSHRC_ANACONDA_ROOT ]]; then
