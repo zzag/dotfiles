@@ -17,6 +17,19 @@ else
     export EDITOR=nano
 fi
 
+# Available zsh-syntax-highlight highlighters:
+#  - main
+#  - brackets
+#  - pattern
+#  - cursor
+#  - root
+#  - line
+#
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[path]='fg=white'
+
 # User defined plugins:
 #  - android-sdk
 #  - conda
@@ -24,11 +37,12 @@ fi
 #  - gvm
 #  - rustup
 #
-plugins=(git                # git
-         nvm npm            # js: node.js
-         gvm                # go: gvm
-         conda              # python: anaconda
-         rustup             # rust: rustup
+plugins=(git                      # git
+         nvm npm                  # js: node.js
+         gvm                      # go: gvm
+         conda                    # python: anaconda
+         rustup                   # rust: rustup
+         zsh-syntax-highlighting  # fish shell like syntax highlighting
          )
 
 source $ZSH/oh-my-zsh.sh
