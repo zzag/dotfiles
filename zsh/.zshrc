@@ -43,6 +43,11 @@ plugins=(git                      # git
          conda                    # python: anaconda
          rustup                   # rust: rustup
          zsh-syntax-highlighting  # fish shell like syntax highlighting
+         command-not-found        # suggest what to install when running
+                                  # an unknown command. On Arch Linux requires
+                                  # `pkgfile` package:
+                                  #   $ sudo pacman -S pkgfile
+                                  #   $ sudo pkgfile --update
          )
 
 source $ZSH/oh-my-zsh.sh
