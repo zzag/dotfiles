@@ -7,6 +7,7 @@ alias mkdir="mkdir -pv"
 alias rm='rm -iv'
 alias mv='mv -v'
 alias cp='cp -v'
+alias purge='ls -A1 | xargs rm -rf'
 
 # fancy utils
 alias ports='sudo netstat -vatnp'
