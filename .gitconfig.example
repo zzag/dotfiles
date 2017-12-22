@@ -1,6 +1,6 @@
 [user]
-	name = ...
-	email = ...
+	name = <name>
+	email = <email>
 [color]
 	ui = true
 [color "diff-highlight"]
