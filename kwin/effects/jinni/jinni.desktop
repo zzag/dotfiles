@@ -1,0 +1,15 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Jinni
+Comment=Minimize like a boss
+Icon=preferences-system-windows-effect-jinni
+
+Type=Service
+X-KDE-ServiceTypes=KWin/Effect
+X-KDE-PluginInfo-Name=kwin4_effect_jinni
+X-KDE-PluginInfo-Author=VZ
+X-KDE-PluginInfo-Version=1
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=false
+X-KDE-PluginInfo-Category=Appearance
+X-KWIN-PluginInfo-Exclusive-Category=minimize
