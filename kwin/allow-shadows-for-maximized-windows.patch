@@ -1,0 +1,12 @@
+diff -Naur a/client.cpp b/client.cpp
+--- a/client.cpp	2017-11-28 14:20:37.000000000 +0200
++++ b/client.cpp	2017-12-26 14:05:08.959943463 +0200
+@@ -593,7 +593,7 @@
+ 
+ bool Client::wantsShadowToBeRendered() const
+ {
+-    return !isFullScreen() && maximizeMode() != MaximizeFull;
++    return !isFullScreen();
+ }
+ 
+ void Client::updateShape()
