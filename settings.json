@@ -1,0 +1,45 @@
+{
+    "workbench.startupEditor": "none",
+    "editor.fontFamily": "Fira Code, Operator Mono, Meslo LG M, Consolas, monospace",
+    "editor.fontSize": 14,
+    "editor.fontLigatures": true,
+    "editor.renderWhitespace": "boundary",
+    "editor.wordWrapColumn": 80,
+    "editor.renderIndentGuides": false,
+    "editor.cursorStyle": "line",
+    "editor.cursorBlinking": "blink",
+    "editor.multiCursorModifier": "alt",
+    "editor.minimap.showSlider": "always",
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "comment",
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope": [
+                    "keyword.control.import.python",
+                    "variable.language.special.self.python",
+                    "variable.parameter.function.language.special.self.python",
+                    "string.quoted.docstring.multi.python"
+                ],
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope": [
+                    "storage.type.function.js",
+                    "variable.language.this.js"
+                ],
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            }
+        ]
+    },
+    "files.trimTrailingWhitespace": true,
+    "window.menuBarVisibility": "toggle"
+}
