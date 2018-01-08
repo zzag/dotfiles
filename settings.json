@@ -10,6 +10,7 @@
     "editor.cursorBlinking": "blink",
     "editor.multiCursorModifier": "alt",
     "editor.minimap.showSlider": "always",
+    "editor.minimap.renderCharacters": "false",
     "editor.tokenColorCustomizations": {
         "textMateRules": [
             {
