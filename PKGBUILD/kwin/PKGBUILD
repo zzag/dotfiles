@@ -1,5 +1,6 @@
 
-pkgname=kwin-customized
+pkgname=kwin-patched
+_pkgname=kwin
 pkgver=5.11.5
 pkgrel=1
 pkgdesc='An easy to use, but flexible, composited Window Manager'
@@ -19,7 +20,7 @@ makedepends=(extra-cmake-modules
 optdepends=('qt5-virtualkeyboard: virtual keyboard support for kwin-wayland')
 provides=(kwin)
 conflicts=(kwin)
-source=("https://download.kde.org/stable/plasma/$pkgver/kwin-$pkgver.tar.xz"{,.sig}
+source=("https://download.kde.org/stable/plasma/${pkgver}/${_pkgname}-${pkgver}.tar.xz"{,.sig}
         add-jinni-effect.patch
         add-slidedesktops-effect.patch)
 sha256sums=('9fb0db84fd13568a0dcae7d1fdd3e72e5bbb80120d374941043d4474ea167f19'
@@ -33,14 +34,14 @@ validpgpkeys=('2D1D5B0588357787DE9EE225EC94D18F7F05997E'  # Jonathan Riddell
 prepare() {
   mkdir -p build
 
-  cd "kwin-$pkgver"
+  cd "${_pkgname}-${pkgver}"
   patch -Np1 -i "${srcdir}/add-jinni-effect.patch"
   patch -Np1 -i "${srcdir}/add-slidedesktops-effect.patch"
 }
 
 build() {
   cd build
-  cmake ../kwin-$pkgver \
+  cmake ../${_pkgname}-${pkgver} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
@@ -51,5 +52,5 @@ build() {
 
 package() {
   cd build
-  make DESTDIR="$pkgdir" install
+  make DESTDIR="${pkgdir}" install
 }
