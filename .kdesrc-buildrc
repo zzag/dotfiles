@@ -1,0 +1,23 @@
+global
+
+    branch-group kf5-qt5
+
+    # The path to your Qt installation (default is empty, assumes Qt provided
+    # by system)
+#   qtdir ~/qt5
+
+    kdedir ~/KDE/usr
+    source-dir ~/KDE/src
+    build-dir ~/KDE/build
+    log-dir ~/KDE/log
+
+    make-options -j2
+    install-session-driver false
+    install-environment-driver true
+end global
+
+
+include ~/.kdesrc-build/kf5-frameworks-build-include
+include ~/.kdesrc-build/kf5-workspace-build-include
+include ~/.kdesrc-build/kf5-applications-build-include
+
