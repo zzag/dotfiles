@@ -1,18 +1,66 @@
-diff -Naur a/effects/CMakeLists.txt b/effects/CMakeLists.txt
---- a/effects/CMakeLists.txt	2017-11-28 14:20:37.000000000 +0200
-+++ b/effects/CMakeLists.txt	2017-12-26 13:36:01.073179936 +0200
-@@ -150,6 +150,7 @@
+From 7630297e290e932e920db34a42cfa778db422e94 Mon Sep 17 00:00:00 2001
+From: Vlad Zagorodniy <vladzzag@gmail.com>
+Date: Fri, 12 Jan 2018 22:53:33 +0200
+Subject: [PATCH] add jinni effect
+
+---
+ effects/CMakeLists.txt             |   3 +
+ effects/effect_builtins.cpp        |  16 ++
+ effects/jinni/CMakeLists.txt       |  24 +++
+ effects/jinni/jinni.cpp            | 428 +++++++++++++++++++++++++++++++++++++
+ effects/jinni/jinni.h              |  66 ++++++
+ effects/jinni/jinni.kcfg           |  22 ++
+ effects/jinni/jinni_config.cpp     |  44 ++++
+ effects/jinni/jinni_config.desktop |   8 +
+ effects/jinni/jinni_config.h       |  26 +++
+ effects/jinni/jinni_config.ui      | 139 ++++++++++++
+ effects/jinni/jinniconfig.kcfgc    |   5 +
+ effects/jinni/timeline.h           | 118 ++++++++++
+ 12 files changed, 899 insertions(+)
+ create mode 100644 effects/jinni/CMakeLists.txt
+ create mode 100644 effects/jinni/jinni.cpp
+ create mode 100644 effects/jinni/jinni.h
+ create mode 100644 effects/jinni/jinni.kcfg
+ create mode 100644 effects/jinni/jinni_config.cpp
+ create mode 100644 effects/jinni/jinni_config.desktop
+ create mode 100644 effects/jinni/jinni_config.h
+ create mode 100644 effects/jinni/jinni_config.ui
+ create mode 100644 effects/jinni/jinniconfig.kcfgc
+ create mode 100644 effects/jinni/timeline.h
+
+diff --git a/effects/CMakeLists.txt b/effects/CMakeLists.txt
+index 30b731352..498c2967b 100644
+--- a/effects/CMakeLists.txt
++++ b/effects/CMakeLists.txt
+@@ -82,6 +82,7 @@ set( kwin4_effect_builtins_sources
+     flipswitch/flipswitch.cpp
+     glide/glide.cpp
+     invert/invert.cpp
++    jinni/jinni.cpp
+     lookingglass/lookingglass.cpp
+     magiclamp/magiclamp.cpp
+     magnifier/magnifier.cpp
+@@ -112,6 +113,7 @@ kconfig_add_kcfg_files(kwin4_effect_builtins_sources
+     fallapart/fallapartconfig.kcfgc
+     flipswitch/flipswitchconfig.kcfgc
+     glide/glideconfig.kcfgc
++    jinni/jinniconfig.kcfgc
+     lookingglass/lookingglassconfig.kcfgc
+     magiclamp/magiclampconfig.kcfgc
+     magnifier/magnifierconfig.kcfgc
+@@ -152,6 +154,7 @@ add_subdirectory( diminactive )
  include( dimscreen/CMakeLists.txt )
  include( fallapart/CMakeLists.txt )
  include( highlightwindow/CMakeLists.txt )
-+include ( jinni/CMakeLists.txt )
++add_subdirectory( jinni )
  include( kscreen/CMakeLists.txt )
  add_subdirectory( magiclamp )
  include( minimizeanimation/CMakeLists.txt )
-diff -Naur a/effects/effect_builtins.cpp b/effects/effect_builtins.cpp
---- a/effects/effect_builtins.cpp	2017-11-28 14:20:37.000000000 +0200
-+++ b/effects/effect_builtins.cpp	2017-12-26 13:40:10.000000000 +0200
-@@ -34,6 +34,7 @@
+diff --git a/effects/effect_builtins.cpp b/effects/effect_builtins.cpp
+index 7198d6cf0..74c912164 100644
+--- a/effects/effect_builtins.cpp
++++ b/effects/effect_builtins.cpp
+@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  #include "dimscreen/dimscreen.h"
  #include "fallapart/fallapart.h"
  #include "highlightwindow/highlightwindow.h"
@@ -20,10 +68,11 @@ diff -Naur a/effects/effect_builtins.cpp b/effects/effect_builtins.cpp
  #include "magiclamp/magiclamp.h"
  #include "minimizeanimation/minimizeanimation.h"
  #include "resize/resize.h"
-@@ -292,6 +293,21 @@
+@@ -291,6 +292,21 @@ EFFECT_FALLBACK
+         nullptr,
          nullptr
  #endif
- EFFECT_FALLBACK
++EFFECT_FALLBACK
 +    }, {
 +        QStringLiteral("jinni"),
 +        i18ndc("kwin_effects", "Name of a KWin Effect", "Jinni"),
@@ -38,156 +87,182 @@ diff -Naur a/effects/effect_builtins.cpp b/effects/effect_builtins.cpp
 +        &JinniEffect::supported,
 +        nullptr
 +#endif
-+EFFECT_FALLBACK
+ EFFECT_FALLBACK
      }, {
          QStringLiteral("invert"),
-         i18ndc("kwin_effects", "Name of a KWin Effect", "Invert"),
-diff -Naur a/effects/jinni/CMakeLists.txt b/effects/jinni/CMakeLists.txt
---- a/effects/jinni/CMakeLists.txt	1970-01-01 03:00:00.000000000 +0300
-+++ b/effects/jinni/CMakeLists.txt	2017-12-26 13:35:08.536510357 +0200
-@@ -0,0 +1,7 @@
+diff --git a/effects/jinni/CMakeLists.txt b/effects/jinni/CMakeLists.txt
+new file mode 100644
+index 000000000..ca0fdd674
+--- /dev/null
++++ b/effects/jinni/CMakeLists.txt
+@@ -0,0 +1,24 @@
 +#######################################
-+# Effect
++# Config
++set(kwin_jinni_config_SRCS jinni_config.cpp)
++ki18n_wrap_ui(kwin_jinni_config_SRCS jinni_config.ui)
++qt5_add_dbus_interface(kwin_jinni_config_SRCS ${kwin_effects_dbus_xml} kwineffects_interface)
++kconfig_add_kcfg_files(kwin_jinni_config_SRCS jinniconfig.kcfgc)
 +
-+# Source files
-+set( kwin4_effect_builtins_sources ${kwin4_effect_builtins_sources}
-+    jinni/jinni.cpp
-+    )
-diff -Naur a/effects/jinni/jinni.cpp b/effects/jinni/jinni.cpp
---- a/effects/jinni/jinni.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ b/effects/jinni/jinni.cpp	2017-12-26 13:56:41.766582024 +0200
-@@ -0,0 +1,448 @@
++add_library(kwin_jinni_config MODULE ${kwin_jinni_config_SRCS})
++
++target_link_libraries(kwin_jinni_config
++    Qt5::DBus
++    KF5::ConfigWidgets
++    KF5::I18n
++    KF5::Service
++)
++
++kcoreaddons_desktop_to_json(kwin_jinni_config jinni_config.desktop SERVICE_TYPES kcmodule.desktop)
++
++install(
++    TARGETS
++        kwin_jinni_config
++    DESTINATION
++        ${PLUGIN_INSTALL_DIR}/kwin/effects/configs
++)
+diff --git a/effects/jinni/jinni.cpp b/effects/jinni/jinni.cpp
+new file mode 100644
+index 000000000..fc83391db
+--- /dev/null
++++ b/effects/jinni/jinni.cpp
+@@ -0,0 +1,428 @@
 +#include "jinni.h"
++// KConfigSkeleton
++#include "jinniconfig.h"
 +
 +#include <kwinconfig.h>
 +#include <math.h>
 +
-+namespace KWin {
++namespace KWin
++{
 +
-+enum class IconPosition {
-+  Unknown,
-+  Bottom,
-+  Top,
-+  Left,
-+  Right
++enum class IconPosition
++{
++    Unknown,
++    Bottom,
++    Top,
++    Left,
++    Right
 +};
 +
-+IconPosition
-+getIconPosition(const QRect icon) {
-+  if (! icon.isValid()) {
++IconPosition getIconPosition(const QRect icon)
++{
++    if (!icon.isValid()) {
++        return IconPosition::Unknown;
++    }
++
++    EffectWindow *panel = nullptr;
++    foreach (EffectWindow *w, effects->stackingOrder()) {
++        if (!w->isDock()) {
++            continue;
++        }
++        if (w->geometry().intersects(icon)) {
++            panel = w;
++            break;
++        }
++    }
++
++    if (panel) {
++        QRect panelScreen = effects->clientArea(ScreenArea, panel);
++        if (panel->width() >= panel->height()) {
++            // horizontal panel
++            return (panel->y() == panelScreen.y())
++                       ? IconPosition::Top
++                       : IconPosition::Bottom;
++        }
++        // vertical panel
++        return (panel->x() == panelScreen.x())
++                   ? IconPosition::Left
++                   : IconPosition::Right;
++    }
++
 +    return IconPosition::Unknown;
-+  }
-+
-+  EffectWindow* panel = nullptr;
-+  foreach (EffectWindow* w, effects->stackingOrder()) {
-+    if (! w->isDock()) {
-+      continue;
-+    }
-+    if (w->geometry().intersects(icon)) {
-+      panel = w;
-+      break;
-+    }
-+  }
-+
-+  if (panel) {
-+    QRect panelScreen = effects->clientArea(ScreenArea, panel);
-+    if (panel->width() >= panel->height()) {
-+      // horizontal panel
-+      return (panel->y() == panelScreen.y())
-+        ? IconPosition::Top
-+        : IconPosition::Bottom;
-+    }
-+    // vertical panel
-+    return (panel->x() == panelScreen.x())
-+      ? IconPosition::Left
-+      : IconPosition::Right;
-+  }
-+
-+  return IconPosition::Unknown;
 +}
 +
-+
 +JinniEffect::JinniEffect()
-+      : mDuration(440),
-+        mShapeTransformTime(0.22),
-+        mNonlinearityScale(6),
-+        mGridResolution(100)
 +{
++    initConfig<JinniConfig>();
++    reconfigure(ReconfigureAll);
 +    connect(effects, &EffectsHandler::windowDeleted,
 +            this, &JinniEffect::windowDeleted);
 +    connect(effects, &EffectsHandler::windowMinimized,
 +            this, &JinniEffect::windowMinimized);
 +    connect(effects, &EffectsHandler::windowUnminimized,
 +            this, &JinniEffect::windowUnminimized);
-+    reconfigure(ReconfigureAll);
++
++    mShapeCurve.setType(QEasingCurve::BezierSpline);
++    const QPointF c1(0.55, 0.0);
++    const QPointF c2(0.55, 1.0);
++    const QPointF end(1.0, 1.0);
++    mShapeCurve.addCubicBezierSegment(c1, c2, end);
 +}
 +
-+
-+bool
-+JinniEffect::supported() {
-+    return effects->isOpenGLCompositing() && effects->animationsSupported();
++bool JinniEffect::supported()
++{
++    return effects->isOpenGLCompositing()
++        && effects->animationsSupported();
 +}
 +
++void JinniEffect::reconfigure(ReconfigureFlags)
++{
++    JinniConfig::self()->read();
 +
-+void
-+JinniEffect::reconfigure(ReconfigureFlags) {
++    mDuration = JinniConfig::duration();
++    mShapeTransformTime = JinniConfig::shapeTransformTime();
++    mGridResolution = JinniConfig::gridResolution();
 +}
 +
-+
-+void
-+JinniEffect::prePaintScreen(ScreenPrePaintData& data, int time) {
-+    if (mTimeLineWindows.count() > 0) {
-+        QHash<EffectWindow*, Timeline*>::iterator entry = mTimeLineWindows.begin();
-+        while (entry != mTimeLineWindows.end()) {
-+            auto timeline = entry.value();
++void JinniEffect::prePaintScreen(ScreenPrePaintData &data, int time)
++{
++    if (mAnimations.count() > 0) {
++        auto it = mAnimations.begin();
++        while (it != mAnimations.end()) {
++            auto timeline = it.value();
 +            timeline->update(time);
-+            ++entry;
++            ++it;
 +        }
 +        data.mask |= PAINT_SCREEN_WITH_TRANSFORMED_WINDOWS;
 +    }
-+
 +    effects->prePaintScreen(data, time);
 +}
 +
++void JinniEffect::prePaintWindow(EffectWindow *w, WindowPrePaintData &data, int time)
++{
++    if (mAnimations.contains(w)) {
++        const auto position = getIconPosition(w->iconGeometry());
++        if (position == IconPosition::Unknown) {
++            effects->prePaintWindow(w, data, time);
++            return;
++        }
 +
-+void
-+JinniEffect::prePaintWindow(EffectWindow* w, WindowPrePaintData& data, int time) {
-+    if (mTimeLineWindows.contains(w)) {
-+      const auto position = getIconPosition(w->iconGeometry());
-+      if (position == IconPosition::Unknown) {
-+        effects->prePaintWindow(w, data, time);
-+        return;
-+      }
-+
-+      int xSubdivisions = 0;
-+      int ySubdivisions = 0;
-+      switch (position) {
++        int xSubdivisions = 0;
++        int ySubdivisions = 0;
++        switch (position) {
 +        case IconPosition::Top:
 +        case IconPosition::Bottom:
-+          xSubdivisions = 2;
-+          ySubdivisions = mGridResolution;
-+          break;
++            xSubdivisions = 2;
++            ySubdivisions = mGridResolution;
++            break;
 +        case IconPosition::Left:
 +        case IconPosition::Right:
-+          xSubdivisions = mGridResolution;
-+          ySubdivisions = 2;
-+          break;
++            xSubdivisions = mGridResolution;
++            ySubdivisions = 2;
++            break;
 +        default:
-+          break;
-+      }
++            break;
++        }
 +
-+      data.setTransformed();
-+      data.quads = data.quads.makeRegularGrid(xSubdivisions, ySubdivisions);
-+      w->enablePainting(EffectWindow::PAINT_DISABLED_BY_MINIMIZE);
++        data.setTransformed();
++        data.quads = data.quads.makeRegularGrid(xSubdivisions, ySubdivisions);
++        w->enablePainting(EffectWindow::PAINT_DISABLED_BY_MINIMIZE);
 +    }
 +
 +    effects->prePaintWindow(w, data, time);
 +}
 +
-+
-+void
-+JinniEffect::minimizeBottom(float progress, QRect geometry,
-+                            QRect icon, WindowPaintData& data) {
++void JinniEffect::minimizeBottom(float progress, QRect geometry,
++                                 QRect icon, WindowPaintData &data)
++{
 +    const float distance = icon.y() + icon.height() - geometry.y();
 +
 +    WindowQuadList newQuads;
@@ -210,9 +285,9 @@ diff -Naur a/effects/jinni/jinni.cpp b/effects/jinni/jinni.cpp
 +
 +        // Calculate X coords.
 +        const float weightTop = 1 - (distance - farthest) / distance;
-+        float progressTop = nonlinearity(weightTop);
++        float progressTop = mShapeCurve.valueForProgress(weightTop);
 +        const float weightBottom = 1 - (distance - closest) / distance;
-+        float progressBottom = nonlinearity(weightBottom);
++        float progressBottom = mShapeCurve.valueForProgress(weightBottom);
 +
 +        if (progress < mShapeTransformTime) {
 +            float shapeProgress = progress / mShapeTransformTime;
@@ -220,27 +295,24 @@ diff -Naur a/effects/jinni/jinni.cpp b/effects/jinni/jinni.cpp
 +            progressBottom *= shapeProgress;
 +        }
 +
-+        q[0].setX(q[0].x() + progressTop * ((icon.left() - quadGlobal.left())
-+                  + icon.width() * q[0].x() / geometry.width()));
-+        q[3].setX(q[3].x() + progressBottom * ((icon.left() - quadGlobal.left())
-+                  + icon.width() * q[3].x() / geometry.width()));
-+        q[1].setX(q[1].x() + progressTop * ((icon.left() - quadGlobal.right())
-+                  + icon.width() * q[1].x() / geometry.width()));
-+        q[2].setX(q[2].x() + progressBottom * ((icon.left() - quadGlobal.right())
-+                  + icon.width() * q[2].x() / geometry.width()));
++        q[0].setX(q[0].x() + progressTop * ((icon.left() - quadGlobal.left()) + icon.width() * q[0].x() / geometry.width()));
++        q[3].setX(q[3].x() + progressBottom * ((icon.left() - quadGlobal.left()) + icon.width() * q[3].x() / geometry.width()));
++        q[1].setX(q[1].x() + progressTop * ((icon.left() - quadGlobal.right()) + icon.width() * q[1].x() / geometry.width()));
++        q[2].setX(q[2].x() + progressBottom * ((icon.left() - quadGlobal.right()) + icon.width() * q[2].x() / geometry.width()));
 +
-+        q[0].setY(farthest); q[1].setY(farthest);
-+        q[2].setY(closest); q[3].setY(closest);
++        q[0].setY(farthest);
++        q[1].setY(farthest);
++        q[2].setY(closest);
++        q[3].setY(closest);
 +
 +        newQuads.append(q);
 +    }
 +    data.quads = newQuads;
 +}
 +
-+
-+void
-+JinniEffect::minimizeTop(float progress, QRect geometry,
-+                         QRect icon, WindowPaintData& data) {
++void JinniEffect::minimizeTop(float progress, QRect geometry,
++                              QRect icon, WindowPaintData &data)
++{
 +    const float distance = geometry.y() + geometry.height() - icon.y();
 +
 +    WindowQuadList newQuads;
@@ -263,9 +335,9 @@ diff -Naur a/effects/jinni/jinni.cpp b/effects/jinni/jinni.cpp
 +
 +        // Calculate X coords.
 +        const float weightTop = (distance - closest) / distance;
-+        float progressTop = nonlinearity(weightTop);
++        float progressTop = mShapeCurve.valueForProgress(weightTop);
 +        const float weightBottom = (distance - farthest) / distance;
-+        float progressBottom = nonlinearity(weightBottom);
++        float progressBottom = mShapeCurve.valueForProgress(weightBottom);
 +
 +        if (progress < mShapeTransformTime) {
 +            float shapeProgress = progress / mShapeTransformTime;
@@ -273,27 +345,24 @@ diff -Naur a/effects/jinni/jinni.cpp b/effects/jinni/jinni.cpp
 +            progressBottom *= shapeProgress;
 +        }
 +
-+        q[0].setX(q[0].x() + progressTop * ((icon.left() - quadGlobal.left())
-+                  + icon.width() * q[0].x() / geometry.width()));
-+        q[3].setX(q[3].x() + progressBottom * ((icon.left() - quadGlobal.left())
-+                  + icon.width() * q[3].x() / geometry.width()));
-+        q[1].setX(q[1].x() + progressTop * ((icon.left() - quadGlobal.right())
-+                  + icon.width() * q[1].x() / geometry.width()));
-+        q[2].setX(q[2].x() + progressBottom * ((icon.left() - quadGlobal.right())
-+                  + icon.width() * q[2].x() / geometry.width()));
++        q[0].setX(q[0].x() + progressTop * ((icon.left() - quadGlobal.left()) + icon.width() * q[0].x() / geometry.width()));
++        q[3].setX(q[3].x() + progressBottom * ((icon.left() - quadGlobal.left()) + icon.width() * q[3].x() / geometry.width()));
++        q[1].setX(q[1].x() + progressTop * ((icon.left() - quadGlobal.right()) + icon.width() * q[1].x() / geometry.width()));
++        q[2].setX(q[2].x() + progressBottom * ((icon.left() - quadGlobal.right()) + icon.width() * q[2].x() / geometry.width()));
 +
-+        q[0].setY(closest); q[1].setY(closest);
-+        q[2].setY(farthest); q[3].setY(farthest);
++        q[0].setY(closest);
++        q[1].setY(closest);
++        q[2].setY(farthest);
++        q[3].setY(farthest);
 +
 +        newQuads.append(q);
 +    }
 +    data.quads = newQuads;
 +}
 +
-+
-+void
-+JinniEffect::minimizeLeft(float progress, QRect geometry,
-+                          QRect icon, WindowPaintData& data) {
++void JinniEffect::minimizeLeft(float progress, QRect geometry,
++                               QRect icon, WindowPaintData &data)
++{
 +    const float distance = geometry.x() + geometry.width() - icon.x();
 +
 +    WindowQuadList newQuads;
@@ -316,9 +385,9 @@ diff -Naur a/effects/jinni/jinni.cpp b/effects/jinni/jinni.cpp
 +
 +        // Calculate Y coords.
 +        const float weightRight = (distance - farthest) / distance;
-+        float progressRight = nonlinearity(weightRight);
++        float progressRight = mShapeCurve.valueForProgress(weightRight);
 +        const float weightLeft = (distance - closest) / distance;
-+        float progressLeft = nonlinearity(weightLeft);
++        float progressLeft = mShapeCurve.valueForProgress(weightLeft);
 +
 +        if (progress < mShapeTransformTime) {
 +            float shapeProgress = progress / mShapeTransformTime;
@@ -326,27 +395,24 @@ diff -Naur a/effects/jinni/jinni.cpp b/effects/jinni/jinni.cpp
 +            progressRight *= shapeProgress;
 +        }
 +
-+        q[0].setY(q[0].y() + progressLeft * ((icon.top() - quadGlobal.top())
-+                  + icon.height() * q[0].y() / geometry.height()));
-+        q[3].setY(q[3].y() + progressLeft * ((icon.top() - quadGlobal.bottom())
-+                  + icon.height() * q[3].y() / geometry.height()));
-+        q[1].setY(q[1].y() + progressRight * ((icon.top() - quadGlobal.top())
-+                  + icon.height() * q[1].y() / geometry.height()));
-+        q[2].setY(q[2].y() + progressRight * ((icon.top() - quadGlobal.bottom())
-+                  + icon.height() * q[2].y() / geometry.height()));
++        q[0].setY(q[0].y() + progressLeft * ((icon.top() - quadGlobal.top()) + icon.height() * q[0].y() / geometry.height()));
++        q[3].setY(q[3].y() + progressLeft * ((icon.top() - quadGlobal.bottom()) + icon.height() * q[3].y() / geometry.height()));
++        q[1].setY(q[1].y() + progressRight * ((icon.top() - quadGlobal.top()) + icon.height() * q[1].y() / geometry.height()));
++        q[2].setY(q[2].y() + progressRight * ((icon.top() - quadGlobal.bottom()) + icon.height() * q[2].y() / geometry.height()));
 +
-+        q[0].setX(closest); q[1].setX(farthest);
-+        q[2].setX(farthest); q[3].setX(closest);
++        q[0].setX(closest);
++        q[1].setX(farthest);
++        q[2].setX(farthest);
++        q[3].setX(closest);
 +
 +        newQuads.append(q);
 +    }
 +    data.quads = newQuads;
 +}
 +
-+
-+void
-+JinniEffect::minimizeRight(float progress, QRect geometry,
-+                           QRect icon, WindowPaintData& data) {
++void JinniEffect::minimizeRight(float progress, QRect geometry,
++                                QRect icon, WindowPaintData &data)
++{
 +    const float distance = icon.x() + icon.width() - geometry.x();
 +
 +    WindowQuadList newQuads;
@@ -369,9 +435,9 @@ diff -Naur a/effects/jinni/jinni.cpp b/effects/jinni/jinni.cpp
 +
 +        // Calculate Y coords.
 +        const float weightLeft = 1 - (distance - farthest) / distance;
-+        float progressLeft = nonlinearity(weightLeft);
++        float progressLeft = mShapeCurve.valueForProgress(weightLeft);
 +        const float weightRight = 1 - (distance - closest) / distance;
-+        float progressRight = nonlinearity(weightRight);
++        float progressRight = mShapeCurve.valueForProgress(weightRight);
 +
 +        if (progress < mShapeTransformTime) {
 +            float shapeProgress = progress / mShapeTransformTime;
@@ -379,140 +445,127 @@ diff -Naur a/effects/jinni/jinni.cpp b/effects/jinni/jinni.cpp
 +            progressRight *= shapeProgress;
 +        }
 +
-+        q[0].setY(q[0].y() + progressLeft * ((icon.top() - quadGlobal.top())
-+                  + icon.height() * q[0].y() / geometry.height()));
-+        q[3].setY(q[3].y() + progressLeft * ((icon.top() - quadGlobal.bottom())
-+                  + icon.height() * q[3].y() / geometry.height()));
-+        q[1].setY(q[1].y() + progressRight * ((icon.top() - quadGlobal.top())
-+                  + icon.height() * q[1].y() / geometry.height()));
-+        q[2].setY(q[2].y() + progressRight * ((icon.top() - quadGlobal.bottom())
-+                  + icon.height() * q[2].y() / geometry.height()));
++        q[0].setY(q[0].y() + progressLeft * ((icon.top() - quadGlobal.top()) + icon.height() * q[0].y() / geometry.height()));
++        q[3].setY(q[3].y() + progressLeft * ((icon.top() - quadGlobal.bottom()) + icon.height() * q[3].y() / geometry.height()));
++        q[1].setY(q[1].y() + progressRight * ((icon.top() - quadGlobal.top()) + icon.height() * q[1].y() / geometry.height()));
++        q[2].setY(q[2].y() + progressRight * ((icon.top() - quadGlobal.bottom()) + icon.height() * q[2].y() / geometry.height()));
 +
-+        q[0].setX(farthest); q[1].setX(closest);
-+        q[2].setX(closest); q[3].setX(farthest);
++        q[0].setX(farthest);
++        q[1].setX(closest);
++        q[2].setX(closest);
++        q[3].setX(farthest);
 +
 +        newQuads.append(q);
 +    }
 +    data.quads = newQuads;
 +}
 +
-+
-+void JinniEffect::paintWindow(EffectWindow* w, int mask, QRegion region, WindowPaintData& data) {
-+    if (mTimeLineWindows.contains(w)) {
++void JinniEffect::paintWindow(EffectWindow *w, int mask, QRegion region, WindowPaintData &data)
++{
++    if (mAnimations.contains(w)) {
 +        const auto geometry = w->geometry();
 +        const auto icon = w->iconGeometry();
 +
 +        const auto position = getIconPosition(icon);
 +        if (position == IconPosition::Unknown) {
-+          effects->paintWindow(w, mask, region, data);
-+          return;
++            effects->paintWindow(w, mask, region, data);
++            return;
 +        }
 +
-+        const auto t = mTimeLineWindows[w]->progress();
++        const auto t = mAnimations[w]->progress();
 +
 +        switch (position) {
-+            case IconPosition::Bottom:
-+                minimizeBottom(t, geometry, icon, data);
-+                break;
-+            case IconPosition::Top:
-+                minimizeTop(t, geometry, icon, data);
-+                break;
-+            case IconPosition::Left:
-+                minimizeLeft(t, geometry, icon, data);
-+                break;
-+            case IconPosition::Right:
-+                minimizeRight(t, geometry, icon, data);
-+                break;
-+            default:
-+                break;
++        case IconPosition::Bottom:
++            minimizeBottom(t, geometry, icon, data);
++            break;
++        case IconPosition::Top:
++            minimizeTop(t, geometry, icon, data);
++            break;
++        case IconPosition::Left:
++            minimizeLeft(t, geometry, icon, data);
++            break;
++        case IconPosition::Right:
++            minimizeRight(t, geometry, icon, data);
++            break;
++        default:
++            break;
 +        }
 +    }
-+
 +    effects->paintWindow(w, mask, region, data);
 +}
 +
-+
-+void
-+JinniEffect::postPaintScreen() {
-+    if (mTimeLineWindows.count() > 0) {
-+        QHash<EffectWindow*, Timeline*>::iterator entry = mTimeLineWindows.begin();
-+        while (entry != mTimeLineWindows.end()) {
-+            auto timeline = entry.value();
++void JinniEffect::postPaintScreen()
++{
++    if (mAnimations.count() > 0)
++    {
++        auto it = mAnimations.begin();
++        while (it != mAnimations.end()) {
++            auto timeline = it.value();
 +            if (timeline->done()) {
 +                delete timeline;
-+                entry = mTimeLineWindows.erase(entry);
++                it = mAnimations.erase(it);
 +            } else {
-+                ++entry;
++                ++it;
 +            }
 +        }
 +        effects->addRepaintFull();
 +    }
-+
 +    effects->postPaintScreen();
 +}
 +
-+
-+void
-+JinniEffect::windowDeleted(EffectWindow* w) {
-+    if (mTimeLineWindows.contains(w)) {
-+        delete mTimeLineWindows.take(w);
++void JinniEffect::windowDeleted(EffectWindow *w)
++{
++    if (mAnimations.contains(w)) {
++        delete mAnimations.take(w);
 +    }
 +}
 +
-+
-+void
-+JinniEffect::windowMinimized(EffectWindow* w) {
++void JinniEffect::windowMinimized(EffectWindow *w)
++{
 +    if (effects->activeFullScreenEffect()) {
 +        return;
 +    }
 +
-+    if (! mTimeLineWindows.contains(w)) {
-+        mTimeLineWindows[w] = new Timeline(mDuration, Timeline::Forward);
-+    }
-+    else {
-+        mTimeLineWindows[w]->toggleDirection();
++    if (! mAnimations.contains(w)) {
++        mAnimations[w] = new Timeline(mDuration, Timeline::Forward);
++    } else {
++        mAnimations[w]->toggleDirection();
 +    }
 +}
 +
-+
-+void
-+JinniEffect::windowUnminimized(EffectWindow* w) {
++void JinniEffect::windowUnminimized(EffectWindow *w)
++{
 +    if (effects->activeFullScreenEffect()) {
 +        return;
 +    }
 +
-+    if (! mTimeLineWindows.contains(w)) {
-+        mTimeLineWindows[w] = new Timeline(mDuration, Timeline::Backward);
-+    }
-+    else {
-+        mTimeLineWindows[w]->toggleDirection();
++    if (! mAnimations.contains(w)) {
++        mAnimations[w] = new Timeline(mDuration, Timeline::Backward);
++    } else {
++        mAnimations[w]->toggleDirection();
 +    }
 +}
 +
-+
-+bool
-+JinniEffect::isActive() const {
-+    return !mTimeLineWindows.isEmpty();
-+}
-+
-+
-+float
-+JinniEffect::nonlinearity(float x) {
-+    float z = 2 * mNonlinearityScale * x - mNonlinearityScale;
-+    return 1.0f / (1.0f + exp(-z));
++bool JinniEffect::isActive() const
++{
++    return !mAnimations.empty();
 +}
 +
 +}
 +
 +#include "jinni.moc"
-diff -Naur a/effects/jinni/jinni.h b/effects/jinni/jinni.h
---- a/effects/jinni/jinni.h	1970-01-01 03:00:00.000000000 +0300
-+++ b/effects/jinni/jinni.h	2017-12-26 13:36:42.903182254 +0200
-@@ -0,0 +1,64 @@
+diff --git a/effects/jinni/jinni.h b/effects/jinni/jinni.h
+new file mode 100644
+index 000000000..557b3a69e
+--- /dev/null
++++ b/effects/jinni/jinni.h
+@@ -0,0 +1,66 @@
 +#ifndef KWIN_JINNI_H
 +#define KWIN_JINNI_H
 +
 +#include <kwineffects.h>
++
++#include <QEasingCurve>
 +
 +#include "timeline.h"
 +
@@ -524,12 +577,14 @@ diff -Naur a/effects/jinni/jinni.h b/effects/jinni/jinni.h
 +public:
 +    JinniEffect();
 +
-+    virtual void reconfigure(ReconfigureFlags);
-+    virtual void prePaintScreen(ScreenPrePaintData& data, int time);
-+    virtual void prePaintWindow(EffectWindow* w, WindowPrePaintData& data, int time);
-+    virtual void paintWindow(EffectWindow* w, int mask, QRegion region, WindowPaintData& data);
-+    virtual void postPaintScreen();
-+    virtual bool isActive() const;
++    void reconfigure(ReconfigureFlags) override;
++
++    void prePaintScreen(ScreenPrePaintData& data, int time) override;
++    void prePaintWindow(EffectWindow* w, WindowPrePaintData& data, int time) override;
++    void paintWindow(EffectWindow* w, int mask, QRegion region, WindowPaintData& data) override;
++    void postPaintScreen() override;
++
++    bool isActive() const override;
 +
 +    int requestedEffectChainPosition() const override {
 +        return 50;
@@ -538,13 +593,11 @@ diff -Naur a/effects/jinni/jinni.h b/effects/jinni/jinni.h
 +    static bool supported();
 +
 +private Q_SLOTS:
-+    void windowDeleted(KWin::EffectWindow *w);
-+    void windowMinimized(KWin::EffectWindow *w);
-+    void windowUnminimized(KWin::EffectWindow *w);
++    void windowDeleted(EffectWindow *w);
++    void windowMinimized(EffectWindow *w);
++    void windowUnminimized(EffectWindow *w);
 +
 +private:
-+    float nonlinearity(float x);
-+
 +    void minimizeBottom(
 +      float progress, QRect geometry,
 +      QRect icon, WindowPaintData& data);
@@ -562,23 +615,308 @@ diff -Naur a/effects/jinni/jinni.h b/effects/jinni/jinni.h
 +      QRect icon, WindowPaintData& data);
 +
 +private:
-+    int mDuration;
-+    float mShapeTransformTime;
-+    int mNonlinearityScale;
-+    int mGridResolution;
++    int mDuration = 600;
++    float mShapeTransformTime = 0.4;
++    QEasingCurve mShapeCurve;
++    int mGridResolution = 100;
 +
-+    QHash<EffectWindow*, Timeline*> mTimeLineWindows;
++    QHash<EffectWindow*, Timeline*> mAnimations;
 +};
 +
 +}
 +
 +#endif
-diff -Naur a/effects/jinni/timeline.h b/effects/jinni/timeline.h
---- a/effects/jinni/timeline.h	1970-01-01 03:00:00.000000000 +0300
-+++ b/effects/jinni/timeline.h	2017-12-26 13:34:02.883173386 +0200
-@@ -0,0 +1,97 @@
+diff --git a/effects/jinni/jinni.kcfg b/effects/jinni/jinni.kcfg
+new file mode 100644
+index 000000000..6a438b6d9
+--- /dev/null
++++ b/effects/jinni/jinni.kcfg
+@@ -0,0 +1,22 @@
++<?xml version="1.0" encoding="UTF-8"?>
++
++<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
++    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++    xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
++    http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
++    <kcfgfile arg="true"/>
++    <group name="Effect-Jinni">
++        <entry name="Duration" type="UInt">
++            <default>600</default>
++            <min>1</min>
++        </entry>
++        <entry name="ShapeTransformTime" type="Double">
++            <default>0.4</default>
++            <min>0.001</min>
++        </entry>
++        <entry name="GridResolution" type="UInt">
++            <default>100</default>
++            <min>1</min>
++        </entry>
++    </group>
++</kcfg>
+diff --git a/effects/jinni/jinni_config.cpp b/effects/jinni/jinni_config.cpp
+new file mode 100644
+index 000000000..3074a943a
+--- /dev/null
++++ b/effects/jinni/jinni_config.cpp
+@@ -0,0 +1,44 @@
++#include "jinni_config.h"
++// KConfigSkeleton
++#include "jinniconfig.h"
++#include <config-kwin.h>
++
++#include <kwineffects_interface.h>
++
++#include <KAboutData>
++#include <KPluginFactory>
++
++K_PLUGIN_FACTORY_WITH_JSON(JinniEffectConfigFactory,
++                           "jinni_config.json",
++                           registerPlugin<KWin::JinniEffectConfig>();)
++
++namespace KWin
++{
++
++JinniEffectConfig::JinniEffectConfig(QWidget *parent, const QVariantList &args)
++    : KCModule(KAboutData::pluginData(QStringLiteral("jinni")), parent, args)
++{
++    mUi.setupUi(this);
++    JinniConfig::instance(KWIN_CONFIG);
++    addConfig(JinniConfig::self(), this);
++
++    load();
++}
++
++JinniEffectConfig::~JinniEffectConfig()
++{
++}
++
++void JinniEffectConfig::save()
++{
++    KCModule::save();
++
++    OrgKdeKwinEffectsInterface interface(QStringLiteral("org.kde.KWin"),
++                                         QStringLiteral("/Effects"),
++                                         QDBusConnection::sessionBus());
++    interface.reconfigureEffect(QStringLiteral("jinni"));
++}
++
++} // namespace KWin
++
++#include "jinni_config.moc"
+diff --git a/effects/jinni/jinni_config.desktop b/effects/jinni/jinni_config.desktop
+new file mode 100644
+index 000000000..13c6f15ec
+--- /dev/null
++++ b/effects/jinni/jinni_config.desktop
+@@ -0,0 +1,8 @@
++[Desktop Entry]
++Type=Service
++X-KDE-ServiceTypes=KCModule
++
++X-KDE-Library=kwin_jinni_config
++X-KDE-ParentComponents=jinni
++
++Name=Jinni
+\ No newline at end of file
+diff --git a/effects/jinni/jinni_config.h b/effects/jinni/jinni_config.h
+new file mode 100644
+index 000000000..c00458984
+--- /dev/null
++++ b/effects/jinni/jinni_config.h
+@@ -0,0 +1,26 @@
++#ifndef JINNI_CONFIG_H
++#define JINNI_CONFIG_H
++
++#include <KCModule>
++#include "ui_jinni_config.h"
++
++namespace KWin
++{
++
++class JinniEffectConfig : public KCModule
++{
++    Q_OBJECT
++
++public:
++    explicit JinniEffectConfig(QWidget *parent = nullptr,const QVariantList& args = QVariantList());
++    ~JinniEffectConfig();
++
++    void save();
++
++private:
++    ::Ui::JinniEffectConfig mUi;
++};
++
++} // namespace KWin
++
++#endif
+diff --git a/effects/jinni/jinni_config.ui b/effects/jinni/jinni_config.ui
+new file mode 100644
+index 000000000..a67f1b8ee
+--- /dev/null
++++ b/effects/jinni/jinni_config.ui
+@@ -0,0 +1,139 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<ui version="4.0">
++ <class>JinniEffectConfig</class>
++ <widget class="QWidget" name="JinniEffectConfig">
++  <property name="geometry">
++   <rect>
++    <x>0</x>
++    <y>0</y>
++    <width>400</width>
++    <height>169</height>
++   </rect>
++  </property>
++  <property name="windowTitle">
++   <string>Form</string>
++  </property>
++  <layout class="QVBoxLayout" name="verticalLayout_2">
++   <item>
++    <layout class="QHBoxLayout" name="layout_Duration">
++     <item>
++      <widget class="QLabel" name="label_Duration">
++       <property name="maximumSize">
++        <size>
++         <width>120</width>
++         <height>16777215</height>
++        </size>
++       </property>
++       <property name="text">
++        <string>D&amp;uration:</string>
++       </property>
++       <property name="alignment">
++        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
++       </property>
++       <property name="buddy">
++        <cstring>kcfg_Duration</cstring>
++       </property>
++      </widget>
++     </item>
++     <item>
++      <widget class="QSpinBox" name="kcfg_Duration">
++       <property name="suffix">
++        <string> milliseconds</string>
++       </property>
++       <property name="maximum">
++        <number>9999</number>
++       </property>
++       <property name="singleStep">
++        <number>5</number>
++       </property>
++      </widget>
++     </item>
++    </layout>
++   </item>
++   <item>
++    <layout class="QHBoxLayout" name="layout_ShapeTransformTime">
++     <item>
++      <widget class="QLabel" name="label_ShapeTransformTime">
++       <property name="maximumSize">
++        <size>
++         <width>120</width>
++         <height>16777215</height>
++        </size>
++       </property>
++       <property name="text">
++        <string>Shape &amp;transform time:</string>
++       </property>
++       <property name="alignment">
++        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
++       </property>
++       <property name="buddy">
++        <cstring>kcfg_ShapeTransformTime</cstring>
++       </property>
++      </widget>
++     </item>
++     <item>
++      <widget class="QDoubleSpinBox" name="kcfg_ShapeTransformTime">
++       <property name="maximum">
++        <double>1.000000000000000</double>
++       </property>
++       <property name="singleStep">
++        <double>0.050000000000000</double>
++       </property>
++      </widget>
++     </item>
++    </layout>
++   </item>
++   <item>
++    <layout class="QHBoxLayout" name="layout_GridResolution">
++     <item>
++      <widget class="QLabel" name="label_GridResolution">
++       <property name="maximumSize">
++        <size>
++         <width>120</width>
++         <height>16777215</height>
++        </size>
++       </property>
++       <property name="text">
++        <string>&amp;Grid resolution:</string>
++       </property>
++       <property name="alignment">
++        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
++       </property>
++       <property name="buddy">
++        <cstring>kcfg_GridResolution</cstring>
++       </property>
++      </widget>
++     </item>
++     <item>
++      <widget class="QSpinBox" name="kcfg_GridResolution">
++       <property name="minimum">
++        <number>1</number>
++       </property>
++       <property name="maximum">
++        <number>1000</number>
++       </property>
++       <property name="singleStep">
++        <number>5</number>
++       </property>
++      </widget>
++     </item>
++    </layout>
++   </item>
++   <item>
++    <spacer name="verticalSpacer">
++     <property name="orientation">
++      <enum>Qt::Vertical</enum>
++     </property>
++     <property name="sizeHint" stdset="0">
++      <size>
++       <width>20</width>
++       <height>40</height>
++      </size>
++     </property>
++    </spacer>
++   </item>
++  </layout>
++ </widget>
++ <resources/>
++ <connections/>
++</ui>
+diff --git a/effects/jinni/jinniconfig.kcfgc b/effects/jinni/jinniconfig.kcfgc
+new file mode 100644
+index 000000000..05c0f5c58
+--- /dev/null
++++ b/effects/jinni/jinniconfig.kcfgc
+@@ -0,0 +1,5 @@
++File=jinni.kcfg
++ClassName=JinniConfig
++NameSpace=KWin
++Singleton=true
++Mutators=true
+diff --git a/effects/jinni/timeline.h b/effects/jinni/timeline.h
+new file mode 100644
+index 000000000..6d155538f
+--- /dev/null
++++ b/effects/jinni/timeline.h
+@@ -0,0 +1,118 @@
 +#ifndef JINNI_TIMELINE_H
 +#define JINNI_TIMELINE_H
++
++#include <QEasingCurve>
 +
 +class Timeline
 +{
@@ -589,88 +927,111 @@ diff -Naur a/effects/jinni/timeline.h b/effects/jinni/timeline.h
 +    };
 +
 +public:
-+    Timeline(int duration, Direction direction = Forward)
-+        : mDuration(duration),
-+          mDirection(direction),
-+          mElapsed(0),
-+          mFinished(false) {}
++    explicit Timeline(int duration = 1000, Direction direction = Forward)
++        : m_duration(duration)
++        , m_direction(direction)
++        , m_elapsed(0)
++        , m_finished(false) {}
++    virtual ~Timeline() {}
 +
-+    /**
-+     * progress returns current progress of the timeline.
-+     */
 +    float progress() const {
-+        auto t = static_cast<float>(mElapsed) / mDuration;
-+        if (mDirection == Backward) {
++        Q_ASSERT(m_duration > 0);
++        auto t = static_cast<float>(m_elapsed) / m_duration;
++        if (m_direction == Backward) {
 +            t = 1 - t;
 +        }
-+        return t;
++        return m_easingCurve.valueForProgress(t);
++    }
++
++    float rprogress() const {
++        Q_ASSERT(m_duration > 0);
++        auto t = static_cast<float>(m_elapsed) / m_duration;
++        if (m_direction == Forward) {
++            t = 1 - t;
++        }
++        return m_easingCurve.valueForProgress(t);
 +    }
 +
 +    void update(int delta) {
-+        if (mFinished) {
++        Q_ASSERT(delta >= 0);
++        if (m_finished) {
 +            return;
 +        }
-+        mElapsed += delta;
-+        if (mElapsed >= mDuration) {
-+            mFinished = true;
-+            mElapsed = mDuration;
++        m_elapsed += delta;
++        if (m_elapsed >= m_duration) {
++            m_finished = true;
++            m_elapsed = m_duration;
 +        }
 +    }
 +
-+    /**
-+     * duration returns current duration of the timeline.
-+     */
-+    int duration() const { return mDuration; }
-+
-+    /**
-+     * setDuration sets new duration of the timeline.
-+     */
-+    void setDuration(int d) { mDuration = d; }
-+
-+    /**
-+     * direction returns current direction of the timeline.
-+     */
-+    Direction direction() const { return mDirection; }
-+
-+    /**
-+     * setDirection sets new direction of the timeline.
-+     */
-+    void setDirection(Direction d) {
-+        if (mDirection == d) {
-+            return;
-+        }
-+        if (mElapsed > 0) {
-+            mElapsed = mDuration - mElapsed;
-+        }
-+        mDirection = d;
++    int elapsed() const {
++        return m_elapsed;
 +    }
 +
-+    /**
-+     * toggleDirection toggles direction of the timeline.
-+     */
++    void setElapsed(int elapsed) {
++        reset();
++        update(elapsed);
++    }
++
++    int duration() const {
++        return m_duration;
++    }
++
++    void setDuration(int duration) {
++        Q_ASSERT(duration > 0);
++        m_duration = duration;
++    }
++
++    Direction direction() const {
++        return m_direction;
++    }
++
++    void setDirection(Direction direction) {
++        if (m_direction == direction) {
++            return;
++        }
++        if (m_elapsed > 0) {
++            m_elapsed = m_duration - m_elapsed;
++        }
++        m_direction = direction;
++    }
++
 +    void toggleDirection() {
-+        setDirection(mDirection == Forward ? Backward : Forward);
++        setDirection(m_direction == Forward ? Backward : Forward);
 +    }
 +
-+    /**
-+     * done returns whether timeline is done.
-+     */
-+    bool done() const { return mFinished; }
++    QEasingCurve easingCurve() const {
++        return m_easingCurve;
++    }
 +
-+    /**
-+     * reset resets current state of the timeline.
-+     */
++    void setEasingCurve(const QEasingCurve &easingCurve) {
++        m_easingCurve = easingCurve;
++    }
++
++    void setEasingCurve(QEasingCurve::Type type) {
++        m_easingCurve.setType(type);
++    }
++
++    bool done() const {
++        return m_finished;
++    }
++
 +    void reset() {
-+        mElapsed = 0;
-+        mFinished = false;
++        m_elapsed = 0;
++        m_finished = false;
 +    }
 +
 +private:
-+    int mDuration;
-+    Direction mDirection;
++    int m_duration;
++    Direction m_direction;
++    QEasingCurve m_easingCurve;
 +
-+    int mElapsed;
-+    bool mFinished;
++    int m_elapsed;
++    bool m_finished;
 +};
 +
 +#endif
+\ No newline at end of file
+-- 
+2.14.1
+
