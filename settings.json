@@ -22,10 +22,7 @@
             },
             {
                 "scope": [
-                    "keyword.control.import.python",
-                    "variable.language.special.self.python",
-                    "variable.parameter.function.language.special.self.python",
-                    "string.quoted.docstring.multi.python"
+                    "keyword.control.import.python"
                 ],
                 "settings": {
                     "fontStyle": "italic"
@@ -33,8 +30,16 @@
             },
             {
                 "scope": [
-                    "storage.type.function.js",
-                    "variable.language.this.js"
+                    "keyword.control.import.js",
+                    "keyword.control.from.js"
+                ],
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope": [
+                    "entity.other.attribute-name.html"
                 ],
                 "settings": {
                     "fontStyle": "italic"
