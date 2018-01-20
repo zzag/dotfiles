@@ -39,9 +39,7 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=white'
 #
 plugins=(git                      # git
          nvm npm                  # js: node.js
-         gvm                      # go: gvm
          conda                    # python: anaconda
-         rustup                   # rust: rustup
          zsh-syntax-highlighting  # fish shell like syntax highlighting
          command-not-found        # suggest what to install when running
                                   # an unknown command. On Arch Linux requires
