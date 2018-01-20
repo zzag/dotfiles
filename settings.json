@@ -1,6 +1,8 @@
 {
     "workbench.startupEditor": "none",
+    "workbench.iconTheme": "material-icon-theme",
     "window.menuBarVisibility": "toggle",
+    "diffEditor.renderSideBySide": false,
     "editor.fontFamily": "Fira Code, Operator Mono, Meslo LG M, Consolas, monospace",
     "editor.fontSize": 14,
     "editor.fontLigatures": true,
@@ -48,12 +50,10 @@
         ]
     },
     "files.trimTrailingWhitespace": true,
-    "python.linting.pylintPath": "/usr/local/bin/pylint",
     "python.linting.pylintArgs": [
         "--disable=C0111,C0103"
     ],
     "python.formatting.provider": "yapf",
-    "python.formatting.yapfPath": "/usr/local/bin/yapf",
     "python.formatting.yapfArgs": [
         "--style=pep8"
     ],
