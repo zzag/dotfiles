@@ -1,0 +1,82 @@
+Index: breeze-5.11.5/kdecoration/breezedecoration.cpp
+===================================================================
+--- breeze-5.11.5.orig/kdecoration/breezedecoration.cpp
++++ breeze-5.11.5/kdecoration/breezedecoration.cpp
+@@ -673,8 +673,8 @@ namespace Breeze
+ 
+             // contrast pixel
+             QRectF innerRect = QRectF(
+-                g_shadowSize - shadowOffset - Metrics::Shadow_Overlap, g_shadowSize - shadowOffset - Metrics::Shadow_Overlap,
+-                shadowOffset + 2*Metrics::Shadow_Overlap, shadowOffset + 2*Metrics::Shadow_Overlap );
++                g_shadowSize - Metrics::Shadow_Overlap, g_shadowSize - shadowOffset - Metrics::Shadow_Overlap,
++                2*Metrics::Shadow_Overlap, shadowOffset + 2*Metrics::Shadow_Overlap );
+ 
+             painter.setPen( gradientStopColor( g_shadowColor, g_shadowStrength*0.5 ) );
+             painter.setBrush( Qt::NoBrush );
+@@ -690,7 +690,7 @@ namespace Breeze
+ 
+             g_sShadow = QSharedPointer<KDecoration2::DecorationShadow>::create();
+             g_sShadow->setPadding( QMargins(
+-                g_shadowSize - shadowOffset - Metrics::Shadow_Overlap,
++                g_shadowSize - Metrics::Shadow_Overlap,
+                 g_shadowSize - shadowOffset - Metrics::Shadow_Overlap,
+                 g_shadowSize - Metrics::Shadow_Overlap,
+                 g_shadowSize - Metrics::Shadow_Overlap ) );
+Index: breeze-5.11.5/kdecoration/breezesettingsdata.kcfg
+===================================================================
+--- breeze-5.11.5.orig/kdecoration/breezesettingsdata.kcfg
++++ breeze-5.11.5/kdecoration/breezesettingsdata.kcfg
+@@ -14,13 +14,13 @@
+     </entry>
+ 
+     <entry name="ShadowSize" type = "Int">
+-       <default>16</default>
++       <default>64</default>
+        <min>6</min>
+-       <max>64</max>
++       <max>256</max>
+     </entry>
+ 
+     <entry name="ShadowColor" type = "Color">
+-       <default>0, 0, 0</default>
++       <default>35, 38, 41</default>
+     </entry>
+ 
+     <!-- close button -->
+Index: breeze-5.11.5/kstyle/breezemdiwindowshadow.cpp
+===================================================================
+--- breeze-5.11.5.orig/kstyle/breezemdiwindowshadow.cpp
++++ breeze-5.11.5/kstyle/breezemdiwindowshadow.cpp
+@@ -51,7 +51,7 @@ namespace Breeze
+         const int size( shadowSize - Metrics::Shadow_Overlap );
+         const int topSize( size - shadowOffset );
+         const int bottomSize( size );
+-        const int leftSize( size - shadowOffset );
++        const int leftSize( size );
+         const int rightSize( size );
+ 
+         // get tileSet rect
+Index: breeze-5.11.5/kstyle/breezeshadowhelper.cpp
+===================================================================
+--- breeze-5.11.5.orig/kstyle/breezeshadowhelper.cpp
++++ breeze-5.11.5/kstyle/breezeshadowhelper.cpp
+@@ -261,8 +261,8 @@ namespace Breeze
+             p.setBrush( Qt::black );
+ 
+             QRectF innerRect(
+-                shadowSize - shadowOffset - Metrics::Shadow_Overlap, shadowSize - shadowOffset - Metrics::Shadow_Overlap,
+-                shadowOffset + 2*Metrics::Shadow_Overlap,shadowOffset + 2*Metrics::Shadow_Overlap );
++                shadowSize - Metrics::Shadow_Overlap, shadowSize - shadowOffset - Metrics::Shadow_Overlap,
++                2*Metrics::Shadow_Overlap,shadowOffset + 2*Metrics::Shadow_Overlap );
+ 
+             p.setCompositionMode(QPainter::CompositionMode_DestinationOut );
+ 
+@@ -516,7 +516,7 @@ namespace Breeze
+         int size( shadowSize - Metrics::Shadow_Overlap );
+         int topSize = ( size - shadowOffset ) * devicePixelRatio;
+         int bottomSize = size * devicePixelRatio;
+-        const int leftSize( (size - shadowOffset) * devicePixelRatio );
++        const int leftSize( size * devicePixelRatio );
+         const int rightSize( size * devicePixelRatio );
+ 
+         if( widget->inherits( "QBalloonTip" ) )
