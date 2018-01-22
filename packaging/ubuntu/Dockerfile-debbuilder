@@ -1,0 +1,20 @@
+FROM ubuntu:17.10
+MAINTAINER Vlad Zagorodniy <vladzzag@gmail.com>
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    devscripts \
+    fakeroot \
+    debhelper \
+    automake \
+    autotools-dev \
+    pkg-config \
+    git \
+    cmake
+
+RUN sed -i -- 's/# deb-src/deb-src/g' /etc/apt/sources.list
+
+VOLUME /patches
+VOLUME /out
+
+RUN mkdir source && cd source
