@@ -65,5 +65,6 @@ source $HOME/.aliases
 #   - PURE_GIT_UP_ARROW
 #     Default: '⇡'
 #
+PURE_PROMPT_SYMBOL='$'
 autoload -U promptinit; promptinit
 prompt pure
