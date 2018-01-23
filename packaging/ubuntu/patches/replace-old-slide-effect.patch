@@ -1,0 +1,1236 @@
+diff -Naur a/effects/CMakeLists.txt b/effects/CMakeLists.txt
+--- a/effects/CMakeLists.txt	2018-01-02 14:34:16.653371478 +0200
++++ b/effects/CMakeLists.txt	2018-01-23 13:53:55.628282715 +0200
+@@ -91,6 +91,7 @@
+     presentwindows/presentwindows_proxy.cpp
+     resize/resize.cpp
+     showfps/showfps.cpp
++    slide/slide.cpp
+     thumbnailaside/thumbnailaside.cpp
+     touchpoints/touchpoints.cpp
+     trackmouse/trackmouse.cpp
+@@ -119,6 +120,7 @@
+     presentwindows/presentwindowsconfig.kcfgc
+     resize/resizeconfig.kcfgc
+     showfps/showfpsconfig.kcfgc
++    slide/slideconfig.kcfgc
+     slidingpopups/slidingpopupsconfig.kcfgc
+     thumbnailaside/thumbnailasideconfig.kcfgc
+     trackmouse/trackmouseconfig.kcfgc
+@@ -158,7 +160,7 @@
+ include( screenedge/CMakeLists.txt )
+ add_subdirectory( showfps )
+ include( showpaint/CMakeLists.txt )
+-include( slide/CMakeLists.txt )
++add_subdirectory( slide )
+ include( slideback/CMakeLists.txt )
+ include( slidingpopups/CMakeLists.txt )
+ add_subdirectory( thumbnailaside )
+diff -Naur a/effects/effect_builtins.cpp b/effects/effect_builtins.cpp
+--- a/effects/effect_builtins.cpp	2018-01-02 14:34:16.805372489 +0200
++++ b/effects/effect_builtins.cpp	2018-01-23 13:51:51.119922401 +0200
+@@ -520,7 +520,7 @@
+     }, {
+         QStringLiteral("slide"),
+         i18ndc("kwin_effects", "Name of a KWin Effect", "Slide"),
+-        i18ndc("kwin_effects", "Comment describing the KWin Effect", "Slide windows across the screen when switching virtual desktops"),
++        i18ndc("kwin_effects", "Comment describing the KWin Effect", "Slide desktops when switching virtual desktops"),
+         QStringLiteral("Virtual Desktop Switching Animation"),
+         QStringLiteral("desktop-animations"),
+         QUrl(QStringLiteral("http://files.kde.org/plasma/kwin/effect-videos/slide.ogv")),
+diff -Naur a/effects/slide/CMakeLists.txt b/effects/slide/CMakeLists.txt
+--- a/effects/slide/CMakeLists.txt	2018-01-02 14:34:16.837372702 +0200
++++ b/effects/slide/CMakeLists.txt	2018-01-23 13:48:21.974904395 +0200
+@@ -1,7 +1,24 @@
+ #######################################
+-# Effect
++# Config
++set(kwin_slide_config_SRCS slide_config.cpp)
++ki18n_wrap_ui(kwin_slide_config_SRCS slide_config.ui)
++qt5_add_dbus_interface(kwin_slide_config_SRCS ${kwin_effects_dbus_xml} kwineffects_interface)
++kconfig_add_kcfg_files(kwin_slide_config_SRCS slideconfig.kcfgc)
+ 
+-# Source files
+-set( kwin4_effect_builtins_sources ${kwin4_effect_builtins_sources}
+-    slide/slide.cpp
+-    )
++add_library(kwin_slide_config MODULE ${kwin_slide_config_SRCS})
++
++target_link_libraries(kwin_slide_config
++    Qt5::DBus
++    KF5::ConfigWidgets
++    KF5::I18n
++    KF5::Service
++)
++
++kcoreaddons_desktop_to_json(kwin_slide_config slide_config.desktop SERVICE_TYPES kcmodule.desktop)
++
++install(
++    TARGETS
++        kwin_slide_config
++    DESTINATION
++        ${PLUGIN_INSTALL_DIR}/kwin/effects/configs
++)
+diff -Naur a/effects/slide/slide_config.cpp b/effects/slide/slide_config.cpp
+--- a/effects/slide/slide_config.cpp	1970-01-01 03:00:00.000000000 +0300
++++ b/effects/slide/slide_config.cpp	2018-01-23 13:48:21.974904395 +0200
+@@ -0,0 +1,63 @@
++/********************************************************************
++ KWin - the KDE window manager
++ This file is part of the KDE project.
++
++Copyright (C) 2017, 2018 Vlad Zagorodniy <vladzzag@gmail.com>
++
++This program is free software; you can redistribute it and/or modify
++it under the terms of the GNU General Public License as published by
++the Free Software Foundation; either version 2 of the License, or
++(at your option) any later version.
++
++This program is distributed in the hope that it will be useful,
++but WITHOUT ANY WARRANTY; without even the implied warranty of
++MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++GNU General Public License for more details.
++
++You should have received a copy of the GNU General Public License
++along with this program.  If not, see <http://www.gnu.org/licenses/>.
++*********************************************************************/
++
++#include "slide_config.h"
++// KConfigSkeleton
++#include "slideconfig.h"
++#include <config-kwin.h>
++
++#include <kwineffects_interface.h>
++
++#include <KAboutData>
++#include <KPluginFactory>
++
++K_PLUGIN_FACTORY_WITH_JSON(SlideEffectConfigFactory,
++                           "slide_config.json",
++                           registerPlugin<KWin::SlideEffectConfig>();)
++
++namespace KWin
++{
++
++SlideEffectConfig::SlideEffectConfig(QWidget *parent, const QVariantList &args)
++    : KCModule(KAboutData::pluginData(QStringLiteral("slide")), parent, args)
++{
++    m_ui.setupUi(this);
++    SlideConfig::instance(KWIN_CONFIG);
++    addConfig(SlideConfig::self(), this);
++    load();
++}
++
++SlideEffectConfig::~SlideEffectConfig()
++{
++}
++
++void SlideEffectConfig::save()
++{
++    KCModule::save();
++
++    OrgKdeKwinEffectsInterface interface(QStringLiteral("org.kde.KWin"),
++                                         QStringLiteral("/Effects"),
++                                         QDBusConnection::sessionBus());
++    interface.reconfigureEffect(QStringLiteral("slide"));
++}
++
++} // namespace KWin
++
++#include "slide_config.moc"
+diff -Naur a/effects/slide/slide_config.desktop b/effects/slide/slide_config.desktop
+--- a/effects/slide/slide_config.desktop	1970-01-01 03:00:00.000000000 +0300
++++ b/effects/slide/slide_config.desktop	2018-01-23 13:48:21.974904395 +0200
+@@ -0,0 +1,67 @@
++[Desktop Entry]
++Type=Service
++X-KDE-ServiceTypes=KCModule
++
++X-KDE-Library=kwin_slide_config
++X-KDE-ParentComponents=slide
++
++Name=Slide
++Name[ar]=أزْلِق
++Name[bg]=Приплъзване
++Name[ca]=Diapositiva
++Name[ca@valencia]=Diapositiva
++Name[cs]=Sklouznutí
++Name[csb]=Pùrganié
++Name[da]=Glid
++Name[de]=Gleiten
++Name[el]=Κύλιση
++Name[en_GB]=Slide
++Name[eo]=Lumbildo
++Name[es]=Deslizar
++Name[et]=Liuglemine
++Name[eu]=Irristatu
++Name[fr]=Glisser
++Name[fy]=Glydzje
++Name[ga]=Sleamhnaigh
++Name[gl]=Deslizar
++Name[gu]=સ્લાઇડ
++Name[hi]=स्लाइड
++Name[hne]=स्लाइड
++Name[hr]=Pomak
++Name[hu]=Csúsztatott váltás
++Name[ia]=Glissa
++Name[is]=Renna til
++Name[it]=Scivola
++Name[kk]=Сырғанату
++Name[km]=ស្លាយ
++Name[kn]=ಜಾರು
++Name[ku]=Xîş Bike
++Name[lv]=Slīdēt
++Name[mai]=स्लाइड
++Name[ml]=തെന്നിമാറുക
++Name[mr]=सरकणे
++Name[nds]=Glieden
++Name[nl]=Schuiven
++Name[pa]=ਸਲਾਈਡ
++Name[pl]=Slajd
++Name[pt]=Deslizar
++Name[ro]=Alunecă
++Name[ru]=Прокрутка
++Name[si]=ලිස්සන්න
++Name[sk]=Posúvať
++Name[sl]=Drsenje
++Name[sr]=Клизање
++Name[sr@ijekavian]=Клизање
++Name[sr@ijekavianlatin]=Klizanje
++Name[sr@latin]=Klizanje
++Name[sv]=Skjut
++Name[ta]=நழுவு
++Name[tg]=Слайд
++Name[th]=เลื่อนหน้าต่าง
++Name[tr]=Kaydır
++Name[ug]=تام تەسۋىر
++Name[uk]=Ковзання
++Name[wa]=Rider
++Name[x-test]=xxSlidexx
++Name[zh_CN]=滑行
++Name[zh_TW]=滑動
+diff -Naur a/effects/slide/slide_config.h b/effects/slide/slide_config.h
+--- a/effects/slide/slide_config.h	1970-01-01 03:00:00.000000000 +0300
++++ b/effects/slide/slide_config.h	2018-01-23 13:48:21.974904395 +0200
+@@ -0,0 +1,47 @@
++/********************************************************************
++ KWin - the KDE window manager
++ This file is part of the KDE project.
++
++Copyright (C) 2017, 2018 Vlad Zagorodniy <vladzzag@gmail.com>
++
++This program is free software; you can redistribute it and/or modify
++it under the terms of the GNU General Public License as published by
++the Free Software Foundation; either version 2 of the License, or
++(at your option) any later version.
++
++This program is distributed in the hope that it will be useful,
++but WITHOUT ANY WARRANTY; without even the implied warranty of
++MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++GNU General Public License for more details.
++
++You should have received a copy of the GNU General Public License
++along with this program.  If not, see <http://www.gnu.org/licenses/>.
++*********************************************************************/
++
++
++#ifndef SLIDE_CONFIG_H
++#define SLIDE_CONFIG_H
++
++#include <KCModule>
++#include "ui_slide_config.h"
++
++namespace KWin
++{
++
++class SlideEffectConfig : public KCModule
++{
++    Q_OBJECT
++
++public:
++    explicit SlideEffectConfig(QWidget *parent = nullptr, const QVariantList& args = QVariantList());
++    ~SlideEffectConfig();
++
++    void save();
++
++private:
++    ::Ui::SlideEffectConfig m_ui;
++};
++
++} // namespace KWin
++
++#endif
+diff -Naur a/effects/slide/slideconfig.kcfgc b/effects/slide/slideconfig.kcfgc
+--- a/effects/slide/slideconfig.kcfgc	1970-01-01 03:00:00.000000000 +0300
++++ b/effects/slide/slideconfig.kcfgc	2018-01-23 13:48:21.974904395 +0200
+@@ -0,0 +1,5 @@
++File=slide.kcfg
++ClassName=SlideConfig
++NameSpace=KWin
++Singleton=true
++Mutators=true
+diff -Naur a/effects/slide/slide_config.ui b/effects/slide/slide_config.ui
+--- a/effects/slide/slide_config.ui	1970-01-01 03:00:00.000000000 +0300
++++ b/effects/slide/slide_config.ui	2018-01-23 13:48:21.974904395 +0200
+@@ -0,0 +1,182 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<ui version="4.0">
++ <class>SlideEffectConfig</class>
++ <widget class="QWidget" name="SlideEffectConfig">
++  <property name="geometry">
++   <rect>
++    <x>0</x>
++    <y>0</y>
++    <width>400</width>
++    <height>250</height>
++   </rect>
++  </property>
++  <layout class="QVBoxLayout" name="verticalLayout">
++   <item>
++    <layout class="QHBoxLayout" name="layout_Duration">
++     <item>
++      <widget class="QLabel" name="label_Duration">
++       <property name="minimumSize">
++        <size>
++         <width>100</width>
++         <height>0</height>
++        </size>
++       </property>
++       <property name="text">
++        <string>D&amp;uration:</string>
++       </property>
++       <property name="alignment">
++        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
++       </property>
++       <property name="buddy">
++        <cstring>kcfg_Duration</cstring>
++       </property>
++      </widget>
++     </item>
++     <item>
++      <widget class="QSpinBox" name="kcfg_Duration">
++       <property name="sizePolicy">
++        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
++         <horstretch>0</horstretch>
++         <verstretch>0</verstretch>
++        </sizepolicy>
++       </property>
++       <property name="minimumSize">
++        <size>
++         <width>0</width>
++         <height>0</height>
++        </size>
++       </property>
++       <property name="specialValueText">
++        <string extracomment="Duration of the slide animation.">Default</string>
++       </property>
++       <property name="suffix">
++        <string> milliseconds</string>
++       </property>
++       <property name="maximum">
++        <number>9999</number>
++       </property>
++       <property name="singleStep">
++        <number>10</number>
++       </property>
++      </widget>
++     </item>
++    </layout>
++   </item>
++   <item>
++    <widget class="QGroupBox" name="groupbox_Gaps">
++     <property name="enabled">
++      <bool>true</bool>
++     </property>
++     <property name="title">
++      <string>Gap between desktops</string>
++     </property>
++     <layout class="QVBoxLayout" name="verticalLayout_2">
++      <item>
++       <layout class="QHBoxLayout" name="layout_HorizontalGap">
++        <item>
++         <widget class="QLabel" name="label_HorizontalGap">
++          <property name="minimumSize">
++           <size>
++            <width>100</width>
++            <height>0</height>
++           </size>
++          </property>
++          <property name="text">
++           <string>Hori&amp;zontal:</string>
++          </property>
++          <property name="alignment">
++           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
++          </property>
++          <property name="buddy">
++           <cstring>kcfg_HorizontalGap</cstring>
++          </property>
++         </widget>
++        </item>
++        <item>
++         <widget class="QSpinBox" name="kcfg_HorizontalGap">
++          <property name="sizePolicy">
++           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
++            <horstretch>0</horstretch>
++            <verstretch>0</verstretch>
++           </sizepolicy>
++          </property>
++          <property name="suffix">
++           <string/>
++          </property>
++          <property name="maximum">
++           <number>1000</number>
++          </property>
++          <property name="singleStep">
++           <number>5</number>
++          </property>
++         </widget>
++        </item>
++       </layout>
++      </item>
++      <item>
++       <layout class="QHBoxLayout" name="layout_VerticalGap">
++        <item>
++         <widget class="QLabel" name="label_VerticalGap">
++          <property name="minimumSize">
++           <size>
++            <width>100</width>
++            <height>0</height>
++           </size>
++          </property>
++          <property name="text">
++           <string>Ver&amp;tical:</string>
++          </property>
++          <property name="alignment">
++           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
++          </property>
++          <property name="buddy">
++           <cstring>kcfg_VerticalGap</cstring>
++          </property>
++         </widget>
++        </item>
++        <item>
++         <widget class="QSpinBox" name="kcfg_VerticalGap">
++          <property name="sizePolicy">
++           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
++            <horstretch>0</horstretch>
++            <verstretch>0</verstretch>
++           </sizepolicy>
++          </property>
++          <property name="maximum">
++           <number>1000</number>
++          </property>
++          <property name="singleStep">
++           <number>5</number>
++          </property>
++         </widget>
++        </item>
++       </layout>
++      </item>
++     </layout>
++    </widget>
++   </item>
++   <item>
++    <widget class="QCheckBox" name="kcfg_SlideDocks">
++     <property name="text">
++      <string>Slide docks</string>
++     </property>
++    </widget>
++   </item>
++   <item>
++    <spacer name="verticalSpacer">
++     <property name="orientation">
++      <enum>Qt::Vertical</enum>
++     </property>
++     <property name="sizeHint" stdset="0">
++      <size>
++       <width>20</width>
++       <height>40</height>
++      </size>
++     </property>
++    </spacer>
++   </item>
++  </layout>
++ </widget>
++ <resources/>
++ <connections/>
++</ui>
+diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
+--- a/effects/slide/slide.cpp	2018-01-02 14:34:16.837372702 +0200
++++ b/effects/slide/slide.cpp	2018-01-23 13:55:35.080357698 +0200
+@@ -4,6 +4,7 @@
+ 
+ Copyright (C) 2007 Lubos Lunak <l.lunak@kde.org>
+ Copyright (C) 2008 Lucas Murray <lmurray@undefinedfire.com>
++Copyright (C) 2018 Vlad Zagorodniy <vladzzag@gmail.com>
+ 
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+@@ -19,274 +20,428 @@
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *********************************************************************/
+ 
+-#include "slide.h"
++// Qt
++#include <QEasingCurve>
+ 
+-#include <math.h>
++#include "slide.h"
++// KConfigSkeleton
++#include "slideconfig.h"
+ 
+ namespace KWin
+ {
+ 
+ SlideEffect::SlideEffect()
+-    : slide(false)
+ {
+-    connect(effects, SIGNAL(desktopChanged(int,int)), this, SLOT(slotDesktopChanged(int,int)));
+-    connect(effects, &EffectsHandler::windowAdded, this, &SlideEffect::windowAdded);
+-    connect(effects, &EffectsHandler::windowDeleted, this, [this](EffectWindow *w) {
+-        m_backgroundContrastForcedBefore.removeAll(w);
+-    });
+-    mTimeLine.setCurveShape(QTimeLine::EaseInOutCurve);
++    initConfig<SlideConfig>();
+     reconfigure(ReconfigureAll);
++
++    QEasingCurve curve(QEasingCurve::OutCubic);
++    m_timeline.setEasingCurve(curve);
++
++    connect(effects, static_cast<void (EffectsHandler::*)(int,int,EffectWindow*)>(&EffectsHandler::desktopChanged),
++            this, &SlideEffect::desktopChanged);
++    connect(effects, &EffectsHandler::windowAdded,
++            this, &SlideEffect::windowAdded);
++    connect(effects, &EffectsHandler::windowDeleted,
++            this, &SlideEffect::windowDeleted);
++    connect(effects, &EffectsHandler::numberDesktopsChanged,
++            this, &SlideEffect::numberDesktopsChanged);
++    connect(effects, &EffectsHandler::numberScreensChanged,
++            this, &SlideEffect::numberScreensChanged);
++}
++
++bool SlideEffect::supported()
++{
++    return effects->animationsSupported();
+ }
+ 
+ void SlideEffect::reconfigure(ReconfigureFlags)
+ {
+-    mTimeLine.setDuration(animationTime(250));
++    SlideConfig::self()->read();
++
++    const int d = animationTime(
++        SlideConfig::duration() > 0 ? SlideConfig::duration() : 500);
++    m_timeline.setDuration(d);
++
++    m_hGap = SlideConfig::horizontalGap();
++    m_vGap = SlideConfig::verticalGap();
++    m_slideDocks = SlideConfig::slideDocks();
+ }
+ 
+ void SlideEffect::prePaintScreen(ScreenPrePaintData& data, int time)
+ {
+-    if (slide) {
+-        mTimeLine.setCurrentTime(mTimeLine.currentTime() + time);
+-
+-        // PAINT_SCREEN_BACKGROUND_FIRST is needed because screen will be actually painted more than once,
+-        // so with normal screen painting second screen paint would erase parts of the first paint
+-        if (mTimeLine.currentValue() != 1)
+-            data.mask |= PAINT_SCREEN_TRANSFORMED | PAINT_SCREEN_BACKGROUND_FIRST;
+-        else {
+-            foreach (EffectWindow * w, effects->stackingOrder()) {
+-                w->setData(WindowForceBlurRole, QVariant(false));
+-                if (m_backgroundContrastForcedBefore.contains(w)) {
+-                    w->setData(WindowForceBackgroundContrastRole, QVariant());
+-                }
+-            }
+-            m_backgroundContrastForcedBefore.clear();
+-            slide = false;
+-            mTimeLine.setCurrentTime(0);
+-            effects->setActiveFullScreenEffect(NULL);
+-        }
++    if (m_active) {
++        m_timeline.setCurrentTime(m_timeline.currentTime() + time);
++        data.mask |= PAINT_SCREEN_TRANSFORMED
++                  |  PAINT_SCREEN_BACKGROUND_FIRST;
+     }
++
+     effects->prePaintScreen(data, time);
+ }
+ 
+-void SlideEffect::prePaintWindow(EffectWindow* w, WindowPrePaintData& data, int time)
++/**
++ * Wrap vector @p diff around grid @p w x @p h.
++ *
++ * Wrapping is done in such a way that magnitude of x and y component of vector
++ * @p diff is less than half of @p w and half of @p h, respectively. This will
++ * result in having the "shortest" path between two points.
++ *
++ * @param diff Vector between two points
++ * @param w Width of the desktop grid
++ * @param h Height of the desktop grid
++ */
++inline void wrapDiff(QPoint& diff, int w, int h)
++{
++    if (diff.x() > w/2) {
++        diff.setX(diff.x() - w);
++    } else if (diff.x() < -w/2) {
++        diff.setX(diff.x() + w);
++    }
++
++    if (diff.y() > h/2) {
++        diff.setY(diff.y() - h);
++    } else if (diff.y() < -h/2) {
++        diff.setY(diff.y() + h);
++    }
++}
++
++inline QRegion buildClipRegion(QPoint pos, int w, int h)
+ {
+-    if (slide) {
+-        if (w->isOnAllDesktops()) {
+-            bool keep_above = w->keepAbove() || w->isDock();
+-            if ((!slide_painting_sticky || keep_above) &&
+-                (!keep_above || !slide_painting_keep_above)) {
+-                w->disablePainting(EffectWindow::PAINT_DISABLED_BY_DESKTOP);
+-            }
+-        } else if (w->isOnDesktop(painting_desktop)) {
+-            data.setTransformed();
+-            w->enablePainting(EffectWindow::PAINT_DISABLED_BY_DESKTOP);
+-        } else {
+-            w->disablePainting(EffectWindow::PAINT_DISABLED_BY_DESKTOP);
+-        }
++    const QSize screenSize = effects->virtualScreenSize();
++    QRegion r = QRect(pos, screenSize);
++    if (effects->optionRollOverDesktops()) {
++        r |= (r & QRect(-w, 0, w, h)).translated(w, 0);  // W
++        r |= (r & QRect(w, 0, w, h)).translated(-w, 0);  // E
++
++        r |= (r & QRect(0, -h, w, h)).translated(0, h);  // N
++        r |= (r & QRect(0, h, w, h)).translated(0, -h);  // S
++
++        r |= (r & QRect(-w, -h, w, h)).translated(w, h); // NW
++        r |= (r & QRect(w, -h, w, h)).translated(-w, h); // NE
++        r |= (r & QRect(w, h, w, h)).translated(-w, -h); // SE
++        r |= (r & QRect(-w, h, w, h)).translated(w, -h); // SW
+     }
+-    effects->prePaintWindow(w, data, time);
++    return r;
+ }
+ 
+ void SlideEffect::paintScreen(int mask, QRegion region, ScreenPaintData& data)
+ {
+-    if (mTimeLine.currentValue() == 0) {
++    if (! m_active) {
+         effects->paintScreen(mask, region, data);
+         return;
+     }
+ 
+-    /*
+-     Transformations are done by remembering starting position of the change and the progress
+-     of it, the destination is computed from the current desktop. Positions of desktops
+-     are done using their topleft corner.
+-    */
+-    QPoint destPos = desktopRect(effects->currentDesktop()).topLeft();
+-    QPoint diffPos = destPos - slide_start_pos;
+-    int w = 0;
+-    int h = 0;
+-    if (effects->optionRollOverDesktops()) {
+-        w = effects->workspaceWidth();
+-        h = effects->workspaceHeight();
+-        // wrap around if shorter
+-        if (diffPos.x() > 0 && diffPos.x() > w / 2)
+-            diffPos.setX(diffPos.x() - w);
+-        if (diffPos.x() < 0 && abs(diffPos.x()) > w / 2)
+-            diffPos.setX(diffPos.x() + w);
+-        if (diffPos.y() > 0 && diffPos.y() > h / 2)
+-            diffPos.setY(diffPos.y() - h);
+-        if (diffPos.y() < 0 && abs(diffPos.y()) > h / 2)
+-            diffPos.setY(diffPos.y() + h);
++    const bool wrap = effects->optionRollOverDesktops();
++    const int w = workspaceWidth();
++    const int h = workspaceHeight();
++
++    QPoint currentPos = m_startPos + m_diff * m_timeline.currentValue();
++
++    // When "Desktop navigation wraps around" checkbox is checked, currentPos
++    // can be outside the rectangle Rect{x:-w, y:-h, width:2*w, height: 2*h},
++    // so we map currentPos back to the rect.
++    if (wrap) {
++        currentPos.setX(currentPos.x() % w);
++        currentPos.setY(currentPos.y() % h);
+     }
+-    QPoint currentPos = slide_start_pos + mTimeLine.currentValue() * diffPos;
+-    QRegion currentRegion = QRect(currentPos, effects->virtualScreenSize());
+-    if (effects->optionRollOverDesktops()) {
+-        currentRegion |= (currentRegion & QRect(-w, 0, w, h)).translated(w, 0);
+-        currentRegion |= (currentRegion & QRect(0, -h, w, h)).translated(0, h);
+-        currentRegion |= (currentRegion & QRect(w, 0, w, h)).translated(-w, 0);
+-        currentRegion |= (currentRegion & QRect(0, h, w, h)).translated(0, -h);
+-    }
+-    bool do_sticky = true;
+-    // Assure that the windows that are on all desktops and always on top
+-    // are painted with the last screen (e.g. plasma's tooltips). All other windows
+-    // that are on all desktops (e.g. the background window) are painted together
+-    // with the first screen.
+-    int last_desktop = 0;
+-    QList<QRect> desktop_rects;
+-    for (int desktop = 1;
+-            desktop <= effects->numberOfDesktops();
+-            ++desktop) {
+-        QRect rect = desktopRect(desktop);
+-        desktop_rects << rect;
+-        if (currentRegion.contains(rect)) {
+-            last_desktop = desktop;
+-        }
+-    }
+-    for (int desktop = 1;
+-            desktop <= effects->numberOfDesktops();
+-            ++desktop) {
+-        QRect rect = desktop_rects[desktop-1];
+-        if (currentRegion.contains(rect)) {  // part of the desktop needs painting
+-            painting_desktop = desktop;
+-            slide_painting_sticky = do_sticky;
+-            slide_painting_keep_above = (last_desktop == desktop);
+-            slide_painting_diff = rect.topLeft() - currentPos;
+-            const QSize screenSize = effects->virtualScreenSize();
+-            if (effects->optionRollOverDesktops()) {
+-                if (slide_painting_diff.x() > screenSize.width())
+-                    slide_painting_diff.setX(slide_painting_diff.x() - w);
+-                if (slide_painting_diff.x() < -screenSize.width())
+-                    slide_painting_diff.setX(slide_painting_diff.x() + w);
+-                if (slide_painting_diff.y() > screenSize.height())
+-                    slide_painting_diff.setY(slide_painting_diff.y() - h);
+-                if (slide_painting_diff.y() < -screenSize.height())
+-                    slide_painting_diff.setY(slide_painting_diff.y() + h);
++
++    QRegion clipRegion = buildClipRegion(currentPos, w, h);
++    QVector<int> visibleDesktops;
++    for (int i = 1; i <= effects->numberOfDesktops(); i++) {
++        QRect desktopGeo = desktopGeometry(i);
++        if (! clipRegion.contains(desktopGeo)) {
++            continue;
++        }
++        visibleDesktops << i;
++    }
++
++    // When we enter a virtual desktop that has a window in fullscreen mode,
++    // stacking order is fine. When we leave a virtual desktop that has
++    // a window in fullscreen mode, stacking order is no longer valid
++    // because panels are raised above the fullscreen window. Construct
++    // a list of fullscreen windows, so we can decide later whether
++    // docks should be visible on different virtual desktops.
++    const auto windows = effects->stackingOrder();
++    if (m_slideDocks) {
++        m_paintCtx.fullscreenWindows.clear();
++        for (EffectWindow* w : windows) {
++            if (! w->isFullScreen()) {
++                continue;
+             }
+-            do_sticky = false; // paint on-all-desktop windows only once
+-            // TODO mask parts that are not visible?
+-            effects->paintScreen(mask, region, data);
++            m_paintCtx.fullscreenWindows << w;
++        }
++    }
++ 
++    const int lastDesktop = visibleDesktops.last();
++    for (int desktop : qAsConst(visibleDesktops)) {
++        m_paintCtx.desktop = desktop;
++        m_paintCtx.lastPass = (lastDesktop == desktop);
++        m_paintCtx.translation = desktopCoords(desktop) - currentPos;
++        if (wrap) {
++            wrapDiff(m_paintCtx.translation, w, h);
++        }
++        effects->paintScreen(mask, region, data);
++    }
++
++    if (m_slideDocks) {
++        return;
++    }
++
++    for (EffectWindow* w : windows) {
++        if (! w->isDock()) {
++            continue;
+         }
++        WindowPaintData dockData(w);
++        int dockMask = mask
++            | (w->hasAlpha() ? PAINT_WINDOW_TRANSLUCENT
++                             : PAINT_WINDOW_OPAQUE);
++        effects->drawWindow(w, dockMask, infiniteRegion(), dockData);
+     }
+ }
+ 
+-void SlideEffect::paintWindow(EffectWindow* w, int mask, QRegion region, WindowPaintData& data)
++/**
++ * Decide whether given window @p w should be transformed/translated.
++ * @returns @c true if given window @p w should be transformed, otherwise @c false
++ */
++bool SlideEffect::isTranslated(const EffectWindow* w) const
++{
++    if (w->isOnAllDesktops()) {
++        return (w->isDock() || w->isDesktop());
++    } else if (w == m_movingWindow) {
++        return false;
++    } else if (w->isOnDesktop(m_paintCtx.desktop)) {
++        return true;
++    }
++    return false;
++}
++
++/**
++ * Decide whether given window @p w should be painted.
++ * @returns @c true if given window @p w should be painted, otherwise @c false
++ */
++bool SlideEffect::isPainted(const EffectWindow* w) const
++{
++    if (w->isOnAllDesktops()) {
++        if (w->isDock()) {
++            if (! m_slideDocks) {
++                return false;
++            }
++            for (const EffectWindow* fw : qAsConst(m_paintCtx.fullscreenWindows)) {
++                if (fw->isOnDesktop(m_paintCtx.desktop)
++                    && fw->screen() == w->screen()) {
++                    return false;
++                }
++            }
++            return true;
++        }
++        // In order to make sure that 'keep above' windows are above
++        // other windows during transition to another virtual desktop,
++        // they should be painted in the last pass.
++        if (w->keepAbove()) {
++            return m_paintCtx.lastPass;
++        }
++        return true;
++    } else if (w == m_movingWindow) {
++        return m_paintCtx.lastPass;
++    } else if (w->isOnDesktop(m_paintCtx.desktop)) {
++        return true;
++    }
++    return false;
++}
++
++void SlideEffect::prePaintWindow(EffectWindow* w, WindowPrePaintData& data, int time)
+ {
+-    if (slide) {
+-        // don't move windows on all desktops (compensate screen transformation)
+-        if (!w->isOnAllDesktops()) { // TODO also fix 'Workspace::movingClient'
+-            data += slide_painting_diff;
++    if (m_active) {
++        const bool painted = isPainted(w);
++        if (painted) {
++            w->enablePainting(EffectWindow::PAINT_DISABLED_BY_DESKTOP);
++        } else {
++            w->disablePainting(EffectWindow::PAINT_DISABLED_BY_DESKTOP);
++        }
++        if (painted && isTranslated(w)) {
++            data.setTransformed();
+         }
+     }
++    effects->prePaintWindow(w, data, time);
++}
++
++void SlideEffect::paintWindow(EffectWindow* w, int mask, QRegion region, WindowPaintData& data)
++{
++    if (m_active && isTranslated(w)) {
++        data += m_paintCtx.translation;
++    }
+     effects->paintWindow(w, mask, region, data);
+ }
+ 
+ void SlideEffect::postPaintScreen()
+ {
+-    if (slide)
++    if (m_active) {
++        if (m_timeline.currentValue() == 1) {
++            stop();
++        }
+         effects->addRepaintFull();
++    }
+     effects->postPaintScreen();
+ }
+ 
+-// Gives a position of the given desktop when all desktops are arranged in a grid
+-QRect SlideEffect::desktopRect(int desktop) const
++/**
++ * Get position of the top-left corner of desktop @p id within desktop grid with gaps.
++ * @param id ID of a virtual desktop
++ */
++QPoint SlideEffect::desktopCoords(int id) const
++{
++    QPoint c = effects->desktopCoords(id);
++    QPoint gridPos = effects->desktopGridCoords(id);
++    c.setX(c.x() + m_hGap * gridPos.x());
++    c.setY(c.y() + m_vGap * gridPos.y());
++    return c;
++}
++
++/**
++ * Get geometry of desktop @p id within desktop grid with gaps.
++ * @param id ID of a virtual desktop
++ */
++QRect SlideEffect::desktopGeometry(int id) const
+ {
+-    QRect rect = effects->virtualScreenGeometry();
+-    rect.translate(effects->desktopCoords(desktop));
+-    return rect;
++    QRect g = effects->virtualScreenGeometry();
++    g.translate(desktopCoords(id));
++    return g;
+ }
+ 
+-void SlideEffect::slotDesktopChanged(int old, int current)
++/**
++ * Get width of a virtual desktop grid.
++ */
++int SlideEffect::workspaceWidth() const
+ {
+-    if (effects->activeFullScreenEffect() && effects->activeFullScreenEffect() != this)
++    int w = effects->workspaceWidth();
++    w += m_hGap * effects->desktopGridWidth();
++    return w;
++}
++
++/**
++ * Get height of a virtual desktop grid.
++ */
++int SlideEffect::workspaceHeight() const
++{
++    int h = effects->workspaceHeight();
++    h += m_vGap * effects->desktopGridHeight();
++    return h;
++}
++
++inline bool shouldForceBackgroundContrast(const EffectWindow *w)
++{
++    if (w->data(WindowForceBackgroundContrastRole).isValid()) {
++        return false;
++    }
++    return w->hasAlpha()
++        && w->isOnAllDesktops()
++        && (w->isDock() || w->keepAbove());
++}
++
++void SlideEffect::start(int old, int current, EffectWindow* movingWindow)
++{
++    m_movingWindow = movingWindow;
++
++    const bool wrap = effects->optionRollOverDesktops();
++    const int w = workspaceWidth();
++    const int h = workspaceHeight();
++
++    if (m_active) {
++        QPoint passed = m_diff * m_timeline.currentValue();
++        QPoint currentPos = m_startPos + passed;
++        QPoint delta = desktopCoords(current) - desktopCoords(old);
++        if (wrap) {
++            wrapDiff(delta, w, h);
++        }
++        m_diff += delta - passed;
++        m_startPos = currentPos;
++        m_timeline.setCurrentTime(0);
+         return;
++    }
+ 
+-    if (slide) { // old slide still in progress
+-        QPoint diffPos = desktopRect(old).topLeft() - slide_start_pos;
+-        int w = 0;
+-        int h = 0;
+-        if (effects->optionRollOverDesktops()) {
+-            w = effects->workspaceWidth();
+-            h = effects->workspaceHeight();
+-            // wrap around if shorter
+-            if (diffPos.x() > 0 && diffPos.x() > w / 2)
+-                diffPos.setX(diffPos.x() - w);
+-            if (diffPos.x() < 0 && abs(diffPos.x()) > w / 2)
+-                diffPos.setX(diffPos.x() + w);
+-            if (diffPos.y() > 0 && diffPos.y() > h / 2)
+-                diffPos.setY(diffPos.y() - h);
+-            if (diffPos.y() < 0 && abs(diffPos.y()) > h / 2)
+-                diffPos.setY(diffPos.y() + h);
+-        }
+-        QPoint currentPos = slide_start_pos + mTimeLine.currentValue() * diffPos;
+-        const QSize screenSize = effects->virtualScreenSize();
+-        QRegion currentRegion = QRect(currentPos, screenSize);
+-        if (effects->optionRollOverDesktops()) {
+-            currentRegion |= (currentRegion & QRect(-w, 0, w, h)).translated(w, 0);
+-            currentRegion |= (currentRegion & QRect(0, -h, w, h)).translated(0, h);
+-            currentRegion |= (currentRegion & QRect(w, 0, w, h)).translated(-w, 0);
+-            currentRegion |= (currentRegion & QRect(0, h, w, h)).translated(0, -h);
+-        }
+-        QRect rect = desktopRect(current);
+-        if (currentRegion.contains(rect)) {
+-            // current position is in new current desktop (e.g. quickly changing back),
+-            // don't do full progress
+-            if (abs(currentPos.x() - rect.x()) > abs(currentPos.y() - rect.y()))
+-                mTimeLine.setCurrentTime((1.0 - abs(currentPos.x() - rect.x()) / double(screenSize.width()))*(qreal)mTimeLine.currentValue());
+-            else
+-                mTimeLine.setCurrentTime((1.0 - abs(currentPos.y() - rect.y()) / double(screenSize.height()))*(qreal)mTimeLine.currentValue());
+-        } else // current position is not on current desktop, do full progress
+-            mTimeLine.setCurrentTime(0);
+-        diffPos = rect.topLeft() - currentPos;
+-        if (mTimeLine.currentValue() <= 0) {
+-            // Compute starting point for this new move (given current and end positions)
+-            slide_start_pos = rect.topLeft() - diffPos * 1 / (1 - mTimeLine.currentValue());
+-        } else {
+-            // at the end, stop
+-            foreach (EffectWindow * w, m_backgroundContrastForcedBefore) {
+-                w->setData(WindowForceBackgroundContrastRole, QVariant());
+-            }
+-            m_backgroundContrastForcedBefore.clear();
+-            slide = false;
+-            mTimeLine.setCurrentTime(0);
+-            effects->setActiveFullScreenEffect(NULL);
+-        }
+-    } else {
+-        if (effects->activeFullScreenEffect() && effects->activeFullScreenEffect() != this)
+-            return;
+-        mTimeLine.setCurrentTime(0);
+-        slide_start_pos = desktopRect(old).topLeft();
+-        slide = true;
+-        foreach (EffectWindow * w, effects->stackingOrder()) {
+-            w->setData(WindowForceBlurRole, QVariant(true));
+-            if (shouldForceBackgroundContrast(w)) {
+-                m_backgroundContrastForcedBefore.append(w);
+-                w->setData(WindowForceBackgroundContrastRole, QVariant(true));
+-            }
++    const auto windows = effects->stackingOrder();
++    for (EffectWindow* w : windows) {
++        w->setData(WindowForceBlurRole, QVariant(true));
++        if (shouldForceBackgroundContrast(w)) {
++            w->setData(WindowForceBackgroundContrastRole, QVariant(true));
++            m_backgroundContrastForcedBefore << w;
+         }
+-        effects->setActiveFullScreenEffect(this);
+     }
++
++    m_diff = desktopCoords(current) - desktopCoords(old);
++    if (wrap) {
++        wrapDiff(m_diff, w, h);
++    }
++    m_startPos = desktopCoords(old);
++    m_timeline.setCurrentTime(0);
++    m_active = true;
++    effects->setActiveFullScreenEffect(this);
+     effects->addRepaintFull();
+ }
+ 
++void SlideEffect::stop()
++{
++    const auto windows = effects->stackingOrder();
++    for (EffectWindow* w : windows) {
++        w->setData(WindowForceBlurRole, QVariant(false));
++        if (m_backgroundContrastForcedBefore.contains(w)) {
++            w->setData(WindowForceBackgroundContrastRole, QVariant());
++        }
++    }
++    m_backgroundContrastForcedBefore.clear();
++    m_paintCtx.fullscreenWindows.clear();
++    m_timeline.setCurrentTime(0);
++    m_movingWindow = nullptr;
++    m_active = false;
++    effects->setActiveFullScreenEffect(nullptr);
++}
++
++void SlideEffect::desktopChanged(int old, int current, EffectWindow* with)
++{
++    if (effects->activeFullScreenEffect() && effects->activeFullScreenEffect() != this) {
++        return;
++    }
++    start(old, current, with);
++}
++
+ void SlideEffect::windowAdded(EffectWindow *w)
+ {
+-    if (slide && shouldForceBackgroundContrast(w)) {
+-        m_backgroundContrastForcedBefore.append(w);
++    if (! m_active) {
++        return;
++    }
++    w->setData(WindowForceBlurRole, QVariant(true));
++    if (shouldForceBackgroundContrast(w)) {
+         w->setData(WindowForceBackgroundContrastRole, QVariant(true));
++        m_backgroundContrastForcedBefore << w;
++    }
++}
++
++void SlideEffect::windowDeleted(EffectWindow *w)
++{
++    if (! m_active) {
++        return;
++    }
++    m_backgroundContrastForcedBefore.removeAll(w);
++    m_paintCtx.fullscreenWindows.removeAll(w);
++    if (w == m_movingWindow) {
++        m_movingWindow = nullptr;
+     }
+ }
+ 
+-bool SlideEffect::shouldForceBackgroundContrast(const EffectWindow *w) const
++void SlideEffect::numberDesktopsChanged(uint)
+ {
+-    // Windows that are docks, kept above (such as panel popups), and do not
+-    // have the background contrast explicitely disabled should be forced on
+-    // during the slide animation
+-    const bool bgWindow = (w->hasAlpha() && w->isOnAllDesktops() && (w->isDock() || w->keepAbove()));
+-    return bgWindow && (!w->data(WindowForceBackgroundContrastRole).isValid());
++    if (! m_active) {
++        return;
++    }
++    stop();
+ }
+ 
+-bool SlideEffect::isActive() const
++void SlideEffect::numberScreensChanged()
+ {
+-    return slide;
++    if (! m_active) {
++        return;
++    }
++    stop();
+ }
+ 
+ } // namespace
+-
+diff -Naur a/effects/slide/slide.h b/effects/slide/slide.h
+--- a/effects/slide/slide.h	2018-01-02 14:34:16.837372702 +0200
++++ b/effects/slide/slide.h	2018-01-23 13:48:21.974904395 +0200
+@@ -4,6 +4,7 @@
+ 
+ Copyright (C) 2007 Lubos Lunak <l.lunak@kde.org>
+ Copyright (C) 2008 Lucas Murray <lmurray@undefinedfire.com>
++Copyright (C) 2018 Vlad Zagorodniy <vladzzag@gmail.com>
+ 
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+@@ -22,47 +23,81 @@
+ #ifndef KWIN_SLIDE_H
+ #define KWIN_SLIDE_H
+ 
++// KDE
+ #include <kwineffects.h>
++
++// Qt
+ #include <QObject>
+ #include <QTimeLine>
+ 
+ namespace KWin
+ {
+ 
+-class SlideEffect
+-    : public Effect
++class SlideEffect : public Effect
+ {
+     Q_OBJECT
+ public:
+     SlideEffect();
+-    virtual void reconfigure(ReconfigureFlags);
+-    virtual void prePaintScreen(ScreenPrePaintData& data, int time);
+-    virtual void paintScreen(int mask, QRegion region, ScreenPaintData& data);
+-    virtual void postPaintScreen();
+-    virtual void prePaintWindow(EffectWindow* w, WindowPrePaintData& data, int time);
+-    virtual void paintWindow(EffectWindow* w, int mask, QRegion region, WindowPaintData& data);
+-    virtual bool isActive() const;
++
++    void reconfigure(ReconfigureFlags) override;
++
++    void prePaintScreen(ScreenPrePaintData& data, int time) override;
++    void paintScreen(int mask, QRegion region, ScreenPaintData& data) override;
++    void postPaintScreen() override;
++
++    void prePaintWindow(EffectWindow* w, WindowPrePaintData& data, int time) override;
++    void paintWindow(EffectWindow* w, int mask, QRegion region, WindowPaintData& data) override;
++
++    bool isActive() const override {
++        return m_active;
++    }
+ 
+     int requestedEffectChainPosition() const override {
+         return 50;
+     }
+ 
++    static bool supported();
++
+ private Q_SLOTS:
+-    void slotDesktopChanged(int old, int current);
++    void desktopChanged(int old, int current, EffectWindow* with);
++    void windowAdded(EffectWindow* w);
++    void windowDeleted(EffectWindow* w);
++
++    void numberDesktopsChanged(uint old);
++    void numberScreensChanged();
+ 
+ private:
+-    void windowAdded(EffectWindow* w);
+-    bool shouldForceBackgroundContrast(const EffectWindow* w) const;
+-    QList< EffectWindow* > m_backgroundContrastForcedBefore;
+-    QRect desktopRect(int desktop) const;
+-    QTimeLine mTimeLine;
+-    int painting_desktop;
+-    bool slide;
+-    QPoint slide_start_pos;
+-    bool slide_painting_sticky;
+-    bool slide_painting_keep_above;
+-    QPoint slide_painting_diff;
++    QPoint desktopCoords(int id) const;
++    QRect desktopGeometry(int id) const;
++    int workspaceWidth() const;
++    int workspaceHeight() const;
++
++    bool isTranslated(const EffectWindow* w) const;
++    bool isPainted(const EffectWindow* w) const;
++
++    void start(int old, int current, EffectWindow* movingWindow = nullptr);
++    void stop();
++
++private:
++    int m_hGap;
++    int m_vGap;
++    bool m_slideDocks;
++
++    bool m_active = false;
++    QTimeLine m_timeline;
++    QPoint m_startPos;
++    QPoint m_diff;
++    EffectWindow* m_movingWindow = nullptr;
++
++    struct {
++        int desktop;
++        bool lastPass;
++        QPoint translation;
++
++        EffectWindowList fullscreenWindows;
++    } m_paintCtx;
+ 
++    QList<EffectWindow*> m_backgroundContrastForcedBefore;
+ };
+ 
+ } // namespace
+diff -Naur a/effects/slide/slide.kcfg b/effects/slide/slide.kcfg
+--- a/effects/slide/slide.kcfg	1970-01-01 03:00:00.000000000 +0300
++++ b/effects/slide/slide.kcfg	2018-01-23 13:48:21.974904395 +0200
+@@ -0,0 +1,22 @@
++<?xml version="1.0" encoding="UTF-8"?>
++
++<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
++    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++    xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
++    http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
++    <kcfgfile arg="true"/>
++    <group name="Effect-Slide">
++        <entry name="Duration" type="UInt">
++            <default>0</default>
++        </entry>
++        <entry name="HorizontalGap" type="UInt">
++            <default>45</default>
++        </entry>
++        <entry name="VerticalGap" type="UInt">
++            <default>20</default>
++        </entry>
++        <entry name="SlideDocks" type="Bool">
++            <default>true</default>
++        </entry>
++    </group>
++</kcfg>

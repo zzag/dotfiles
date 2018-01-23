@@ -1,0 +1,15 @@
+diff -Naur a/effects/fade/package/contents/code/main.js b/effects/fade/package/contents/code/main.js
+--- a/effects/fade/package/contents/code/main.js	2018-01-02 14:34:16.825372622 +0200
++++ b/effects/fade/package/contents/code/main.js	2018-01-23 14:27:46.663852306 +0200
+@@ -68,9 +68,9 @@
+     }
+ }
+ effects.windowAdded.connect(fadeInHandler);
+-effects.windowShown.connect(fadeInHandler);
++// effects.windowShown.connect(fadeInHandler);
+ effects.windowClosed.connect(fadeOutHandler);
+-effects.windowHidden.connect(fadeOutHandler);
++// effects.windowHidden.connect(fadeOutHandler);
+ effects.windowDataChanged.connect(function (window, role) {
+     if (role == Effect.WindowAddedGrabRole) {
+         if (effect.isGrabbed(window, Effect.WindowAddedGrabRole)) {
