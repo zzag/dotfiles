@@ -22,6 +22,9 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=white'
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 
+# Anaconda support.
+antigen bundle zzag/zsh-conda
+
 # Use pure zsh prompt.
 #
 # Available options:
