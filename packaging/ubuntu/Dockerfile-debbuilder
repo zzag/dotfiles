@@ -1,20 +1,22 @@
 FROM ubuntu:17.10
-MAINTAINER Vlad Zagorodniy <vladzzag@gmail.com>
+LABEL maintainer="Vlad Zagorodniy <vladzzag@gmail.com>"
+
+RUN sed -i -- 's/# deb-src/deb-src/g' /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y \
+    software-properties-common \
     build-essential \
     devscripts \
     fakeroot \
     debhelper \
+    quilt \
     automake \
     autotools-dev \
     pkg-config \
     git \
-    cmake
-
-RUN sed -i -- 's/# deb-src/deb-src/g' /etc/apt/sources.list
+    cmake \
+    vim \
+    dirmngr
 
 VOLUME /patches
 VOLUME /out
-
-RUN mkdir source && cd source
