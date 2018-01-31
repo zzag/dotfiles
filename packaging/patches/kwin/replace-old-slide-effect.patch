@@ -1,6 +1,6 @@
 diff -Naur a/effects/CMakeLists.txt b/effects/CMakeLists.txt
 --- a/effects/CMakeLists.txt	2018-01-02 14:34:16.653371478 +0200
-+++ b/effects/CMakeLists.txt	2018-01-23 13:53:55.628282715 +0200
++++ b/effects/CMakeLists.txt	2018-01-31 16:28:44.735967823 +0200
 @@ -91,6 +91,7 @@
      presentwindows/presentwindows_proxy.cpp
      resize/resize.cpp
@@ -28,7 +28,7 @@ diff -Naur a/effects/CMakeLists.txt b/effects/CMakeLists.txt
  add_subdirectory( thumbnailaside )
 diff -Naur a/effects/effect_builtins.cpp b/effects/effect_builtins.cpp
 --- a/effects/effect_builtins.cpp	2018-01-02 14:34:16.805372489 +0200
-+++ b/effects/effect_builtins.cpp	2018-01-23 13:51:51.119922401 +0200
++++ b/effects/effect_builtins.cpp	2018-01-31 16:27:26.439296818 +0200
 @@ -520,7 +520,7 @@
      }, {
          QStringLiteral("slide"),
@@ -40,7 +40,7 @@ diff -Naur a/effects/effect_builtins.cpp b/effects/effect_builtins.cpp
          QUrl(QStringLiteral("http://files.kde.org/plasma/kwin/effect-videos/slide.ogv")),
 diff -Naur a/effects/slide/CMakeLists.txt b/effects/slide/CMakeLists.txt
 --- a/effects/slide/CMakeLists.txt	2018-01-02 14:34:16.837372702 +0200
-+++ b/effects/slide/CMakeLists.txt	2018-01-23 13:48:21.974904395 +0200
++++ b/effects/slide/CMakeLists.txt	2018-01-31 16:26:36.062627359 +0200
 @@ -1,7 +1,24 @@
  #######################################
 -# Effect
@@ -73,7 +73,7 @@ diff -Naur a/effects/slide/CMakeLists.txt b/effects/slide/CMakeLists.txt
 +)
 diff -Naur a/effects/slide/slide_config.cpp b/effects/slide/slide_config.cpp
 --- a/effects/slide/slide_config.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ b/effects/slide/slide_config.cpp	2018-01-23 13:48:21.974904395 +0200
++++ b/effects/slide/slide_config.cpp	2018-01-31 16:26:36.075960693 +0200
 @@ -0,0 +1,63 @@
 +/********************************************************************
 + KWin - the KDE window manager
@@ -140,8 +140,8 @@ diff -Naur a/effects/slide/slide_config.cpp b/effects/slide/slide_config.cpp
 +#include "slide_config.moc"
 diff -Naur a/effects/slide/slide_config.desktop b/effects/slide/slide_config.desktop
 --- a/effects/slide/slide_config.desktop	1970-01-01 03:00:00.000000000 +0300
-+++ b/effects/slide/slide_config.desktop	2018-01-23 13:48:21.974904395 +0200
-@@ -0,0 +1,67 @@
++++ b/effects/slide/slide_config.desktop	2018-01-31 16:26:36.075960693 +0200
+@@ -0,0 +1,68 @@
 +[Desktop Entry]
 +Type=Service
 +X-KDE-ServiceTypes=KCModule
@@ -186,6 +186,7 @@ diff -Naur a/effects/slide/slide_config.desktop b/effects/slide/slide_config.des
 +Name[mr]=सरकणे
 +Name[nds]=Glieden
 +Name[nl]=Schuiven
++Name[nn]=Skliding
 +Name[pa]=ਸਲਾਈਡ
 +Name[pl]=Slajd
 +Name[pt]=Deslizar
@@ -211,7 +212,7 @@ diff -Naur a/effects/slide/slide_config.desktop b/effects/slide/slide_config.des
 +Name[zh_TW]=滑動
 diff -Naur a/effects/slide/slide_config.h b/effects/slide/slide_config.h
 --- a/effects/slide/slide_config.h	1970-01-01 03:00:00.000000000 +0300
-+++ b/effects/slide/slide_config.h	2018-01-23 13:48:21.974904395 +0200
++++ b/effects/slide/slide_config.h	2018-01-31 16:26:36.079294027 +0200
 @@ -0,0 +1,47 @@
 +/********************************************************************
 + KWin - the KDE window manager
@@ -262,7 +263,7 @@ diff -Naur a/effects/slide/slide_config.h b/effects/slide/slide_config.h
 +#endif
 diff -Naur a/effects/slide/slideconfig.kcfgc b/effects/slide/slideconfig.kcfgc
 --- a/effects/slide/slideconfig.kcfgc	1970-01-01 03:00:00.000000000 +0300
-+++ b/effects/slide/slideconfig.kcfgc	2018-01-23 13:48:21.974904395 +0200
++++ b/effects/slide/slideconfig.kcfgc	2018-01-31 16:26:36.079294027 +0200
 @@ -0,0 +1,5 @@
 +File=slide.kcfg
 +ClassName=SlideConfig
@@ -271,7 +272,7 @@ diff -Naur a/effects/slide/slideconfig.kcfgc b/effects/slide/slideconfig.kcfgc
 +Mutators=true
 diff -Naur a/effects/slide/slide_config.ui b/effects/slide/slide_config.ui
 --- a/effects/slide/slide_config.ui	1970-01-01 03:00:00.000000000 +0300
-+++ b/effects/slide/slide_config.ui	2018-01-23 13:48:21.974904395 +0200
++++ b/effects/slide/slide_config.ui	2018-01-31 16:26:36.079294027 +0200
 @@ -0,0 +1,182 @@
 +<?xml version="1.0" encoding="UTF-8"?>
 +<ui version="4.0">
@@ -457,7 +458,7 @@ diff -Naur a/effects/slide/slide_config.ui b/effects/slide/slide_config.ui
 +</ui>
 diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
 --- a/effects/slide/slide.cpp	2018-01-02 14:34:16.837372702 +0200
-+++ b/effects/slide/slide.cpp	2018-01-23 13:55:35.080357698 +0200
++++ b/effects/slide/slide.cpp	2018-01-31 16:26:36.072627360 +0200
 @@ -4,6 +4,7 @@
  
  Copyright (C) 2007 Lubos Lunak <l.lunak@kde.org>
@@ -466,13 +467,18 @@ diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
-@@ -19,274 +20,428 @@
+@@ -19,274 +20,518 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *********************************************************************/
  
 -#include "slide.h"
 +// Qt
 +#include <QEasingCurve>
++
++// KWayland
++#include <KWayland/Server/surface_interface.h>
++#include <KWayland/Server/blur_interface.h>
++#include <KWayland/Server/contrast_interface.h>
  
 -#include <math.h>
 +#include "slide.h"
@@ -704,8 +710,9 @@ diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
 -                if (slide_painting_diff.y() < -screenSize.height())
 -                    slide_painting_diff.setY(slide_painting_diff.y() + h);
 +
-+    QRegion clipRegion = buildClipRegion(currentPos, w, h);
 +    QVector<int> visibleDesktops;
++    visibleDesktops.reserve(4); // 4 - maximum number of visible desktops
++    QRegion clipRegion = buildClipRegion(currentPos, w, h);
 +    for (int i = 1; i <= effects->numberOfDesktops(); i++) {
 +        QRect desktopGeo = desktopGeometry(i);
 +        if (! clipRegion.contains(desktopGeo)) {
@@ -720,8 +727,8 @@ diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
 +    // because panels are raised above the fullscreen window. Construct
 +    // a list of fullscreen windows, so we can decide later whether
 +    // docks should be visible on different virtual desktops.
-+    const auto windows = effects->stackingOrder();
 +    if (m_slideDocks) {
++        const auto windows = effects->stackingOrder();
 +        m_paintCtx.fullscreenWindows.clear();
 +        for (EffectWindow* w : windows) {
 +            if (! w->isFullScreen()) {
@@ -731,9 +738,20 @@ diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
 -            // TODO mask parts that are not visible?
 -            effects->paintScreen(mask, region, data);
 +            m_paintCtx.fullscreenWindows << w;
-+        }
-+    }
-+ 
+         }
+     }
++
++    // If screen is painted with either PAINT_SCREEN_TRANSFORMED or
++    // PAINT_SCREEN_WITH_TRANSFORMED_WINDOWS there is no clipping!!
++    // Push the screen geometry to the paint clipper so everything outside
++    // of the screen geometry is clipped.
++    PaintClipper pc(QRegion(effects->virtualScreenGeometry()));
++
++    // Screen is painted in several passes. Each painting pass paints
++    // a single virtual desktop. There could be either 2 or 4 painting
++    // passes, depending how an user moves between virtual desktops.
++    // Windows, such as docks or keep-above windows, are painted in
++    // the last pass so they are above other windows.
 +    const int lastDesktop = visibleDesktops.last();
 +    for (int desktop : qAsConst(visibleDesktops)) {
 +        m_paintCtx.desktop = desktop;
@@ -744,21 +762,6 @@ diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
 +        }
 +        effects->paintScreen(mask, region, data);
 +    }
-+
-+    if (m_slideDocks) {
-+        return;
-+    }
-+
-+    for (EffectWindow* w : windows) {
-+        if (! w->isDock()) {
-+            continue;
-         }
-+        WindowPaintData dockData(w);
-+        int dockMask = mask
-+            | (w->hasAlpha() ? PAINT_WINDOW_TRANSLUCENT
-+                             : PAINT_WINDOW_OPAQUE);
-+        effects->drawWindow(w, dockMask, infiniteRegion(), dockData);
-     }
  }
  
 -void SlideEffect::paintWindow(EffectWindow* w, int mask, QRegion region, WindowPaintData& data)
@@ -769,7 +772,10 @@ diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
 +bool SlideEffect::isTranslated(const EffectWindow* w) const
 +{
 +    if (w->isOnAllDesktops()) {
-+        return (w->isDock() || w->isDesktop());
++        if (w->isDock()) {
++            return m_slideDocks;
++        }
++        return w->isDesktop();
 +    } else if (w == m_movingWindow) {
 +        return false;
 +    } else if (w->isOnDesktop(m_paintCtx.desktop)) {
@@ -787,7 +793,7 @@ diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
 +    if (w->isOnAllDesktops()) {
 +        if (w->isDock()) {
 +            if (! m_slideDocks) {
-+                return false;
++                return m_paintCtx.lastPass;
 +            }
 +            for (const EffectWindow* fw : qAsConst(m_paintCtx.fullscreenWindows)) {
 +                if (fw->isOnDesktop(m_paintCtx.desktop)
@@ -859,35 +865,35 @@ diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
 + * @param id ID of a virtual desktop
 + */
 +QPoint SlideEffect::desktopCoords(int id) const
-+{
+ {
+-    QRect rect = effects->virtualScreenGeometry();
+-    rect.translate(effects->desktopCoords(desktop));
+-    return rect;
 +    QPoint c = effects->desktopCoords(id);
 +    QPoint gridPos = effects->desktopGridCoords(id);
 +    c.setX(c.x() + m_hGap * gridPos.x());
 +    c.setY(c.y() + m_vGap * gridPos.y());
 +    return c;
-+}
-+
+ }
+ 
+-void SlideEffect::slotDesktopChanged(int old, int current)
 +/**
 + * Get geometry of desktop @p id within desktop grid with gaps.
 + * @param id ID of a virtual desktop
 + */
 +QRect SlideEffect::desktopGeometry(int id) const
  {
--    QRect rect = effects->virtualScreenGeometry();
--    rect.translate(effects->desktopCoords(desktop));
--    return rect;
+-    if (effects->activeFullScreenEffect() && effects->activeFullScreenEffect() != this)
 +    QRect g = effects->virtualScreenGeometry();
 +    g.translate(desktopCoords(id));
 +    return g;
- }
- 
--void SlideEffect::slotDesktopChanged(int old, int current)
++}
++
 +/**
 + * Get width of a virtual desktop grid.
 + */
 +int SlideEffect::workspaceWidth() const
- {
--    if (effects->activeFullScreenEffect() && effects->activeFullScreenEffect() != this)
++{
 +    int w = effects->workspaceWidth();
 +    w += m_hGap * effects->desktopGridWidth();
 +    return w;
@@ -903,14 +909,76 @@ diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
 +    return h;
 +}
 +
-+inline bool shouldForceBackgroundContrast(const EffectWindow *w)
++bool SlideEffect::shouldForceBlur(const EffectWindow* w) const
 +{
-+    if (w->data(WindowForceBackgroundContrastRole).isValid()) {
++    // While there is an active fullscreen effect, the blur effect
++    // tends to do nothing, i.e. it doesn't blur behind windows.
++    // So, we should force the blur effect to blur by setting
++    // WindowForceBlurRole.
++
++    if (w->data(WindowForceBlurRole).toBool()) {
 +        return false;
 +    }
++
++    if (w->data(WindowBlurBehindRole).isValid()) {
++        return true;
++    }
++
++    if (w->decorationHasAlpha() && effects->decorationSupportsBlurBehind()) {
++        return true;
++    }
++
++    // FIXME: it should be something like this:
++    //        if (surf) {
++    //            return !surf->blur().isNull();
++    //        }
++    KWayland::Server::SurfaceInterface* surf = w->surface();
++    if (surf && surf->blur()) {
++        return true;
++    }
++
++    // TODO: make it X11-specific(check _KDE_NET_WM_BLUR_BEHIND_REGION)
++    //       or delete it in the future
++    return w->hasAlpha();
++}
++
++bool SlideEffect::shouldForceBackgroundContrast(const EffectWindow* w) const
++{
++    // While there is an active fullscreen effect, the background
++    // contrast effect tends to do nothing, i.e. it doesn't change
++    // contrast. So, we should force the background contrast effect
++    // to change contrast by setting WindowForceBackgroundContrastRole.
++
++    if (w->data(WindowForceBackgroundContrastRole).toBool()) {
++        return false;
++    }
++
++    if (w->data(WindowBackgroundContrastRole).isValid()) {
++        return true;
++    }
++
++    // FIXME: it should be something like this:
++    //        if (surf) {
++    //            return !surf->contrast().isNull();
++    //        }
++    KWayland::Server::SurfaceInterface* surf = w->surface();
++    if (surf && surf->contrast()) {
++        return true;
++    }
++
++    // TODO: make it X11-specific(check _KDE_NET_WM_BACKGROUND_CONTRAST_REGION)
++    //       or delete it in the future
 +    return w->hasAlpha()
 +        && w->isOnAllDesktops()
 +        && (w->isDock() || w->keepAbove());
++}
++
++bool SlideEffect::shouldElevate(const EffectWindow* w) const
++{
++    // Static docks(i.e. this effect doesn't slide docks) should be elevated
++    // so they can properly animate themselves when an user enters or leaves
++    // a virtual desktop with a window in fullscreen mode.
++    return w->isDock() && !m_slideDocks;
 +}
 +
 +void SlideEffect::start(int old, int current, EffectWindow* movingWindow)
@@ -991,17 +1059,23 @@ diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
 -        slide_start_pos = desktopRect(old).topLeft();
 -        slide = true;
 -        foreach (EffectWindow * w, effects->stackingOrder()) {
--            w->setData(WindowForceBlurRole, QVariant(true));
++    const auto windows = effects->stackingOrder();
++    for (EffectWindow* w : windows) {
++        if (shouldForceBlur(w)) {
+             w->setData(WindowForceBlurRole, QVariant(true));
 -            if (shouldForceBackgroundContrast(w)) {
 -                m_backgroundContrastForcedBefore.append(w);
 -                w->setData(WindowForceBackgroundContrastRole, QVariant(true));
 -            }
-+    const auto windows = effects->stackingOrder();
-+    for (EffectWindow* w : windows) {
-+        w->setData(WindowForceBlurRole, QVariant(true));
++            m_forcedRoles.blur << w;
++        }
 +        if (shouldForceBackgroundContrast(w)) {
 +            w->setData(WindowForceBackgroundContrastRole, QVariant(true));
-+            m_backgroundContrastForcedBefore << w;
++            m_forcedRoles.backgroundContrast << w;
++        }
++        if (shouldElevate(w)) {
++            effects->setElevatedWindow(w, true);
++            m_elevatedWindows << w;
          }
 -        effects->setActiveFullScreenEffect(this);
      }
@@ -1019,14 +1093,21 @@ diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
  
 +void SlideEffect::stop()
 +{
-+    const auto windows = effects->stackingOrder();
-+    for (EffectWindow* w : windows) {
++    for (EffectWindow* w : m_forcedRoles.blur) {
 +        w->setData(WindowForceBlurRole, QVariant(false));
-+        if (m_backgroundContrastForcedBefore.contains(w)) {
-+            w->setData(WindowForceBackgroundContrastRole, QVariant());
-+        }
 +    }
-+    m_backgroundContrastForcedBefore.clear();
++    m_forcedRoles.blur.clear();
++
++    for (EffectWindow* w : m_forcedRoles.backgroundContrast) {
++        w->setData(WindowForceBackgroundContrastRole, QVariant(false));
++    }
++    m_forcedRoles.backgroundContrast.clear();
++
++    for (EffectWindow* w : m_elevatedWindows) {
++        effects->setElevatedWindow(w, false);
++    }
++    m_elevatedWindows.clear();
++
 +    m_paintCtx.fullscreenWindows.clear();
 +    m_timeline.setCurrentTime(0);
 +    m_movingWindow = nullptr;
@@ -1049,27 +1130,22 @@ diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
 +    if (! m_active) {
 +        return;
 +    }
-+    w->setData(WindowForceBlurRole, QVariant(true));
++    if (shouldForceBlur(w)) {
++        w->setData(WindowForceBlurRole, QVariant(true));
++        m_forcedRoles.blur << w;
++    }
 +    if (shouldForceBackgroundContrast(w)) {
          w->setData(WindowForceBackgroundContrastRole, QVariant(true));
-+        m_backgroundContrastForcedBefore << w;
++        m_forcedRoles.backgroundContrast << w;
 +    }
-+}
-+
-+void SlideEffect::windowDeleted(EffectWindow *w)
-+{
-+    if (! m_active) {
-+        return;
-+    }
-+    m_backgroundContrastForcedBefore.removeAll(w);
-+    m_paintCtx.fullscreenWindows.removeAll(w);
-+    if (w == m_movingWindow) {
-+        m_movingWindow = nullptr;
++    if (shouldElevate(w)) {
++        effects->setElevatedWindow(w, true);
++        m_elevatedWindows << w;
      }
  }
  
 -bool SlideEffect::shouldForceBackgroundContrast(const EffectWindow *w) const
-+void SlideEffect::numberDesktopsChanged(uint)
++void SlideEffect::windowDeleted(EffectWindow *w)
  {
 -    // Windows that are docks, kept above (such as panel popups), and do not
 -    // have the background contrast explicitely disabled should be forced on
@@ -1079,11 +1155,17 @@ diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
 +    if (! m_active) {
 +        return;
 +    }
-+    stop();
++    if (w == m_movingWindow) {
++        m_movingWindow = nullptr;
++    }
++    m_forcedRoles.blur.removeAll(w);
++    m_forcedRoles.backgroundContrast.removeAll(w);
++    m_elevatedWindows.removeAll(w);
++    m_paintCtx.fullscreenWindows.removeAll(w);
  }
  
 -bool SlideEffect::isActive() const
-+void SlideEffect::numberScreensChanged()
++void SlideEffect::numberDesktopsChanged(uint)
  {
 -    return slide;
 +    if (! m_active) {
@@ -1092,11 +1174,19 @@ diff -Naur a/effects/slide/slide.cpp b/effects/slide/slide.cpp
 +    stop();
  }
  
- } // namespace
--
+-} // namespace
++void SlideEffect::numberScreensChanged()
++{
++    if (! m_active) {
++        return;
++    }
++    stop();
++}
+ 
++} // namespace
 diff -Naur a/effects/slide/slide.h b/effects/slide/slide.h
 --- a/effects/slide/slide.h	2018-01-02 14:34:16.837372702 +0200
-+++ b/effects/slide/slide.h	2018-01-23 13:48:21.974904395 +0200
++++ b/effects/slide/slide.h	2018-01-31 16:26:36.075960693 +0200
 @@ -4,6 +4,7 @@
  
  Copyright (C) 2007 Lubos Lunak <l.lunak@kde.org>
@@ -1105,7 +1195,7 @@ diff -Naur a/effects/slide/slide.h b/effects/slide/slide.h
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
-@@ -22,47 +23,81 @@
+@@ -22,47 +23,90 @@
  #ifndef KWIN_SLIDE_H
  #define KWIN_SLIDE_H
  
@@ -1164,7 +1254,16 @@ diff -Naur a/effects/slide/slide.h b/effects/slide/slide.h
  
  private:
 -    void windowAdded(EffectWindow* w);
--    bool shouldForceBackgroundContrast(const EffectWindow* w) const;
++    QPoint desktopCoords(int id) const;
++    QRect desktopGeometry(int id) const;
++    int workspaceWidth() const;
++    int workspaceHeight() const;
++
++    bool isTranslated(const EffectWindow* w) const;
++    bool isPainted(const EffectWindow* w) const;
++
++    bool shouldForceBlur(const EffectWindow* w) const;
+     bool shouldForceBackgroundContrast(const EffectWindow* w) const;
 -    QList< EffectWindow* > m_backgroundContrastForcedBefore;
 -    QRect desktopRect(int desktop) const;
 -    QTimeLine mTimeLine;
@@ -1174,13 +1273,7 @@ diff -Naur a/effects/slide/slide.h b/effects/slide/slide.h
 -    bool slide_painting_sticky;
 -    bool slide_painting_keep_above;
 -    QPoint slide_painting_diff;
-+    QPoint desktopCoords(int id) const;
-+    QRect desktopGeometry(int id) const;
-+    int workspaceWidth() const;
-+    int workspaceHeight() const;
-+
-+    bool isTranslated(const EffectWindow* w) const;
-+    bool isPainted(const EffectWindow* w) const;
++    bool shouldElevate(const EffectWindow* w) const;
 +
 +    void start(int old, int current, EffectWindow* movingWindow = nullptr);
 +    void stop();
@@ -1203,14 +1296,19 @@ diff -Naur a/effects/slide/slide.h b/effects/slide/slide.h
 +
 +        EffectWindowList fullscreenWindows;
 +    } m_paintCtx;
++
++    struct {
++        QList<EffectWindow*> blur;
++        QList<EffectWindow*> backgroundContrast;
++    } m_forcedRoles;
  
-+    QList<EffectWindow*> m_backgroundContrastForcedBefore;
++    QList<EffectWindow*> m_elevatedWindows;
  };
  
  } // namespace
 diff -Naur a/effects/slide/slide.kcfg b/effects/slide/slide.kcfg
 --- a/effects/slide/slide.kcfg	1970-01-01 03:00:00.000000000 +0300
-+++ b/effects/slide/slide.kcfg	2018-01-23 13:48:21.974904395 +0200
++++ b/effects/slide/slide.kcfg	2018-01-31 16:26:36.075960693 +0200
 @@ -0,0 +1,22 @@
 +<?xml version="1.0" encoding="UTF-8"?>
 +
