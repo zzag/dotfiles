@@ -1,0 +1,12 @@
+pkgname=vscode-colors
+pkgver=1.0
+pkgrel=1
+pkgdesc="Plasma titlebar color for Visual Studio Code"
+arch=('any')
+license=('MIT')
+source=(VSCode.colors)
+sha256sums=('5c40092e42c6e40dec557b3a07ca1247b819ec5024875cf53e910b0e4153be66')
+
+package() {
+    install -Dm644 "$srcdir/VSCode.colors" "$pkgdir/usr/share/color-schemes/VSCode.colors"
+}
