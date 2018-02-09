@@ -1,0 +1,47 @@
+pkgname=konsole-colorschemes
+pkgver=1.0
+pkgrel=1
+pkgdesc="Additional Konsole color schemes"
+arch=('any')
+license=('MIT')
+depends=(konsole)
+source=(Argonaut.colorscheme
+        Cobalt2.colorscheme
+        Gruvbox.colorscheme
+        MaterialDark.colorscheme
+        OneDark.colorscheme
+        TangoDark.colorscheme
+        KonsoleArgonaut.colors
+        KonsoleCobalt2.colors
+        KonsoleGruvbox.colors
+        KonsoleMaterialDark.colors
+        KonsoleOneDark.colors
+        KonsoleTangoDark.colors)
+sha256sums=('e325f4771efda936434cd5214a34d8b0736453305d8c0d1db466910f8ddcd62e'
+            '928e15f24ae68f33401204e5d6ccf448d290348b75bba67dfaea9b27471f7f9b'
+            'c00812e7b163f2c41aca292b45b4cbe100f120463b6be887391ee6ec495cf188'
+            'b973abe44d2b73d57b384125eba2ec87a73600b9bdd09d8f52649d92b4fc896d'
+            '6fed8c12f99ab45916271910822b38dd787156375bee1c4e500089990c9ec335'
+            'b908a75499bb70cf0982f7ebfd9a2167b07f66a3eb2b00f5146b93f0c62e250e'
+            '7b5f48e3f0df79038494173c9c3af74b25d28c21cf2dd27ed3ce609b47a20de4'
+            'ccdd9b34cbc39377edb7f49ebf63cd053dd761b869632f3dff44c06a66f1d6f2'
+            'c53d1fb757ed8234b0eb7eda53ec9ec4e037bedce2a8607c1ac5aefc193505a6'
+            '564a6b762b58fa5016776a5faed1241f888edc88f1a2357a1ba7e31d53b45102'
+            '9d9bc633b6f802371c827306fa6b34e4a41dfbf34dac6c69c6d2abd9e0438fd2'
+            'f4e5cdd005fa1149e12b61990e02a9c79850f00602b4138676b6c1574172e325')
+
+package() {
+    install -Dm644 "$srcdir/Argonaut.colorscheme" "$pkgdir/usr/share/konsole/Argonaut.colorscheme"
+    install -Dm644 "$srcdir/Cobalt2.colorscheme" "$pkgdir/usr/share/konsole/Cobalt2.colorscheme"
+    install -Dm644 "$srcdir/Gruvbox.colorscheme" "$pkgdir/usr/share/konsole/Gruvbox.colorscheme"
+    install -Dm644 "$srcdir/MaterialDark.colorscheme" "$pkgdir/usr/share/konsole/MaterialDark.colorscheme"
+    install -Dm644 "$srcdir/OneDark.colorscheme" "$pkgdir/usr/share/konsole/OneDark.colorscheme"
+    install -Dm644 "$srcdir/TangoDark.colorscheme" "$pkgdir/usr/share/konsole/TangoDark.colorscheme"
+
+    install -Dm644 "$srcdir/KonsoleArgonaut.colors" "$pkgdir/usr/share/color-schemes/KonsoleArgonaut.colors"
+    install -Dm644 "$srcdir/KonsoleCobalt2.colors" "$pkgdir/usr/share/color-schemes/KonsoleCobalt2.colors"
+    install -Dm644 "$srcdir/KonsoleGruvbox.colors" "$pkgdir/usr/share/color-schemes/KonsoleGruvbox.colors"
+    install -Dm644 "$srcdir/KonsoleMaterialDark.colors" "$pkgdir/usr/share/color-schemes/KonsoleMaterialDark.colors"
+    install -Dm644 "$srcdir/KonsoleOneDark.colors" "$pkgdir/usr/share/color-schemes/KonsoleOneDark.colors"
+    install -Dm644 "$srcdir/KonsoleTangoDark.colors" "$pkgdir/usr/share/color-schemes/KonsoleTangoDark.colors"
+}
