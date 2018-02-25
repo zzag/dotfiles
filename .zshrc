@@ -25,6 +25,10 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 # Anaconda support.
 antigen bundle zzag/zsh-conda
 
+# NVM
+export NVM_DIR="$HOME/.nvm"
+antigen bundle zzag/zsh-nvm
+
 # Use pure zsh prompt.
 #
 # Available options:
