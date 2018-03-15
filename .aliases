@@ -11,3 +11,6 @@ alias purge='ls -A1 | xargs rm -rf'
 
 # fancy utils
 alias ports='sudo netstat -vatnp'
+
+# package management
+alias pacman-delete-orphans='sudo pacman -Rns $(pacman -Qtdq)'
