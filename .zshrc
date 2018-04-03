@@ -22,6 +22,9 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=white'
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 
+# Additional completion definitions
+antigen bundle zsh-users/zsh-completions
+
 # Anaconda support.
 antigen bundle zzag/zsh-conda
 
