@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Shamelessly copied from https://github.com/andreyorst/kde_wallpaper_blur/blob/master/wpblur.sh
+# with some minor tweaks.
+
+convert $1 \
+    -filter Gaussian \
+    -resize 5% \
+    -define filter:sigma=3.0 \
+    -resize 2000% \
+    -attenuate 0.2 \
+    +noise Gaussian \
+    ~/.bg.png
