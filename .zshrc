@@ -21,6 +21,9 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 # Additional completion definitions
 antigen bundle zsh-users/zsh-completions
 
+# Fish-like autocompletion
+antigen bundle zsh-users/zsh-autosuggestions
+
 # Anaconda support.
 antigen bundle zzag/zsh-conda
 
