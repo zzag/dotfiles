@@ -16,10 +16,6 @@ antigen bundle command-not-found
 
 # Syntax highlighting bundle.
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-
-typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[path]='fg=white'
-
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Additional completion definitions
