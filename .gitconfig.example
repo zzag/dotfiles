@@ -1,6 +1,8 @@
 [user]
 	name = <name>
 	email = <email>
+[alias]
+	pretty-log = log --decorate --all --graph
 [color]
 	ui = true
 [color "diff-highlight"]
