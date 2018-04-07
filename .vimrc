@@ -11,12 +11,9 @@ Plug 'fatih/vim-go'
 Plug 'elzr/vim-json'
 
 " UI
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'scrooloose/nerdtree'
 Plug 'Yggdroot/indentLine'
-Plug 'vim-airline/vim-airline'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
@@ -28,21 +25,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'editorconfig/editorconfig-vim'
 
-" Autocompletion
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
-Plug 'zchee/deoplete-go', { 'do': 'make' }
-Plug 'zchee/deoplete-jedi'
-
-" Themes
-Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 
@@ -69,7 +51,6 @@ syntax on
 set autoread
 
 " Highlight current line.
-set cursorline
 set lazyredraw
 
 " Minimal number of screen lines to keep above and below the cursor.
@@ -124,9 +105,9 @@ set list listchars=tab:»·,trail:·,nbsp:·
 
 " Enable TrueColor support.
 " (available on Vim>=8.0 or Neovim)
-if has("termguicolors")
-  set termguicolors
-endif
+" if has("termguicolors")
+"   set termguicolors
+" endif
 
 
 " ==================================================
@@ -134,8 +115,7 @@ endif
 " ==================================================
 
 set background=dark
-let g:gruvbox_contrast_dark = 'soft'
-colorscheme gruvbox
+colorscheme default
 
 " Show comments in italics.
 " (should be set after colorscheme)
@@ -226,17 +206,6 @@ autocmd BufReadPost *
 " ==================================================
 
 " --------------------------------------------------
-" vim-airline
-" --------------------------------------------------
-
-set laststatus=2
-let g:airline_powerline_fonts=1
-
-" Uncomment to show tab line.
-" let g:airline#extensions#tabline#enabled = 1
-
-
-" --------------------------------------------------
 " indentLine
 " --------------------------------------------------
 
@@ -265,28 +234,6 @@ let g:user_emmet_leader_key='<C-Z>'
 
 " Toggle nerd tree.
 map <C-n> :NERDTreeToggle<CR>
-
-
-" --------------------------------------------------
-" fzf.vim
-" --------------------------------------------------
-
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'Normal'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-let g:fzf_layout = { 'down': '~40%' }
 
 
 " --------------------------------------------------
@@ -336,23 +283,6 @@ nmap ga <Plug>(EasyAlign)
 " nmap gc  <Plug>Commentary
 " omap gc  <Plug>Commentary
 " nmap gcc <Plug>CommentaryLine
-
-
-" --------------------------------------------------
-" deoplete.nvim
-" --------------------------------------------------
-
-" Hide preview window.
-set completeopt-=preview
-
-" deoplete.nvim
-let g:deoplete#enable_at_startup = 1
-
-" deoplete-go
-let g:deoplete#sources#go#gocode_binary = "/usr/local/bin/gocode"
-
-" deoplete-jedi
-let g:python3_host_prog = "/usr/bin/python3"
 
 
 " ==================================================
