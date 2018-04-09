@@ -127,6 +127,8 @@ sudo pacman -S \
     nss-mdns \
     openssh \
     p7zip \
+    packagekit \
+    packagekit-qt5 \
     perf \
     pkgfile \
     ranger \
