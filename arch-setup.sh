@@ -183,3 +183,11 @@ sudo ufw allow ssh
 
 # Enable ssh daemon.
 sudo systemctl enable sshd
+
+# Use subpixel font rendering.
+sudo vim /etc/profile.d/freetype2.sh
+    # Add the following line:
+    # export FREETYPE_PROPERTIES="truetype:interpreter-version=38"
+sudo ln -s /etc/fonts/conf.avail/10-hinting-slight.conf /etc/fonts/conf.d/10-hinting-slight.conf
+sudo ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d/10-sub-pixel-rgb.conf
+sudo ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d/11-lcdfilter-default.conf
