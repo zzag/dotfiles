@@ -141,6 +141,7 @@ sudo pacman -S \
     tmux \
     transcode \
     tree \
+    ttf-croscore \
     ttf-liberation \
     ufw \
     unrar \
@@ -191,3 +192,4 @@ sudo vim /etc/profile.d/freetype2.sh
 sudo ln -s /etc/fonts/conf.avail/10-hinting-slight.conf /etc/fonts/conf.d/10-hinting-slight.conf
 sudo ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d/10-sub-pixel-rgb.conf
 sudo ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d/11-lcdfilter-default.conf
+sudo cp fonts.conf /etc/fonts/local.conf
