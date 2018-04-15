@@ -73,7 +73,20 @@ vim /boot/loader/entries/arch.conf
     #
     # HINT: use the following in vim: `read ! blkid /dev/sda2`
 
-# Post-installation.
+
+# Add my repo.
+sudo pacman-key --init
+sudo pacman-key --recv-keys 95453E765FE509F4
+pacman-key --finger 95453E765FE509F4
+    # Check fingerprint.
+sudo pacman-key --lsign-key 95453E765FE509F4
+sudo vim /etc/pacman.conf
+    # Add the following before [testing] repo
+    #     [zzag]
+    #     Server = https://zzag.github.io/repo/arch/
+
+# Install apps.
+sudo pacman -Syu
 sudo pacman -S \
     ark \
     dolphin \
