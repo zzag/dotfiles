@@ -163,6 +163,7 @@ sudo pacman -S \
     vcdimager \
     veracrypt \
     w3m \
+    wireless_tools \
     wireshark-qt \
     youtube-dl \
     zsh
