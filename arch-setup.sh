@@ -19,24 +19,24 @@ cryptsetup open --type luks /dev/sda2 lvm
 
 # Setup LVM.
 pvcreate /dev/mapper/lvm
-vgcreate volume /dev/mapper/lvm
-lvcreate -n swap -L 10G volume
-lvcreate -n root -L 64G volume
-lvcreate -n home -l 100%FREE volume
-mkfs.ext4 /dev/mapper/volume-root
-mkfs.ext4 /dev/mapper/volume-home
-mkswap /dev/mapper/volume-swap
+vgcreate arch /dev/mapper/lvm
+lvcreate -n swap -L 10G arch
+lvcreate -n root -L 64G arch
+lvcreate -n home -l 100%FREE arch
+mkfs.ext4 /dev/mapper/arch-root -L system
+mkfs.ext4 /dev/mapper/arch-home -L data
+mkswap /dev/mapper/arch-swap
 
 # Check partitions.
 lsblk
 
 # Mount partitions.
-mount /dev/mapper/volume-root /mnt
+mount /dev/mapper/arch-root /mnt
 mkdir /mnt/home
 mkdir /mnt/boot
-mount /dev/mapper/volume-home /mnt/home
+mount /dev/mapper/arch-home /mnt/home
 mount /dev/sda1 /mnt/boot
-swapon /dev/mapper/volume-swap
+swapon /dev/mapper/arch-swap
 
 # Install base system.
 reflector --country 'Ukraine' --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
