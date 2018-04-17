@@ -134,6 +134,7 @@ sudo pacman -S \
     inkscape \
     linux-lts \
     llvm \
+    lm_sensors \
     mpv \
     neofetch \
     net-tools \
@@ -144,6 +145,9 @@ sudo pacman -S \
     packagekit-qt5 \
     perf \
     pkgfile \
+    plasma5-applets-redshift-control \
+    plasma5-applets-thermal-monitor \
+    plasma5-applets-weather-widget \
     python-pip \
     ranger \
     rclone \
