@@ -128,6 +128,7 @@ sudo pacman -S \
     gimp \
     git \
     go \
+    gvfs \
     hddtemp \
     htop \
     imagemagick \
