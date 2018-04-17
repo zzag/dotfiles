@@ -41,7 +41,7 @@ swapon /dev/mapper/arch-swap
 # Install base system.
 reflector --country 'Ukraine' --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel
-genfstab -p /mnt >> /mnt/etc/fstab
+genfstab -U /mnt >> /mnt/etc/fstab
 
 # Configure system.
 arch-chroot /mnt
