@@ -41,7 +41,7 @@ swapon /dev/mapper/arch-swap
 # Install base system.
 reflector --country 'Ukraine' --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab -p /mnt >> /mnt/etc/fstab
 
 # Configure system.
 arch-chroot /mnt
@@ -69,7 +69,7 @@ vim /boot/loader/entries/arch.conf
     # linux   /vmlinuz-linux
     # initrd  /intel-ucode.img
     # initrd  /initramfs-linux.img
-    # options cryptdevice=UUID=<...>:volume root=/dev/mapper/volume-root rw resume=/dev/mapper/volume-swap
+    # options cryptdevice=UUID=<...>:arch root=/dev/mapper/arch-root rw resume=/dev/mapper/arch-swap
     #
     # HINT: use the following in vim: `read ! blkid /dev/sda2`
 
