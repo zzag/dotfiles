@@ -144,6 +144,7 @@ sudo pacman -S \
     packagekit-qt5 \
     perf \
     pkgfile \
+    python-pip \
     ranger \
     rclone \
     redshift \
