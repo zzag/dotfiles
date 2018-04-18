@@ -143,6 +143,7 @@ sudo pacman -S \
     net-tools \
     nss-mdns \
     openssh \
+    otf-fira-mono \
     p7zip \
     packagekit \
     packagekit-qt5 \
