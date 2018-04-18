@@ -125,6 +125,7 @@ sudo pacman -S \
     emovix \
     figlet \
     firefox \
+    gdb \
     gimp \
     git \
     go \
@@ -134,6 +135,7 @@ sudo pacman -S \
     imagemagick \
     inkscape \
     linux-lts \
+    lldb \
     llvm \
     lm_sensors \
     mpv \
