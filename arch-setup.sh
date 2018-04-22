@@ -175,6 +175,7 @@ sudo pacman -S \
     w3m \
     wireless_tools \
     wireshark-qt \
+    xterm \
     youtube-dl \
     zsh
 
