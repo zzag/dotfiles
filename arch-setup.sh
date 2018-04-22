@@ -52,6 +52,8 @@ hwclock --systohc
 vim /etc/locale.gen
 locale-gen
 locale > /etc/locale.conf
+vim /etc/sudoers
+    # Uncomment '%wheel ALL=(ALL) ALL'
 vim /etc/mkinitcpio.conf
     # edit HOOKS
     # HOOKS="base udev autodetect modconf block keyboard encrypt lvm2 resume filesystems fsck"
