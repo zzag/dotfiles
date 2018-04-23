@@ -102,6 +102,7 @@ sudo pacman -S \
     kcalc \
     kdegraphics-thumbnailers \
     kdialog \
+    kgpg \
     konsole \
     konversation \
     ktorrent \
@@ -180,6 +181,9 @@ sudo pacman -S \
     xterm \
     youtube-dl \
     zsh
+
+# Initialize MariaDB data directory.
+sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 
 # Configure SDDM.
 sddm --example-config | sudo tee /etc/sddm.conf.d/sddm.conf > /dev/null
