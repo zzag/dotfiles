@@ -103,6 +103,7 @@ sudo pacman -S \
     kdegraphics-thumbnailers \
     kdialog \
     kgpg \
+    kmail \
     konsole \
     konversation \
     ktorrent \
