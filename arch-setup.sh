@@ -225,3 +225,6 @@ sudo ln -s /etc/fonts/conf.avail/10-hinting-slight.conf /etc/fonts/conf.d/10-hin
 sudo ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d/10-sub-pixel-rgb.conf
 sudo ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d/11-lcdfilter-default.conf
 sudo cp fonts.conf /etc/fonts/local.conf
+
+# Configure KMail
+#     To generate an app password go to https://security.google.com/settings/security/apppasswords
