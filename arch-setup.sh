@@ -90,7 +90,9 @@ sudo vim /etc/pacman.conf
 # Install apps.
 sudo pacman -Syu
 sudo pacman -S \
+    amarok \
     ark \
+    breeze-kde4 \
     dolphin \
     dolphin-plugins \
     extra-cmake-modules \
