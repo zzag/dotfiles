@@ -234,3 +234,8 @@ sudo vim /boot/loader/entries/arch-lts.conf
     # Point initrd and linux to the LTS kernel.
 sudo vim /boot/loader/loader.conf
     # Change default kernel.
+
+# Install update notifier.
+sudo pacman -S update-notifier
+sudo systemctl enable update-notifier.timer
+sudo systemctl start update-notifier.timer
