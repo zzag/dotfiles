@@ -227,3 +227,10 @@ sudo cp fonts.conf /etc/fonts/local.conf
 
 # Configure KMail
 #     To generate an app password go to https://security.google.com/settings/security/apppasswords
+
+# Use LTS kernel.
+sudo cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-lts.conf
+sudo vim /boot/loader/entries/arch-lts.conf
+    # Point initrd and linux to the LTS kernel.
+sudo vim /boot/loader/loader.conf
+    # Change default kernel.
