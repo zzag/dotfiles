@@ -17,7 +17,7 @@ global
 end global
 
 
-include ~/.kdesrc-build/kf5-frameworks-build-include
-include ~/.kdesrc-build/kf5-workspace-build-include
-include ~/.kdesrc-build/kf5-applications-build-include
+include ~/.local/kdesrc-build/kf5-frameworks-build-include
+include ~/.local/kdesrc-build/kf5-workspace-build-include
+include ~/.local/kdesrc-build/kf5-applications-build-include
 
