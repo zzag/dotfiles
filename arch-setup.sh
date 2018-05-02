@@ -109,8 +109,13 @@ sudo pacman -S \
     konsole \
     konversation \
     ktorrent \
+    kwin-effects-appear2 \
+    kwin-effects-disappear2 \
     okular \
     plasma \
+    plasma5-applets-redshift-control \
+    plasma5-applets-thermal-monitor \
+    plasma5-applets-weather-widget \
     spectacle \
     android-udev \
     autoconf \
@@ -155,9 +160,6 @@ sudo pacman -S \
     packagekit-qt5 \
     perf \
     pkgfile \
-    plasma5-applets-redshift-control \
-    plasma5-applets-thermal-monitor \
-    plasma5-applets-weather-widget \
     python-pip \
     ranger \
     rclone \
