@@ -1,6 +1,6 @@
 [user]
-	name = <name>
-	email = <email>
+	name = Vlad Zagorodniy
+	email = vladzzag@gmail.com
 [alias]
 	pretty-log = log --decorate --all --graph
 [color]
