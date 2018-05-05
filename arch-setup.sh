@@ -132,6 +132,7 @@ sudo pacman -S \
     devtools \
     dialog \
     diff-so-fancy \
+    docker \
     dvd+rw-tools \
     emovix \
     figlet \
@@ -241,3 +242,6 @@ sudo vim /boot/loader/loader.conf
 sudo pacman -S update-notifier
 sudo systemctl enable update-notifier.timer
 sudo systemctl start update-notifier.timer
+
+# Enable docker.
+sudo systemctl enable docker
