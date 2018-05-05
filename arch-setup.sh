@@ -141,6 +141,8 @@ sudo pacman -S \
     gimp \
     git \
     go \
+    gst-plugins-base \
+    gst-plugins-good \
     gvfs \
     hddtemp \
     htop \
