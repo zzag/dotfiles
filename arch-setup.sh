@@ -111,6 +111,8 @@ sudo pacman -S \
     ktorrent \
     kwin-effects-appear2 \
     kwin-effects-disappear2 \
+    kwin-effects-minimize1 \
+    kwin-effects-unminimize1 \
     okular \
     plasma \
     plasma5-applets-redshift-control \
