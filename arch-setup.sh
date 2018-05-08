@@ -104,6 +104,7 @@ sudo pacman -S \
     kcalc \
     kdegraphics-thumbnailers \
     kdialog \
+    kget \
     kgpg \
     kmail \
     konsole \
