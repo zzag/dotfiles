@@ -181,6 +181,8 @@ sudo pacman -S \
     tree \
     ttf-croscore \
     ttf-liberation \
+    ttf-meslo \
+    ttf-meslo-dz \
     ufw \
     unrar \
     unzip \
