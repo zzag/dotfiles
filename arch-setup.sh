@@ -183,6 +183,7 @@ sudo pacman -S \
     ttf-liberation \
     ttf-meslo \
     ttf-meslo-dz \
+    ttf-roboto-mono \
     ufw \
     unrar \
     unzip \
