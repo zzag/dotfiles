@@ -160,6 +160,7 @@ sudo pacman -S \
     net-tools \
     nss-mdns \
     openssh \
+    otf-fira-code \
     otf-fira-mono \
     p7zip \
     packagekit \
