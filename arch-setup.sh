@@ -129,6 +129,7 @@ sudo pacman -S \
     cdrtools \
     clang \
     cmake \
+    code \
     cowsay \
     ctags \
     curl \
