@@ -140,6 +140,7 @@ sudo pacman -S \
     emovix \
     figlet \
     firefox \
+    firefox-developer-edition \
     gdb \
     gimp \
     git \
