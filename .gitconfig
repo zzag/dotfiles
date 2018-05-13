@@ -1,6 +1,7 @@
 [user]
 	name = Vlad Zagorodniy
 	email = vladzzag@gmail.com
+	signingkey = DE5BB3D5038AA924
 [alias]
 	pretty-log = log --decorate --all --graph
 [color]
