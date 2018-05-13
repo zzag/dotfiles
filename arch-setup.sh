@@ -85,7 +85,7 @@ sudo pacman-key --lsign-key 95453E765FE509F4
 sudo vim /etc/pacman.conf
     # Add the following before [testing] repo
     #     [zzag]
-    #     Server = https://zzag.github.io/repo/arch/
+    #     Server = https://zzag.github.io/PKGBUILD/
 
 # Install apps.
 sudo pacman -Syu
