@@ -257,3 +257,9 @@ sudo systemctl start update-notifier.timer
 
 # Enable docker.
 sudo systemctl enable docker
+
+# Install aurman.
+sudo pacman -S expac pyalpm python-regex python-requests
+git clone https://aur.archlinux.org/aurman.git
+cd aurman
+makepkg -i
