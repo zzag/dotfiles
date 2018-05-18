@@ -90,7 +90,6 @@ sudo vim /etc/pacman.conf
 # Install apps.
 sudo pacman -Syu
 sudo pacman -S \
-    amarok \
     ark \
     breeze-kde4 \
     dolphin \
@@ -124,6 +123,7 @@ sudo pacman -S \
     autoconf \
     automake \
     avahi \
+    cantata \
     cdparanoia \
     cdrdao \
     cdrtools \
@@ -157,6 +157,7 @@ sudo pacman -S \
     lldb \
     llvm \
     lm_sensors \
+    mpd \
     mpv \
     neofetch \
     net-tools \
