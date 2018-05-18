@@ -91,7 +91,6 @@ sudo vim /etc/pacman.conf
 sudo pacman -Syu
 sudo pacman -S \
     ark \
-    breeze-kde4 \
     dolphin \
     dolphin-plugins \
     extra-cmake-modules \
