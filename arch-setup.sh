@@ -166,6 +166,8 @@ sudo pacman -S \
     mpv \
     neofetch \
     net-tools \
+    noto-fonts \
+    noto-fonts-emoji \
     nss-mdns \
     openssh \
     otf-fira-code \
