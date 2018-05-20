@@ -91,6 +91,7 @@ sudo vim /etc/pacman.conf
 sudo pacman -Syu
 sudo pacman -S \
     ark \
+    capitaine-cursors \
     dolphin \
     dolphin-plugins \
     extra-cmake-modules \
