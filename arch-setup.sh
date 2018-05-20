@@ -107,6 +107,7 @@ sudo pacman -S \
     kgpg \
     kmail \
     konsole \
+    konsole-colorschemes \
     konversation \
     ktorrent \
     kwin-effects-appear1 \
