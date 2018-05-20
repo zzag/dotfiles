@@ -170,6 +170,7 @@ sudo pacman -S \
     openssh \
     otf-fira-code \
     otf-fira-mono \
+    otf-fira-sans \
     p7zip \
     packagekit \
     packagekit-qt5 \
