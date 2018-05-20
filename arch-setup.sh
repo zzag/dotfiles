@@ -182,7 +182,6 @@ sudo pacman -S \
     redshift \
     ripgrep \
     rsync \
-    telegram-desktop \
     the_silver_searcher \
     tldr \
     tmux \
