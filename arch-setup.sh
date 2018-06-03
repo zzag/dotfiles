@@ -176,6 +176,7 @@ sudo pacman -S \
     p7zip \
     packagekit \
     packagekit-qt5 \
+    pacman-contrib \
     perf \
     pkgfile \
     python-pip \
