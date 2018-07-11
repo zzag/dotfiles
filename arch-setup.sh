@@ -158,6 +158,7 @@ sudo pacman -S \
     htop \
     imagemagick \
     inkscape \
+    keychain \
     linux-lts \
     lldb \
     llvm \
