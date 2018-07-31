@@ -1,5 +1,4 @@
 global
-
     branch-group kf5-qt5
 
     # The path to your Qt installation (default is empty, assumes Qt provided
@@ -11,7 +10,8 @@ global
     build-dir ~/KDE/build
     log-dir ~/KDE/log
 
-    make-options -j2
+    cmake-options -G Ninja -DCMAKE_BUILD_TYPE:STRING=debug
+    custom-build-command ninja
     install-session-driver false
     install-environment-driver true
 end global

@@ -167,6 +167,7 @@ sudo pacman -S \
     mpv \
     neofetch \
     net-tools \
+    ninja \
     noto-fonts \
     noto-fonts-emoji \
     nss-mdns \
