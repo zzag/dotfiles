@@ -101,6 +101,7 @@ sudo pacman -S \
     kaccounts-providers \
     kate \
     kcalc \
+    kdeconnect \
     kdegraphics-thumbnailers \
     kdialog \
     kget \
@@ -187,6 +188,7 @@ sudo pacman -S \
     redshift \
     ripgrep \
     rsync \
+    sshfs \
     the_silver_searcher \
     tldr \
     tmux \
