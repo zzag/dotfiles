@@ -106,17 +106,15 @@ sudo pacman -S \
     kdialog \
     kget \
     kgpg \
+    kfind \
     kmail \
     konsole \
     konsole-colorschemes \
     konversation \
+    ksudoku \
     ktorrent \
-    kwin-effects-appear1 \
     kwin-effects-appear2 \
-    kwin-effects-appear3 \
-    kwin-effects-disappear1 \
     kwin-effects-disappear2 \
-    kwin-effects-disappear3 \
     kwin-effects-minimize1 \
     kwin-effects-unminimize1 \
     okular \
