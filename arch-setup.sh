@@ -288,3 +288,10 @@ makepkg -i
 # Add the following lines to .zprofile:
 #     export SSH_ASKPASS=/usr/bin/ksshaskpass
 #     eval `keychain --eval --quiet --agents ssh <keys>`
+
+# Configure Cantata.
+mkdir ~/.config/mpd/playlists
+ln -s path/to/dotfiles/mpd.conf ~/.config/mpd/mpd.conf
+systemctl --user enable mpd
+systemctl --user start mpd
+cantata # Follow configuration wizard.
