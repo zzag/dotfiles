@@ -14,3 +14,6 @@ alias ports='sudo netstat -vatnp'
 
 # package management
 alias pacman-delete-orphans='sudo pacman -Rns $(pacman -Qtdq)'
+
+# git shortcuts
+alias gpl='git pretty-log' # not the license
