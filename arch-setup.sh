@@ -108,15 +108,12 @@ sudo pacman -S \
     kgpg \
     kfind \
     kmail \
+    kmines \
     konsole \
     konsole-colorschemes \
     konversation \
     ksudoku \
     ktorrent \
-    kwin-effects-appear2 \
-    kwin-effects-disappear2 \
-    kwin-effects-minimize1 \
-    kwin-effects-unminimize1 \
     okular \
     plasma \
     plasma5-applets-redshift-control \
@@ -145,7 +142,6 @@ sudo pacman -S \
     emovix \
     figlet \
     firefox \
-    firefox-developer-edition \
     gdb \
     gimp \
     git \
