@@ -117,8 +117,6 @@ sudo pacman -S \
     okular \
     plasma \
     plasma5-applets-redshift-control \
-    plasma5-applets-thermal-monitor \
-    plasma5-applets-weather-widget \
     spectacle \
     android-udev \
     autoconf \
