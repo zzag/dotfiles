@@ -13,8 +13,6 @@
     "files.trimTrailingWhitespace": true,
     "telemetry.enableTelemetry": false,
     "workbench.startupEditor": "none",
-    "workbench.colorTheme": "Monokai Pro (Filter Ristretto)",
-    "workbench.iconTheme": "Monokai Pro (Filter Ristretto) Icons",
     "window.menuBarVisibility": "toggle",
     // C/C++ plugin
     // "C_Cpp.clang_format_path": "/usr/bin/clang-format",
