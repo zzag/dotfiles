@@ -111,9 +111,7 @@ sudo pacman -S \
     kmines \
     konsole \
     konsole-colorschemes \
-    konversation \
     ksudoku \
-    ktorrent \
     okular \
     plasma \
     plasma5-applets-redshift-control \
@@ -122,6 +120,7 @@ sudo pacman -S \
     autoconf \
     automake \
     avahi \
+    bind-tools \
     cantata \
     cdparanoia \
     cdrdao \
@@ -135,7 +134,6 @@ sudo pacman -S \
     devtools \
     dialog \
     diff-so-fancy \
-    docker \
     dvd+rw-tools \
     emovix \
     figlet \
@@ -175,6 +173,7 @@ sudo pacman -S \
     perf \
     pkgfile \
     python-pip \
+    qbittorrent \
     ranger \
     rclone \
     redshift \
@@ -196,8 +195,8 @@ sudo pacman -S \
     unzip \
     valgrind \
     vcdimager \
-    veracrypt \
     w3m \
+    weechat \
     wireless_tools \
     wireshark-qt \
     xdg-user-dirs \
@@ -260,9 +259,6 @@ sudo vim /boot/loader/loader.conf
 sudo pacman -S update-notifier
 sudo systemctl enable update-notifier.timer
 sudo systemctl start update-notifier.timer
-
-# Enable docker.
-sudo systemctl enable docker
 
 # Update pkgfile metadata.
 sudo pkgfile --update
