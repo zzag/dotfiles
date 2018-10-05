@@ -283,3 +283,7 @@ ln -s path/to/dotfiles/mpd.conf ~/.config/mpd/mpd.conf
 systemctl --user enable mpd
 systemctl --user start mpd
 cantata # Follow configuration wizard.
+
+# Setup ccache.
+sudo pacman -S ccache
+echo 'export PATH="/usr/lib/ccache/bin/:$PATH"' >> ~/.zprofile
