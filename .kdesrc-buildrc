@@ -3,12 +3,12 @@ global
 
     # The path to your Qt installation (default is empty, assumes Qt provided
     # by system)
-#   qtdir ~/qt5
+#   qtdir ~/Workspace/qt5
 
-    kdedir ~/KDE/usr
-    source-dir ~/KDE/src
-    build-dir ~/KDE/build
-    log-dir ~/KDE/log
+    kdedir ~/Workspace/KDE/usr
+    source-dir ~/Workspace/KDE/src
+    build-dir ~/Workspace/KDE/build
+    log-dir ~/Workspace/KDE/log
 
     cmake-options -G Ninja -DCMAKE_BUILD_TYPE:STRING=debug
     custom-build-command ninja
