@@ -286,4 +286,4 @@ cantata # Follow configuration wizard.
 
 # Setup ccache.
 sudo pacman -S ccache
-echo 'export PATH="/usr/lib/ccache/bin/:$PATH"' >> ~/.zprofile
+echo 'export PATH="/usr/lib/ccache/bin:$PATH"' >> ~/.zprofile
