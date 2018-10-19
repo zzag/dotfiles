@@ -174,6 +174,7 @@ sudo pacman -S \
     pkgfile \
     python-pip \
     qbittorrent \
+    quassel-monolithic \
     ranger \
     rclone \
     redshift \
@@ -196,7 +197,6 @@ sudo pacman -S \
     valgrind \
     vcdimager \
     w3m \
-    weechat \
     wireless_tools \
     wireshark-qt \
     xdg-user-dirs \
