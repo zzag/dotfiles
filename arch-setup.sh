@@ -287,3 +287,8 @@ cantata # Follow configuration wizard.
 # Setup ccache.
 sudo pacman -S ccache
 echo 'export PATH="/usr/lib/ccache/bin:$PATH"' >> ~/.zprofile
+
+# Install yay.
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
