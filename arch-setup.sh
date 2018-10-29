@@ -107,7 +107,6 @@ sudo pacman -S \
     kget \
     kgpg \
     kfind \
-    kmail \
     kmines \
     konsole \
     konsole-colorschemes \
@@ -150,6 +149,7 @@ sudo pacman -S \
     imagemagick \
     inkscape \
     keychain \
+    libdbusmenu-glib \
     linux-lts \
     lldb \
     llvm \
@@ -182,6 +182,7 @@ sudo pacman -S \
     rsync \
     sshfs \
     the_silver_searcher \
+    thunderbird \
     tldr \
     tmux \
     transcode \
@@ -244,9 +245,6 @@ sudo ln -s /etc/fonts/conf.avail/10-hinting-none.conf /etc/fonts/conf.d/10-hinti
 sudo ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d/10-sub-pixel-rgb.conf
 sudo ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d/11-lcdfilter-default.conf
 sudo cp fonts.conf /etc/fonts/local.conf
-
-# Configure KMail
-#     To generate an app password go to https://security.google.com/settings/security/apppasswords
 
 # Use LTS kernel.
 sudo cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-lts.conf
