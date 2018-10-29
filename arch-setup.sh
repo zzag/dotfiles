@@ -150,6 +150,7 @@ sudo pacman -S \
     inkscape \
     keychain \
     libdbusmenu-glib \
+    libreoffice-fresh \
     linux-lts \
     lldb \
     llvm \
