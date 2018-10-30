@@ -133,6 +133,7 @@ sudo pacman -S \
     devtools \
     dialog \
     diff-so-fancy \
+    dnscrypt-proxy \
     dvd+rw-tools \
     emovix \
     figlet \
@@ -215,10 +216,16 @@ sudo cp /etc/systemd/system/display-manager.service /etc/systemd/system/sddm.ser
 sudo systemctl disable sddm
 sudo systemctl enable sddm
 
-# Use a DNS cache.
-sudo ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-sudo systemctl enable systemd-resolved
-sudo systemctl start systemd-resolved
+# Configure dnscrypt-proxy.
+sudo vim /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+    # Edit server_names = ['cloudflare', 'google'].
+sudo vim /etc/resolvconf.conf
+    # Uncomment name_servers=127.0.0.1.
+sudo resolvconf -u
+sudo vim /etc/NetworkManager/conf.d/rc-manager.conf
+    # [main]
+    # rc-manager=resolvconf
+sudo systemctl enable --now dnscrypt-proxy.service
 
 # Enable avahi.
 sudo vim /etc/nsswitch.conf
@@ -236,6 +243,9 @@ sudo ufw allow ssh
 
 # Enable ssh daemon.
 sudo systemctl enable sshd
+
+# Enable NetworkManager.
+sudo systemctl enable NetworkManager
 
 # Use subpixel font rendering.
 sudo vim /etc/profile.d/freetype2.sh
