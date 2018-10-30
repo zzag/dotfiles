@@ -275,12 +275,6 @@ sudo pkgfile --update
 # Enable systemd-timesyncd.
 sudo timedatectl set-ntp true
 
-# Install aurman.
-sudo pacman -S expac pyalpm python-regex python-requests
-git clone https://aur.archlinux.org/aurman.git
-cd aurman
-makepkg -i
-
 # Configure keychain.
 # Add the following lines to .zprofile:
 #     export SSH_ASKPASS=/usr/bin/ksshaskpass
