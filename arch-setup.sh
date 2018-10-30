@@ -276,9 +276,9 @@ sudo pkgfile --update
 sudo timedatectl set-ntp true
 
 # Configure keychain.
-# Add the following lines to .zprofile:
-#     export SSH_ASKPASS=/usr/bin/ksshaskpass
-#     eval `keychain --eval --quiet --agents ssh <keys>`
+vim ~/.zprofile
+    # export SSH_ASKPASS=/usr/bin/ksshaskpass
+    # eval `keychain --eval --quiet --agents ssh <keys>`
 
 # Configure Cantata.
 mkdir ~/.config/mpd/playlists
