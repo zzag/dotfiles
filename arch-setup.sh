@@ -240,6 +240,8 @@ sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow mdns
 sudo ufw allow ssh
+sudo ufw allow 1714:1764/udp # KDE Connect over UDP
+sudo ufw allow 1714:1764/tcp # KDE Connect over TCP
 
 # Enable ssh daemon.
 sudo systemctl enable sshd
