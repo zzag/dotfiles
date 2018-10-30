@@ -292,6 +292,7 @@ cantata # Follow configuration wizard.
 # Setup ccache.
 sudo pacman -S ccache
 echo 'export PATH="/usr/lib/ccache/bin:$PATH"' >> ~/.zprofile
+ccache --set-config=max_size=<max cache size, e.g. 100.0G>
 
 # Install yay.
 git clone https://aur.archlinux.org/yay.git
