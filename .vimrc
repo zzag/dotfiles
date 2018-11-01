@@ -23,8 +23,8 @@ Plug 'mattn/emmet-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'scrooloose/nerdcommenter'
 
 call plug#end()
 
@@ -292,13 +292,24 @@ nmap ga <Plug>(EasyAlign)
 
 
 " --------------------------------------------------
-" vim-commentary
+" nerdcommenter
 " --------------------------------------------------
 
-" xmap gc  <Plug>Commentary
-" nmap gc  <Plug>Commentary
-" omap gc  <Plug>Commentary
-" nmap gcc <Plug>CommentaryLine
+" Add spaces after comment delimiters by default.
+let g:NERDSpaceDelims=1
+
+" Use compact syntax for prettified multi-line comments.
+let g:NERDCompactSexyComs=1
+
+" Align line-wise comment delimiters flush left instead of following
+" code indentation.
+let g:NERDDefaultAlign='left'
+
+" Allow commenting and inverting empty lines.
+let g:NERDCommentEmptyLines=1
+
+" Enable trimming of trailing whitespace when uncommenting.
+let g:NERDTrimTrailingWhitespace=1
 
 
 " ==================================================
