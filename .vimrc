@@ -16,6 +16,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Yggdroot/indentLine'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+Plug 'AlessandroYorba/Sierra'
 
 " Editing
 Plug 'mattn/emmet-vim'
@@ -80,6 +81,9 @@ set showcmd
 " Display invisible characters.
 set list listchars=tab:»·,trail:·,nbsp:·
 
+" Highlight current line.
+set cursorline
+
 " Override italics escape sequence.
 "
 " YOU SHOULDN'T OVERRIDE IT. INSTEAD, CHANGE YOUR
@@ -99,15 +103,15 @@ set list listchars=tab:»·,trail:·,nbsp:·
 "
 " and set TERM to the new value:
 "   $ echo "$TERM-italic" >> ~/.zshrc # or .bashrc
-
-"set t_ZH=[3m
-"set t_ZR=[23m
+"
+set t_ZH=[3m
+set t_ZR=[23m
 
 " Enable TrueColor support.
 " (available on Vim>=8.0 or Neovim)
-" if has("termguicolors")
-"   set termguicolors
-" endif
+if has("termguicolors")
+  set termguicolors
+endif
 
 
 " ==================================================
@@ -115,7 +119,7 @@ set list listchars=tab:»·,trail:·,nbsp:·
 " ==================================================
 
 set background=dark
-colorscheme default
+colorscheme sierra
 
 " Show comments in italics.
 " (should be set after colorscheme)
