@@ -115,6 +115,18 @@ endif
 
 
 " ==================================================
+"                      INDENT
+" ==================================================
+
+set cindent
+set cinoptions+=g0  " Don't indent access modifiers
+set cinoptions+=:0  " Don't indent case labels
+set cinoptions+=l1  " Don't align case statements
+set cinoptions+=N-s " Don't indent inside namespaces
+set cinoptions+=E-s " Don't indent inside extern
+
+
+" ==================================================
 "                      THEME
 " ==================================================
 
