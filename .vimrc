@@ -53,6 +53,7 @@ set autoread
 
 " Highlight current line.
 set lazyredraw
+set cursorline
 
 " Minimal number of screen lines to keep above and below the cursor.
 set scrolloff=5
@@ -80,9 +81,6 @@ set showcmd
 
 " Display invisible characters.
 set list listchars=tab:»·,trail:·,nbsp:·
-
-" Highlight current line.
-set cursorline
 
 " Quickly time out on key codes, but never time out on mappings.
 set notimeout
