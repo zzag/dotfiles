@@ -56,7 +56,7 @@ set lazyredraw
 set cursorline
 
 " Minimal number of screen lines to keep above and below the cursor.
-set scrolloff=5
+set scrolloff=3
 
 " Show line numbers.
 set relativenumber
