@@ -84,6 +84,11 @@ set list listchars=tab:»·,trail:·,nbsp:·
 " Highlight current line.
 set cursorline
 
+" Quickly time out on key codes, but never time out on mappings.
+set notimeout
+set ttimeout
+set ttimeoutlen=300
+
 " Override italics escape sequence.
 "
 " YOU SHOULDN'T OVERRIDE IT. INSTEAD, CHANGE YOUR
