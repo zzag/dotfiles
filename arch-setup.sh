@@ -145,6 +145,7 @@ sudo pacman -S \
     gst-plugins-base \
     gst-plugins-good \
     gvfs \
+    gvim \
     hddtemp \
     htop \
     imagemagick \
