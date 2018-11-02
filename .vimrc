@@ -87,8 +87,8 @@ set notimeout
 set ttimeout
 set ttimeoutlen=300
 
-" Don't wrap lines.
-set nowrap
+" Set custom line continuation character.
+set showbreak=…
 
 " Override italics escape sequence.
 "
