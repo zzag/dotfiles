@@ -90,6 +90,11 @@ set ttimeoutlen=300
 " Set custom line continuation character.
 set showbreak=…
 
+" Enable mouse.
+if has('mouse')
+  set mouse=a
+endif
+
 " Override italics escape sequence.
 "
 " YOU SHOULDN'T OVERRIDE IT. INSTEAD, CHANGE YOUR
