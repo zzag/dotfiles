@@ -87,6 +87,9 @@ set notimeout
 set ttimeout
 set ttimeoutlen=300
 
+" Don't wrap lines.
+set nowrap
+
 " Override italics escape sequence.
 "
 " YOU SHOULDN'T OVERRIDE IT. INSTEAD, CHANGE YOUR
