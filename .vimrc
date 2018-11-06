@@ -20,11 +20,11 @@ Plug 'AlessandroYorba/Sierra'
 
 " Editing
 Plug 'mattn/emmet-vim'
-Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdcommenter'
+Plug 'Raimondi/delimitMate'
 
 call plug#end()
 
