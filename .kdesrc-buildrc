@@ -1,23 +1,15 @@
 global
     branch-group kf5-qt5
 
-    # The path to your Qt installation (default is empty, assumes Qt provided
-    # by system)
-#   qtdir ~/Workspace/qt5
-
     kdedir ~/Workspace/KDE/usr
     source-dir ~/Workspace/KDE/src
     build-dir ~/Workspace/KDE/build
     log-dir ~/Workspace/KDE/log
 
-    cmake-options -G Ninja -DCMAKE_BUILD_TYPE:STRING=debug
+    cmake-options -G Ninja -DCMAKE_BUILD_TYPE=Debug
     custom-build-command ninja
     install-session-driver false
     install-environment-driver true
 end global
 
-
-include ~/.local/share/kdesrc-build/kf5-frameworks-build-include
-include ~/.local/share/kdesrc-build/kf5-workspace-build-include
-include ~/.local/share/kdesrc-build/kf5-applications-build-include
-
+include ~/.local/share/kdesrc-build/kf5-qt5-build-include
