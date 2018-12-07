@@ -6,7 +6,7 @@ global
     build-dir ~/Workspace/KDE/build
     log-dir ~/Workspace/KDE/log
 
-    cmake-options -G Ninja -DCMAKE_BUILD_TYPE=Debug
+    cmake-options -GNinja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
     custom-build-command ninja
     install-session-driver false
     install-environment-driver true
