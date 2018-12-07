@@ -1,21 +1,18 @@
 {
-    "editor.fontFamily": "Fira Code, Operator Mono, Meslo LG M, Consolas, monospace",
-    "editor.fontSize": 14,
-    "editor.fontLigatures": true,
-    "editor.renderWhitespace": "boundary",
-    "editor.wordWrapColumn": 80,
-    "editor.renderIndentGuides": false,
-    "editor.cursorStyle": "line",
     "editor.cursorBlinking": "blink",
-    "editor.multiCursorModifier": "alt",
-    "editor.minimap.showSlider": "always",
+    "editor.fontFamily": "Operator Mono SSm",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 13,
+    "editor.minimap.enabled": true,
     "editor.minimap.renderCharacters": false,
+    "editor.multiCursorModifier": "alt",
+    "editor.renderControlCharacters": true,
+    "extensions.ignoreRecommendations": true,
     "files.trimTrailingWhitespace": true,
     "telemetry.enableTelemetry": false,
-    "workbench.startupEditor": "none",
     "window.menuBarVisibility": "toggle",
-    // C/C++ plugin
-    // "C_Cpp.clang_format_path": "/usr/bin/clang-format",
+    "workbench.colorTheme": "Monokai Pro (Filter Spectrum)",
+    "workbench.startupEditor": "none",
     // Python plugin
     "python.linting.pylintArgs": [
         "--disable=C0111,C0103"
@@ -26,5 +23,7 @@
     ],
     "[python]": {
         "editor.formatOnSave": true
-    }
+    },
+    // Bracket colorizer plugin
+    "bracketPairColorizer.showHorizontalScopeLine": false
 }
