@@ -1,29 +1,27 @@
 {
     "editor.cursorBlinking": "blink",
-    "editor.fontFamily": "Operator Mono SSm",
+    "editor.fontFamily": "Consolas",
+    "editor.fontSize": 12,
     "editor.fontLigatures": true,
-    "editor.fontSize": 13,
     "editor.minimap.enabled": true,
     "editor.minimap.renderCharacters": false,
     "editor.multiCursorModifier": "alt",
     "editor.renderControlCharacters": true,
+    "editor.smoothScrolling": true,
     "extensions.ignoreRecommendations": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/compile_commands.json": true
+    },
     "files.trimTrailingWhitespace": true,
     "telemetry.enableTelemetry": false,
     "window.menuBarVisibility": "toggle",
-    "workbench.colorTheme": "Monokai Pro (Filter Spectrum)",
+    "window.titleBarStyle": "native",
     "workbench.startupEditor": "none",
-    // Python plugin
-    "python.linting.pylintArgs": [
-        "--disable=C0111,C0103"
-    ],
-    "python.formatting.provider": "yapf",
-    "python.formatting.yapfArgs": [
-        "--style=pep8"
-    ],
-    "[python]": {
-        "editor.formatOnSave": true
-    },
-    // Bracket colorizer plugin
-    "bracketPairColorizer.showHorizontalScopeLine": false
+    // vscode-clangd
+    "clangd.path": "/usr/bin/clangd"
 }
