@@ -11,10 +11,7 @@
     "editor.tokenColorCustomizations": {
         "textMateRules": [
             {
-                "scope": [
-                    "comment",
-                    "variable.language.this"
-                ],
+                "scope": "comment",
                 "settings": {
                     "fontStyle": "italic"
                 }
