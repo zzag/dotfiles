@@ -19,7 +19,6 @@
 	whitespace = red reverse
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
-	excludesfile = ~/.gitexcludes
 [url "git@git.kde.org:"]
 	pushInsteadOf = kde:
 [url "https://anongit.kde.org/"]
