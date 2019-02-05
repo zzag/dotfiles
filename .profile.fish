@@ -1,6 +1,6 @@
 # Load keychain.
-if type -q keychain and status is-interactive
-    keychain --quiet --agents ssh id_github id_kde
+if type -q keychain
+    keychain --quiet --noask --agents ssh id_github id_kde
 end
 
 if test -f ~/.keychain/(hostname)-fish
