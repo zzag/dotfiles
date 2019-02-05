@@ -6,8 +6,8 @@ else
 end
 
 # Add $HOME/.local/bin to PATH.
-if test -d $HOME/.local/bin
-    set -gx fish_user_paths $HOME/.local/bin $fish_user_paths
+if test -d ~/.local/bin
+    set -gx fish_user_paths ~/.local/bin $fish_user_paths
 end
 
 # Load aliases.
