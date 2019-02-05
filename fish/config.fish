@@ -13,6 +13,11 @@ end
 # Load aliases.
 source ~/.config/fish/aliases.fish
 
+# Load profile.
+if test -f ~/.profile.fish
+    source ~/.profile.fish
+end
+
 # Customize default colors.
 set -g fish_color_command normal
 set -g fish_color_param green
