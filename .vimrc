@@ -38,6 +38,9 @@ call plug#end()
 " `nocompatible` mode.
 set nocompatible
 
+" Disable swap files.
+set noswapfile
+
 " Set history size.
 set history=1000
 
