@@ -231,6 +231,15 @@ autocmd BufReadPost *
       \   execute "normal! g`\"" |
       \ endif
 
+" Enable spellchecking for git commit messages.
+function ConfigureGitCommit()
+  if has('spell')
+    setlocal spell
+  endif
+endfunction
+
+autocmd FileType gitcommit call ConfigureGitCommit()
+
 
 " ==================================================
 "                     PLUGINS
