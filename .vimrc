@@ -1,7 +1,7 @@
 if has('nvim')
-call plug#begin('~/.local/share/nvim/plugged')
+  call plug#begin('~/.local/share/nvim/plugged')
 else
-call plug#begin('~/.vim/plugged')
+  call plug#begin('~/.vim/plugged')
 endif
 
 " Languages
@@ -25,6 +25,7 @@ Plug 'tpope/vim-surround'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Raimondi/delimitMate'
+Plug 'chiel92/vim-autoformat'
 
 call plug#end()
 
@@ -226,9 +227,9 @@ noremap <Down>   <Nop>
 
 " Jump to the last known cursor position.
 autocmd BufReadPost *
-  \ if line("'\"") >= 1 && line("'\"") <= line("$") |
-  \   execute "normal! g`\"" |
-  \ endif
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+      \   execute "normal! g`\"" |
+      \ endif
 
 
 " ==================================================
@@ -324,6 +325,19 @@ let g:NERDCommentEmptyLines=1
 
 " Enable trimming of trailing whitespace when uncommenting.
 let g:NERDTrimTrailingWhitespace=1
+
+
+" --------------------------------------------------
+" vim-autoformat
+" --------------------------------------------------
+
+" Format C/C++ files on save.
+autocmd BufWrite *.h :Autoformat
+autocmd BufWrite *.c :Autoformat
+autocmd BufWrite *.hh :Autoformat
+autocmd BufWrite *.cc :Autoformat
+autocmd BufWrite *.hpp :Autoformat
+autocmd BufWrite *.cpp :Autoformat
 
 
 " ==================================================
