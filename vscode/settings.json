@@ -37,5 +37,6 @@
     "workbench.startupEditor": "none",
     // vscode-clangd
     "clangd.path": "/usr/bin/clangd",
+    // clang-format
     "clang-format.fallbackStyle": "WebKit"
 }
