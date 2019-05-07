@@ -340,13 +340,16 @@ let g:NERDTrimTrailingWhitespace=1
 " vim-autoformat
 " --------------------------------------------------
 
+" Format when F3 is pressed.
+noremap <F3> :Autoformat<CR>
+
 " Format C/C++ files on save.
-autocmd BufWrite *.h :Autoformat
-autocmd BufWrite *.c :Autoformat
-autocmd BufWrite *.hh :Autoformat
-autocmd BufWrite *.cc :Autoformat
-autocmd BufWrite *.hpp :Autoformat
-autocmd BufWrite *.cpp :Autoformat
+" autocmd BufWrite *.h :Autoformat
+" autocmd BufWrite *.c :Autoformat
+" autocmd BufWrite *.hh :Autoformat
+" autocmd BufWrite *.cc :Autoformat
+" autocmd BufWrite *.hpp :Autoformat
+" autocmd BufWrite *.cpp :Autoformat
 
 
 " ==================================================
