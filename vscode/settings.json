@@ -1,7 +1,7 @@
 {
     "editor.cursorBlinking": "blink",
-    "editor.fontFamily": "Consolas",
-    "editor.fontSize": 12,
+    "editor.fontFamily": "Operator Mono",
+    "editor.fontSize": 11,
     "editor.fontLigatures": true,
     "editor.minimap.enabled": true,
     "editor.minimap.maxColumn": 100,
