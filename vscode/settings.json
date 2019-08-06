@@ -3,6 +3,7 @@
     "editor.fontFamily": "Operator Mono",
     "editor.fontSize": 11,
     "editor.fontLigatures": true,
+    "editor.lineHeight": 17,
     "editor.minimap.enabled": true,
     "editor.minimap.maxColumn": 100,
     "editor.minimap.renderCharacters": false,
