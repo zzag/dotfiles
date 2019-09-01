@@ -106,6 +106,7 @@ sudo pacman -S \
     automake \
     avahi \
     bind-tools \
+    boost \
     cantata \
     cdparanoia \
     cdrdao \
@@ -146,6 +147,7 @@ sudo pacman -S \
     lldb \
     llvm \
     lm_sensors \
+    meson \
     mpd \
     mpv \
     neofetch \
