@@ -75,23 +75,10 @@ vim /boot/loader/entries/arch.conf
     #
     # HINT: use the following in vim: `read ! blkid /dev/sda2`
 
-
-# Add my repo.
-sudo pacman-key --init
-sudo pacman-key --recv-keys 95453E765FE509F4
-pacman-key --finger 95453E765FE509F4
-    # Check fingerprint.
-sudo pacman-key --lsign-key 95453E765FE509F4
-sudo vim /etc/pacman.conf
-    # Add the following before [testing] repo
-    #     [zzag]
-    #     Server = https://zzag.github.io/PKGBUILD/
-
 # Install apps.
 sudo pacman -Syu
 sudo pacman -S \
     ark \
-    capitaine-cursors \
     dolphin \
     dolphin-plugins \
     extra-cmake-modules \
@@ -109,7 +96,6 @@ sudo pacman -S \
     kfind \
     kmines \
     konsole \
-    konsole-colorschemes \
     ksudoku \
     okular \
     plasma \
@@ -129,6 +115,7 @@ sudo pacman -S \
     code \
     cowsay \
     ctags \
+    cups \
     curl \
     devtools \
     dialog \
@@ -138,6 +125,7 @@ sudo pacman -S \
     emovix \
     figlet \
     firefox \
+    fish \
     gdb \
     gimp \
     git \
@@ -147,6 +135,7 @@ sudo pacman -S \
     gvfs \
     gvim \
     hddtemp \
+    hplip \
     htop \
     imagemagick \
     inkscape \
@@ -184,6 +173,7 @@ sudo pacman -S \
     ripgrep \
     rsync \
     sshfs \
+    synergy \
     the_silver_searcher \
     thunderbird \
     tldr \
@@ -192,9 +182,6 @@ sudo pacman -S \
     tree \
     ttf-croscore \
     ttf-liberation \
-    ttf-meslo \
-    ttf-meslo-dz \
-    ttf-roboto-mono \
     ufw \
     unrar \
     unzip \
@@ -243,6 +230,7 @@ sudo ufw allow mdns
 sudo ufw allow ssh
 sudo ufw allow 1714:1764/udp # KDE Connect over UDP
 sudo ufw allow 1714:1764/tcp # KDE Connect over TCP
+sudo ufw allow 24800 # Synergy
 
 # Enable ssh daemon.
 sudo systemctl enable sshd
@@ -266,11 +254,6 @@ sudo vim /boot/loader/entries/arch-lts.conf
     # Point initrd and linux to the LTS kernel.
 sudo vim /boot/loader/loader.conf
     # Change default kernel.
-
-# Install update notifier.
-sudo pacman -S update-notifier
-sudo systemctl enable update-notifier.timer
-sudo systemctl start update-notifier.timer
 
 # Update pkgfile metadata.
 sudo pkgfile --update
@@ -299,6 +282,44 @@ ccache --set-config=max_size=<max cache size, e.g. 100.0G>
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
+
+# Install ScanGearMP.
+yay -S scangearmp2
+
+# Install Google Chrome.
+yay -S google-chrome
+
+# Configure Synergy.
+sudo vim /etc/synergy.conf
+    # section: screens
+    # 	MacMini:
+    # 	Desktop:
+    # end
+    #
+    # section: links
+    # 	# Mac Mini is to the left of Desktop.
+    # 	MacMini:
+    # 		right = Desktop
+    #
+    # 	# Desktop is to the right of Mac Mini.
+    # 	Desktop:
+    # 		left = MacMini
+    # end
+    #
+    # section: aliases
+    # 	MacMini:
+    # 		Vlads-Mac-mini.local
+    #
+    # 	Desktop:
+    # 		lithium
+    # end
+    #
+    # section: options
+    # 	screenSaverSync = false
+    # end
+
+# Enable CUPS.
+sudo systemctl enable org.cups.cupsd
 
 # Configure Quassel.
 # Interface:
