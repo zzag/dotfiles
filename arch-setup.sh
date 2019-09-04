@@ -192,6 +192,7 @@ sudo pacman -S \
     w3m \
     wireless_tools \
     wireshark-qt \
+    xdg-desktop-portal \
     xdg-user-dirs \
     xterm \
     youtube-dl \
