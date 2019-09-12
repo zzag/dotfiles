@@ -1,6 +1,7 @@
 global
     branch-group kf5-qt5
 
+    qtdir ~/Workspace/qt5/qtbase
     kdedir ~/Workspace/KDE/usr
     source-dir ~/Workspace/KDE/src
     build-dir ~/Workspace/KDE/build
