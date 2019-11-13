@@ -185,6 +185,7 @@ sudo pacman -S \
     tree \
     ttf-croscore \
     ttf-liberation \
+    ttf-ubuntu-font-family \
     ufw \
     unrar \
     unzip \
@@ -193,8 +194,14 @@ sudo pacman -S \
     w3m \
     wireless_tools \
     wireshark-qt \
+    xcursor-vanilla-dmz \
+    xcursor-vanilla-dmz-aa \
     xdg-desktop-portal \
+    xdg-desktop-portal-kde \
     xdg-user-dirs \
+    xorg-server-xephyr \
+    xorg-server-xvfb \
+    xorg-server-xwayland \
     xterm \
     youtube-dl \
     zsh
