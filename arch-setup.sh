@@ -78,6 +78,7 @@ vim /boot/loader/entries/arch.conf
 # Install apps.
 sudo pacman -Syu
 sudo pacman -S \
+    apper \
     ark \
     dolphin \
     dolphin-plugins \
