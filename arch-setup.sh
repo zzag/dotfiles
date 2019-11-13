@@ -128,6 +128,7 @@ sudo pacman -S \
     figlet \
     firefox \
     fish \
+    flatpak \
     gdb \
     gimp \
     git \
