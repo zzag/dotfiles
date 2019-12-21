@@ -12,6 +12,7 @@
     "editor.renderControlCharacters": true,
     "editor.renderIndentGuides": false,
     "editor.renderWhitespace": "boundary",
+    "editor.smoothScrolling": false,
     "editor.tokenColorCustomizations": {
         "textMateRules": [
             {
@@ -45,5 +46,7 @@
     "clangd.path": "/usr/bin/clangd",
     "clangd.semanticHighlighting": true,
     // clang-format
-    "clang-format.fallbackStyle": "WebKit"
+    "clang-format.fallbackStyle": "WebKit",
+    "workbench.colorTheme": "Monokai Pro",
+    "workbench.iconTheme": "Monokai Pro Icons"
 }

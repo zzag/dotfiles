@@ -170,6 +170,8 @@ sudo pacman -S \
     pkgfile \
     python-pip \
     qbittorrent \
+    qt5-doc \
+    qtcreator \
     quassel-monolithic \
     ranger \
     rclone \
