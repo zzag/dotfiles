@@ -145,7 +145,9 @@ sudo pacman -S \
     keychain \
     libdbusmenu-glib \
     libreoffice-fresh \
+    linux-headers \
     linux-lts \
+    linux-lts-headers \
     lldb \
     llvm \
     lm_sensors \
