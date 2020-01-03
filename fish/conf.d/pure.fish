@@ -1,4 +1,4 @@
-set --universal pure_version 2.1.8 # used for bug report
+set --universal pure_version 2.4.2 # used for bug report
 
 # Base colors
 _pure_set_default pure_color_primary (set_color blue)
@@ -14,29 +14,15 @@ _pure_set_default pure_color_dark (set_color black)
 # Prompt
 _pure_set_default pure_symbol_prompt "❯"
 _pure_set_default pure_symbol_reverse_prompt "❮"  # used for VI mode
-_pure_set_default pure_color_prompt_on_error $pure_color_danger
-_pure_set_default pure_color_prompt_on_success $pure_color_success
-
-# Current Working Directory
-_pure_set_default pure_color_current_directory $pure_color_primary
 
 # Git
+_pure_set_default pure_enable_git true
 _pure_set_default pure_symbol_git_unpulled_commits "⇣"
 _pure_set_default pure_symbol_git_unpushed_commits "⇡"
 _pure_set_default pure_symbol_git_dirty "*"
-_pure_set_default pure_color_git_unpulled_commits $pure_color_info
-_pure_set_default pure_color_git_unpushed_commits $pure_color_info
-_pure_set_default pure_color_git_branch $pure_color_mute
-_pure_set_default pure_color_git_dirty $pure_color_mute
 
-# SSH info
-_pure_set_default pure_color_ssh_hostname $pure_color_mute
-_pure_set_default pure_color_ssh_separator $pure_color_mute
-_pure_set_default pure_color_ssh_user_normal $pure_color_mute
-_pure_set_default pure_color_ssh_user_root $pure_color_light
-
-# Virtualenv for Pyhon
-_pure_set_default pure_color_virtualenv $pure_color_mute
+# Number of running jobs
+_pure_set_default pure_show_jobs false
 
 # Print current working directory at the beginning of prompt
 # true (default):   current directory, git, user@hostname (ssh-only), command duration
@@ -50,11 +36,6 @@ _pure_set_default pure_separate_prompt_on_error false
 
 # Max execution time of a process before its run time is shown when it exits
 _pure_set_default pure_threshold_command_duration 5
-_pure_set_default pure_color_command_duration $pure_color_warning
-
-# Right Prompt variables
-_pure_set_default pure_right_prompt ""
-_pure_set_default pure_color_right_prompt $pure_color_normal
 
 # VI mode indicator
 # true (default):  indicate a non-insert mode by reversing the prompt symbol (❮)
