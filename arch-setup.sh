@@ -357,3 +357,6 @@ sudo systemctl enable org.cups.cupsd
 #
 # Input Widget:
 #   * Uncheck "Show style buttons"
+
+# Install RTL8812AU driver.
+yay -S rtl88xxau-aircrack-dkms-git
