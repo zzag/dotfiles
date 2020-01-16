@@ -9,6 +9,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'fatih/vim-go'
 Plug 'elzr/vim-json'
+Plug 'peterhoeg/vim-qml'
 
 " UI
 Plug 'christoomey/vim-tmux-navigator'
