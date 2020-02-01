@@ -100,7 +100,6 @@ sudo pacman -S \
     ksudoku \
     okular \
     plasma \
-    plasma5-applets-redshift-control \
     spectacle \
     android-udev \
     autoconf \
@@ -179,7 +178,6 @@ sudo pacman -S \
     quassel-monolithic \
     ranger \
     rclone \
-    redshift \
     ripgrep \
     rsync \
     sshfs \
