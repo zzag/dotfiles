@@ -175,6 +175,7 @@ sudo pacman -S \
     the_silver_searcher \
     thunderbird \
     tmux \
+    transmission-qt \
     tree \
     ttf-croscore \
     ttf-liberation \
