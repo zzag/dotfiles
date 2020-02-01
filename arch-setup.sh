@@ -85,7 +85,6 @@ sudo pacman -S \
     extra-cmake-modules \
     ffmpegthumbs \
     gwenview \
-    k3b \
     kaccounts-providers \
     kate \
     kcalc \
@@ -108,9 +107,6 @@ sudo pacman -S \
     bind-tools \
     boost \
     cantata \
-    cdparanoia \
-    cdrdao \
-    cdrtools \
     clang \
     cmake \
     cowsay \
@@ -121,8 +117,6 @@ sudo pacman -S \
     dialog \
     diff-so-fancy \
     dnscrypt-proxy \
-    dvd+rw-tools \
-    emovix \
     figlet \
     firefox \
     fish \
@@ -185,7 +179,6 @@ sudo pacman -S \
     thunderbird \
     tldr \
     tmux \
-    transcode \
     tree \
     ttf-croscore \
     ttf-liberation \
@@ -194,7 +187,6 @@ sudo pacman -S \
     unrar \
     unzip \
     valgrind \
-    vcdimager \
     w3m \
     wireless_tools \
     wireshark-qt \
