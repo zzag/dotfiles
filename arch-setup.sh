@@ -109,7 +109,6 @@ sudo pacman -S \
     cantata \
     clang \
     cmake \
-    cowsay \
     ctags \
     cups \
     curl \
@@ -117,7 +116,6 @@ sudo pacman -S \
     dialog \
     diff-so-fancy \
     dnscrypt-proxy \
-    figlet \
     firefox \
     fish \
     flatpak \
@@ -170,14 +168,12 @@ sudo pacman -S \
     qtcreator \
     quassel-monolithic \
     ranger \
-    rclone \
     ripgrep \
     rsync \
     sshfs \
     synergy \
     the_silver_searcher \
     thunderbird \
-    tldr \
     tmux \
     tree \
     ttf-croscore \
@@ -199,8 +195,7 @@ sudo pacman -S \
     xorg-server-xvfb \
     xorg-server-xwayland \
     xterm \
-    youtube-dl \
-    zsh
+    youtube-dl
 
 # Configure SDDM.
 sddm --example-config | sudo tee /etc/sddm.conf.d/sddm.conf > /dev/null
