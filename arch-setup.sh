@@ -160,6 +160,8 @@ sudo pacman -S \
     noto-fonts \
     noto-fonts-emoji \
     nss-mdns \
+    nvidia \
+    nvidia-lts \
     openssh \
     otf-fira-code \
     otf-fira-mono \
