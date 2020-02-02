@@ -347,3 +347,6 @@ sudo systemctl enable org.cups.cupsd
 
 # Install RTL8812AU driver.
 yay -S rtl88xxau-aircrack-dkms-git
+
+# Enable bluetooth.
+sudo systemctl enable --now bluetooth
