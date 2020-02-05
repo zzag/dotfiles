@@ -45,19 +45,30 @@ genfstab -p /mnt >> /mnt/etc/fstab
 
 # Configure system.
 arch-chroot /mnt
-pacman -S vim intel-ucode wpa_supplicant
-vim /etc/hostname
-ln -sf /usr/share/zoneinfo/Europe/Kiev /etc/localtime
-hwclock --systohc
+
+pacman -S \
+    dhcpcd \
+    intel-ucode \
+    linux-firmware \
+    vim \
+    wpa_supplicant
+
+hostnamectl set-hostname lithium
+timedatectl set-timezone Europe/Kiev
+
 vim /etc/locale.gen
 locale-gen
+
 locale > /etc/locale.conf
+
 vim /etc/sudoers
     # Uncomment '%wheel ALL=(ALL) ALL'
+
 vim /etc/mkinitcpio.conf
     # edit HOOKS
     # HOOKS="base udev autodetect modconf block keyboard encrypt lvm2 resume filesystems fsck"
 mkinitcpio -p linux
+
 passwd
 
 # Install bootloader.
