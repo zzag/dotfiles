@@ -130,6 +130,7 @@ sudo pacman -S \
     firefox \
     fish \
     flatpak \
+    fwupd \
     gdb \
     gimp \
     git \
@@ -152,6 +153,8 @@ sudo pacman -S \
     lldb \
     llvm \
     lm_sensors \
+    man-db \
+    man-pages \
     meson \
     mpd \
     mpv \
