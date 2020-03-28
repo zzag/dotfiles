@@ -116,6 +116,7 @@ sudo pacman -S \
     automake \
     avahi \
     bind-tools \
+    bluez-utils \
     boost \
     cantata \
     clang \
