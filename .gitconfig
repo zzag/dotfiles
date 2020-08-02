@@ -20,7 +20,7 @@
 	whitespace = red reverse
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
-[url "git@git.kde.org:"]
-	pushInsteadOf = kde:
-[url "https://anongit.kde.org/"]
+[url "https://invent.kde.org/"]
 	insteadOf = kde:
+[url "ssh://git@invent.kde.org/"]
+	pushInsteadOf = kde:
