@@ -17,7 +17,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Yggdroot/indentLine'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'AlessandroYorba/Sierra'
+Plug 'joshdick/onedark.vim'
 
 " Editing
 Plug 'mattn/emmet-vim'
@@ -147,7 +147,10 @@ set cinoptions+=E-s " Don't indent inside extern
 " ==================================================
 
 set background=dark
-colorscheme sierra
+colorscheme onedark
+
+" Enable italics.
+let g:onedark_terminal_italics = 1
 
 " Show comments in italics.
 " (should be set after colorscheme)
