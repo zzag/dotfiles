@@ -181,7 +181,6 @@ sudo pacman -S \
     qbittorrent \
     qt5-doc \
     qtcreator \
-    quassel-monolithic \
     ranger \
     ripgrep \
     rsync \
@@ -333,27 +332,6 @@ sudo vim /etc/synergy.conf
 
 # Enable CUPS.
 sudo systemctl enable org.cups.cupsd
-
-# Configure Quassel.
-# Interface:
-#   * Check "Hide to tray on close button"
-#
-# Chat View:
-#   * Check "Custom Colors"
-#   * Check "Use Sender Coloring"
-#   * Uncheck "Show previews of webpages on URL hover"
-#
-# Chat & Nick Lists:
-#   * Check "Use Custom Colors" and use the following colors:
-#     - Standard: #000000
-#     - Inactive: #a0a0a4
-#     - Unread messages: #64b5f6
-#     - Highlight: #ff5500
-#     - Other activity: #9ccc65
-#   * Check "Display topic in tooltip"
-#
-# Input Widget:
-#   * Uncheck "Show style buttons"
 
 # Install RTL8812AU driver.
 yay -S rtl88xxau-aircrack-dkms-git
