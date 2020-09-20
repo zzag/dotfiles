@@ -279,11 +279,6 @@ sudo pkgfile --update
 # Enable systemd-timesyncd.
 sudo timedatectl set-ntp true
 
-# Configure keychain.
-vim ~/.zprofile
-    # export SSH_ASKPASS=/usr/bin/ksshaskpass
-    # eval `keychain --eval --quiet --agents ssh <keys>`
-
 # Configure Cantata.
 mkdir ~/.config/mpd/playlists
 ln -s path/to/dotfiles/mpd.conf ~/.config/mpd/mpd.conf
