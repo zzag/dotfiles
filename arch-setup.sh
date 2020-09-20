@@ -145,7 +145,7 @@ sudo pacman -S \
     htop \
     imagemagick \
     inkscape \
-    keychain \
+    keepassxc \
     libdbusmenu-glib \
     libreoffice-fresh \
     linux-headers \
