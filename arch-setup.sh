@@ -365,3 +365,9 @@ yay -S rtl88xxau-aircrack-dkms-git
 
 # Enable bluetooth.
 sudo systemctl enable --now bluetooth
+
+# Configure the SSH key agent.
+mkdir -p ~/.config/systemd/user/
+ln -s systemd/ssh-agent.service ~/.config/systemd/user/
+systemctl --user enable ssh-agent
+systemctl --user start ssh-agent
