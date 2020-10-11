@@ -12,3 +12,6 @@ set -gx GTK_USE_PORTAL 1
 
 # For pixel perfect scrolling in Firefox.
 set -gx MOZ_USE_XINPUT2 1
+
+# Enable hardware acceleration in Firefox on X11.
+set -gx MOZ_X11_EGL 1
