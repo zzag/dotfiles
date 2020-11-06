@@ -7,11 +7,5 @@ if type -q rustup
     set -gx fish_user_paths $HOME/.cargo/bin $fish_user_paths
 end
 
-# Use portals to ensure that GTK applications use native file dialogs.
-set -gx GTK_USE_PORTAL 1
-
-# For pixel perfect scrolling in Firefox.
-set -gx MOZ_USE_XINPUT2 1
-
-# Enable hardware acceleration in Firefox on X11.
-set -gx MOZ_X11_EGL 1
+# Enable Wayland support in Firefox and Thunderbird.
+set -gx MOZ_ENABLE_WAYLAND 1
