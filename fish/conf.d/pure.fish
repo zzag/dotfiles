@@ -1,4 +1,4 @@
-set --global pure_version 3.3.5 # used for bug report
+set --global pure_version 3.5.0 # used for bug report
 
 # Base colors
 _pure_set_default pure_color_primary blue
@@ -30,6 +30,7 @@ _pure_set_default pure_color_git_unpulled_commits pure_color_info
 _pure_set_default pure_color_git_unpushed_commits pure_color_info
 _pure_set_default pure_color_git_branch pure_color_mute
 _pure_set_default pure_color_git_dirty pure_color_mute
+_pure_set_default pure_color_git_stash pure_color_info
 
 # SSH info
 _pure_set_default pure_color_ssh_hostname pure_color_mute
@@ -73,3 +74,11 @@ _pure_set_default pure_symbol_title_bar_separator "-"
 
 # Check for new release on startup
 _pure_set_default pure_check_for_new_release false
+
+# Prefix prompt when logged in as root
+_pure_set_default pure_show_prefix_root_prompt false
+_pure_set_default pure_symbol_prefix_root_prompt "#"
+_pure_set_default pure_color_prefix_root_prompt pure_color_danger
+
+# Compact mode
+_pure_set_default pure_enable_single_line_prompt false
