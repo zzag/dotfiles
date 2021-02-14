@@ -7,9 +7,9 @@ global
     build-dir /data/projects/build
     log-dir /data/projects/log
 
-    cmake-options -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+    cmake-options -GNinja -DCMAKE_INSTALL_LIBEXECDIR=lib -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
     custom-build-command ninja
-    ignore-kde-structure true
+    directory-layout flat
     install-session-driver false
     install-environment-driver true
 end global
