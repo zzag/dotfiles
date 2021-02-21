@@ -278,7 +278,6 @@ sudo timedatectl set-ntp true
 
 # Setup ccache.
 sudo pacman -S ccache
-echo 'export PATH="/usr/lib/ccache/bin:$PATH"' >> ~/.zprofile
 ccache --set-config=max_size=<max cache size, e.g. 100.0G>
 
 # Install yay.
