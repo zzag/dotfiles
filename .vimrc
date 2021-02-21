@@ -100,6 +100,10 @@ if has('mouse')
   set mouse=a
 endif
 
+" Enable loading project specific config files.
+" set exrc
+" set secure
+
 " Override italics escape sequence.
 "
 " YOU SHOULDN'T OVERRIDE IT. INSTEAD, CHANGE YOUR
