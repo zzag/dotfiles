@@ -289,9 +289,6 @@ makepkg -si
 # Install ScanGearMP.
 yay -S scangearmp2
 
-# Install Google Chrome.
-yay -S google-chrome
-
 # Configure Synergy.
 sudo vim /etc/synergy.conf
     # section: screens
