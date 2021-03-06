@@ -174,6 +174,7 @@ sudo pacman -S \
     packagekit-qt5 \
     pacman-contrib \
     perf \
+    pipewire-pulse \
     pkgfile \
     python-pip \
     qbittorrent \
