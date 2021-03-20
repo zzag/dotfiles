@@ -16,6 +16,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'scrooloose/nerdtree'
 Plug 'Yggdroot/indentLine'
 Plug 'joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
 
 " Editing
 Plug 'junegunn/vim-easy-align'
@@ -24,7 +25,6 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Raimondi/delimitMate'
 Plug 'chiel92/vim-autoformat'
-Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
