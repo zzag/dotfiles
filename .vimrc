@@ -27,6 +27,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Raimondi/delimitMate'
 Plug 'chiel92/vim-autoformat'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
