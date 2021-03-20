@@ -13,7 +13,7 @@ Plug 'peterhoeg/vim-qml'
 
 " UI
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 Plug 'Yggdroot/indentLine'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
@@ -22,7 +22,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdcommenter'
 Plug 'Raimondi/delimitMate'
 Plug 'chiel92/vim-autoformat'
 
