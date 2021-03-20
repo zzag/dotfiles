@@ -255,7 +255,7 @@ autocmd FileType gitcommit call ConfigureGitCommit()
 " indentLine
 " --------------------------------------------------
 
-let g:indentLine_char = '│'
+" let g:indentLine_char = '│'
 
 
 " --------------------------------------------------
