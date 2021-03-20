@@ -15,12 +15,9 @@ Plug 'peterhoeg/vim-qml'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'scrooloose/nerdtree'
 Plug 'Yggdroot/indentLine'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
 Plug 'joshdick/onedark.vim'
 
 " Editing
-Plug 'mattn/emmet-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'editorconfig/editorconfig-vim'
@@ -270,47 +267,11 @@ let g:vim_json_syntax_conceal=0
 
 
 " --------------------------------------------------
-" emmet-vim
-" --------------------------------------------------
-
-" Use emmet with <C-Z>,
-let g:user_emmet_leader_key='<C-Z>'
-
-
-" --------------------------------------------------
 " nerdtree
 " --------------------------------------------------
 
 " Toggle nerd tree.
 map <C-n> :NERDTreeToggle<CR>
-
-
-" --------------------------------------------------
-" goyo.vim
-" --------------------------------------------------
-
-function! s:goyo_enter()
-  if exists('$TMUX')
-    silent !tmux set status off
-    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-  endif
-  set noshowmode
-  set noshowcmd
-  Limelight
-endfunction
-
-function! s:goyo_leave()
-  if exists('$TMUX')
-    silent !tmux set status on
-    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  endif
-  set showmode
-  set showcmd
-  Limelight!
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 
 " --------------------------------------------------
