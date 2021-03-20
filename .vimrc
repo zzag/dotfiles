@@ -199,13 +199,6 @@ let mapleader = ','
 " Clear search highlighting.
 nmap <silent> <leader>c :nohlsearch<CR>
 
-" Editing helpers.
-cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
-map <leader>ew :e %%
-map <leader>es :sp %%
-map <leader>ev :vsp %%
-map <leader>et :tabe %%
-
 " Yank from the cursor to the end of the line.
 nnoremap Y y$
 
