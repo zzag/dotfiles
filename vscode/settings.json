@@ -4,7 +4,7 @@
     "editor.fontFamily": "Operator Mono Book",
     "editor.fontSize": 11,
     "editor.fontLigatures": true,
-    "editor.lineHeight": 18,
+    "editor.lineHeight": 16,
     "editor.minimap.enabled": true,
     "editor.minimap.maxColumn": 100,
     "editor.minimap.renderCharacters": false,
@@ -44,9 +44,5 @@
         "--header-insertion=never"
     ],
     "clangd.path": "/usr/bin/clangd",
-    "clangd.semanticHighlighting": true,
-    // clang-format
-    "clang-format.fallbackStyle": "WebKit",
-    "workbench.colorTheme": "Monokai Pro",
-    "workbench.iconTheme": "Monokai Pro Icons"
+    "clangd.semanticHighlighting": true
 }
