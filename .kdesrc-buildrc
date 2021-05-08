@@ -1,7 +1,7 @@
 global
     branch-group kf5-qt5
 
-#    qtdir /data/projects/src/qt5/qtbase
+    qtdir /data/projects/src/qt5/qtbase
     kdedir /data/projects/usr
     source-dir /data/projects/src
     build-dir /data/projects/build
