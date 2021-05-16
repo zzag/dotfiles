@@ -1,6 +1,6 @@
 {
     "editor.autoClosingBrackets": "never",
-    "editor.fontFamily": "Consolas",
+    "editor.fontFamily": "Operator Mono",
     "editor.fontSize": 11,
     "editor.fontLigatures": true,
     "editor.minimap.enabled": true,
@@ -47,5 +47,8 @@
     },
     "[xml]": {
         "editor.rulers": [80]
+    },
+    "[javascript]": {
+        "editor.rulers": [100]
     }
 }
