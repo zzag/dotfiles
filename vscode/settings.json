@@ -1,6 +1,5 @@
 {
-    "editor.autoClosingBrackets": "never",
-    "editor.fontFamily": "Operator Mono",
+    "editor.fontFamily": "Consolas",
     "editor.fontSize": 11,
     "editor.fontLigatures": true,
     "editor.minimap.enabled": true,
