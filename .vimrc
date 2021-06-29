@@ -317,6 +317,13 @@ noremap <F3> :Autoformat<CR>
 " autocmd BufWrite *.cpp :Autoformat
 
 
+" --------------------------------------------------
+" vim-indentLine
+" --------------------------------------------------
+
+let g:vim_markdown_conceal=0
+let g:vim_markdown_conceal_code_blocks=0
+
 " ==================================================
 "                       EOF
 " ==================================================
