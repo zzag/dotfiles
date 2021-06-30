@@ -1,5 +1,5 @@
 {
-    "editor.fontFamily": "Operator Mono Book",
+    "editor.fontFamily": "Operator Mono",
     "editor.fontSize": 11,
     "editor.fontLigatures": true,
     "editor.minimap.enabled": true,
@@ -44,6 +44,9 @@
     // file specific
     "[cpp]": {
         "editor.rulers": [100]
+    },
+    "[rust]": {
+        "editor.formatOnSave": true
     },
     "[xml]": {
         "editor.rulers": [80]
