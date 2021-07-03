@@ -332,20 +332,3 @@ mkdir -p ~/.config/systemd/user/
 ln -s systemd/ssh-agent.service ~/.config/systemd/user/
 systemctl --user enable ssh-agent
 systemctl --user start ssh-agent
-
-# Add a post transaction hook to refresh PackageKit after updating or installing a package
-sudo mkdir -p /etc/pacman.d/hooks
-sudo tee -a /etc/pacman.d/hooks/90-refresh-packagekit.hook > /dev/null << EOF
-[Trigger]
-Type = Package
-Operation = Install
-Operation = Upgrade
-Target = *
-
-[Action]
-Description = Refresh PackageKit
-Depends = packagekit
-Depends = systemd
-When = PostTransaction
-Exec = /usr/bin/busctl call --system org.freedesktop.PackageKit /org/freedesktop/PackageKit org.freedesktop.PackageKit StateHasChanged s posttrans
-EOF
