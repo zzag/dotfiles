@@ -23,4 +23,4 @@ set -g fish_color_command normal
 set -g fish_color_param green
 
 # Customize pure prompt.
-set -g pure_color_prompt_on_success (set_color green)
+set -g pure_color_success (set_color green)
