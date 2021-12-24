@@ -257,7 +257,7 @@ sudo systemctl enable NetworkManager
 # Use subpixel font rendering.
 sudo vim /etc/profile.d/freetype2.sh
     # Add the following line:
-    # export FREETYPE_PROPERTIES="truetype:interpreter-version=38 cff:no-stem-darkening=0"
+    # export FREETYPE_PROPERTIES="truetype:interpreter-version=40 cff:no-stem-darkening=0"
 sudo rm /etc/fonts/conf.d/10-hinting-slight.conf
 sudo ln -s /etc/fonts/conf.avail/10-hinting-none.conf /etc/fonts/conf.d/10-hinting-none.conf
 sudo ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d/10-sub-pixel-rgb.conf

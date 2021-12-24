@@ -9,3 +9,6 @@ end
 
 # Enable Wayland support in Firefox and Thunderbird.
 set -gx MOZ_ENABLE_WAYLAND 1
+
+# Enable stem darkening (so fonts look more consistent in Qt and GTK apps)
+set -gx FREETYPE_PROPERTIES "truetype:interpreter-version=40 cff:no-stem-darkening=0"
