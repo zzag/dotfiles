@@ -1,9 +1,7 @@
 {
-    "editor.fontFamily": "Jetbrains Mono",
+    "editor.fontFamily": "Operator Mono",
     "editor.fontSize": 10,
-    "editor.fontLigatures": false,
-    "editor.minimap.enabled": true,
-    "editor.minimap.maxColumn": 100,
+    "editor.minimap.maxColumn": 80,
     "editor.minimap.renderCharacters": false,
     "editor.multiCursorModifier": "alt",
     "editor.renderIndentGuides": true,
