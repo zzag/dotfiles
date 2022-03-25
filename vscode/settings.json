@@ -41,16 +41,23 @@
     "clangd.semanticHighlighting": true,
     // file specific
     "[cpp]": {
-        "editor.rulers": [100]
+        "editor.formatOnSave": true,
+        "editor.rulers": [
+            100
+        ]
     },
     "[rust]": {
         "editor.formatOnSave": true
     },
     "[xml]": {
-        "editor.rulers": [80]
+        "editor.rulers": [
+            80
+        ]
     },
     "[javascript]": {
-        "editor.rulers": [100]
+        "editor.rulers": [
+            100
+        ]
     },
     "[dart]": {
         "editor.formatOnSave": true,
