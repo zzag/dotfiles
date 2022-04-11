@@ -1,4 +1,5 @@
 {
+    "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "Operator Mono",
     "editor.fontSize": 10,
     "editor.minimap.maxColumn": 80,
@@ -29,7 +30,6 @@
     "window.menuBarVisibility": "toggle",
     "window.restoreFullscreen": true,
     "window.titleBarStyle": "native",
-    "workbench.startupEditor": "none",
     "workbench.tree.renderIndentGuides": "none",
     // vscode-clangd
     "clangd.arguments": [
