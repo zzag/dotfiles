@@ -1,11 +1,13 @@
 {
     "editor.bracketPairColorization.enabled": true,
-    "editor.fontFamily": "Operator Mono",
-    "editor.fontSize": 10,
+    "editor.fontFamily": "Cascadia Code",
+    "editor.fontSize": 10.5,
+    "editor.guides.indentation": true,
+    "editor.inlayHints.enabled": false,
     "editor.minimap.maxColumn": 80,
     "editor.minimap.renderCharacters": false,
     "editor.multiCursorModifier": "alt",
-    "editor.renderIndentGuides": true,
+    "editor.semanticHighlighting.enabled": true,
     "editor.tokenColorCustomizations": {
         "textMateRules": [
             {
@@ -30,18 +32,20 @@
     "window.menuBarVisibility": "toggle",
     "window.restoreFullscreen": true,
     "window.titleBarStyle": "native",
+    "workbench.startupEditor": "none",
     "workbench.tree.renderIndentGuides": "none",
     // vscode-clangd
     "clangd.arguments": [
         "-background-index",
-        "--header-insertion=never"
+        "-j=8",
+        "--header-insertion=never",
+        "--completion-style=detailed"
     ],
     "clangd.onConfigChanged": "restart",
     "clangd.path": "/usr/bin/clangd",
-    "clangd.semanticHighlighting": true,
     // file specific
     "[cpp]": {
-        "editor.formatOnSave": true,
+        "editor.formatOnSave": false,
         "editor.rulers": [
             100
         ]
