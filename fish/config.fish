@@ -5,6 +5,11 @@ else
     set -gx EDITOR nano
 end
 
+# Add $HOME/.cargo/bin to PATH.
+if test -d ~/.cargo/bin
+    set -gx fish_user_paths ~/.cargo/bin $fish_user_paths
+end
+
 # Add $HOME/.local/bin to PATH.
 if test -d ~/.local/bin
     set -gx fish_user_paths ~/.local/bin $fish_user_paths
