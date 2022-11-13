@@ -1,8 +1,8 @@
 {
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "Cascadia Code",
-    "editor.fontSize": 10.5,
-    "editor.guides.indentation": true,
+    "editor.fontSize": 11,
+    "editor.guides.indentation": false,
     "editor.inlayHints.enabled": "off",
     "editor.minimap.maxColumn": 100,
     "editor.minimap.renderCharacters": false,
