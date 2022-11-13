@@ -1,4 +1,4 @@
-set --global pure_version 4.1.1 # For bug report and tag-after-merge workflow
+set --global pure_version 4.3.1 # For bug report and tag-after-merge workflow
 
 # Base colors
 _pure_set_default pure_color_primary blue
@@ -70,7 +70,7 @@ _pure_set_default pure_color_command_duration pure_color_warning
 _pure_set_default pure_reverse_prompt_symbol_in_vimode true
 
 # Title
-_pure_set_default pure_symbol_title_bar_separator "-"
+_pure_set_default pure_symbol_title_bar_separator -
 
 # Check for new release on startup
 _pure_set_default pure_check_for_new_release false
@@ -82,3 +82,6 @@ _pure_set_default pure_color_prefix_root_prompt pure_color_danger
 
 # Compact mode
 _pure_set_default pure_enable_single_line_prompt false
+
+# Detect when running in container (e.g. docker, podman, LXC/LXD)
+_pure_set_default pure_enable_container_detection true
