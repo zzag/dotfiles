@@ -1,17 +1,19 @@
 global
-    branch-group kf5-qt5
+    branch-group kf6-qt6
 
-    qtdir /data/projects/src/qt5/qtbase
-    kdedir /data/projects/usr
-    source-dir /data/projects/src
-    build-dir /data/projects/build
-    log-dir /data/projects/log
+    prefix /data/projects/kde/usr
+    source-dir /data/projects/kde/src
+    build-dir /data/projects/kde/build
+    log-dir /data/projects/kde/log
 
-    cmake-options -DCMAKE_BUILD_TYPE=RelWithDebInfo -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
-    custom-build-command ninja
-    directory-layout flat
-    install-session-driver false
+    num-cores auto
+    num-cores-low-mem 2
+
+    cmake-generator Kate - Ninja
+    cmake-options -DCMAKE_BUILD_TYPE=Debug
+
     install-environment-driver true
 end global
 
-include ~/.local/share/kdesrc-build/kf5-qt5-build-include
+include ~/.local/share/kdesrc-build/kf6-qt6-build-include
+include ~/.local/share/kdesrc-build/kf6-extragear-build-include
