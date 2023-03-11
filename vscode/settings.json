@@ -4,6 +4,7 @@
     "editor.fontSize": 11,
     "editor.guides.indentation": false,
     "editor.inlayHints.enabled": "off",
+    "editor.lineHeight": 1.6,
     "editor.minimap.maxColumn": 100,
     "editor.minimap.renderCharacters": false,
     "editor.multiCursorModifier": "alt",
