@@ -120,13 +120,10 @@ sudo pacman -S \
     boost \
     clang \
     cmake \
-    ctags \
     cups \
     curl \
     devtools \
     dialog \
-    diff-so-fancy \
-    dnscrypt-proxy \
     firefox \
     fish \
     flatpak \
@@ -162,11 +159,9 @@ sudo pacman -S \
     ninja \
     noto-fonts \
     noto-fonts-emoji \
-    nss-mdns \
     nvidia \
     nvidia-lts \
     openssh \
-    otf-fira-code \
     otf-fira-mono \
     otf-fira-sans \
     p7zip \
@@ -175,20 +170,16 @@ sudo pacman -S \
     pacman-contrib \
     perf \
     pipewire-pulse \
-    pkgfile \
     python-pip \
-    qbittorrent \
     qt5-doc \
     qtcreator \
     ranger \
     ripgrep \
     rsync \
     sshfs \
-    the_silver_searcher \
     thunderbird \
     tmux \
     transmission-qt \
-    tree \
     ttf-croscore \
     ttf-liberation \
     ttf-ubuntu-font-family \
@@ -196,9 +187,7 @@ sudo pacman -S \
     unrar \
     unzip \
     valgrind \
-    w3m \
     wireless_tools \
-    wireshark-qt \
     xcursor-vanilla-dmz \
     xcursor-vanilla-dmz-aa \
     xdg-desktop-portal \
@@ -207,8 +196,7 @@ sudo pacman -S \
     xorg-server-xephyr \
     xorg-server-xvfb \
     xorg-server-xwayland \
-    xterm \
-    youtube-dl
+    xterm
 
 # Configure SDDM.
 sddm --example-config | sudo tee /etc/sddm.conf.d/sddm.conf > /dev/null
@@ -269,9 +257,6 @@ sudo vim /boot/loader/entries/arch-lts.conf
     # Point initrd and linux to the LTS kernel.
 sudo vim /boot/loader/loader.conf
     # Change default kernel.
-
-# Update pkgfile metadata.
-sudo pkgfile --update
 
 # Enable systemd-timesyncd.
 sudo timedatectl set-ntp true
