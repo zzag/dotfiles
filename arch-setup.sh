@@ -1,7 +1,7 @@
 # Create partitions.
 cgdisk /dev/sda
     # Create /dev/sda1 (type ef00)
-    # Create /dev/sda2 (type 8e00)
+    # Create /dev/sda2 (type 8300)
 
 # or with gdisk
 gdisk /dev/sda
@@ -10,69 +10,34 @@ gdisk /dev/sda
     # Verify that there are no problems: v
     # Write table to disk: w
 
-# Format EFI partition.
+# Setup EFI partition.
 mkfs.fat -F32 /dev/sda1
 
-# Setup crypto.
-cryptsetup luksFormat /dev/sda2
-cryptsetup open --type luks /dev/sda2 lvm
+# Setup btrfs partition.
+mkfs.btrfs /dev/sda2
+mount /dev/sda2 /mnt
 
-# Setup LVM.
-pvcreate /dev/mapper/lvm
-vgcreate arch /dev/mapper/lvm
-lvcreate -n swap -L 10G arch
-lvcreate -n root -L 64G arch
-lvcreate -n home -l 100%FREE arch
-mkfs.ext4 /dev/mapper/arch-root -L system
-mkfs.ext4 /dev/mapper/arch-home -L data
-mkswap /dev/mapper/arch-swap
+btrfs subvolume create /mnt/@
+btrfs subvolume create /mnt/@home
+btrfs subvolume create /mnt/@var
+umount /mnt
 
-# Check partitions.
-lsblk
-
-# Mount partitions.
-mount /dev/mapper/arch-root /mnt
-mkdir /mnt/home
-mkdir /mnt/boot
-mount /dev/mapper/arch-home /mnt/home
+mount -o subvol=@ /dev/sda2 /mnt
+mkdir /mnt/{boot,home,var}
 mount /dev/sda1 /mnt/boot
-swapon /dev/mapper/arch-swap
+mount -o subvol=@home /dev/sda2 /mnt/home
+mount -o subvol=@var /dev/sda2 /mnt/var
 
 # Install base system.
-reflector --country 'Ukraine' --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
-pacstrap /mnt base base-devel
-genfstab -p /mnt >> /mnt/etc/fstab
+pacstrap -K /mnt base base-devel linux linux-firmware
+genfstab -U /mnt >> /mnt/etc/fstab
 
 # Configure system.
 arch-chroot /mnt
-
-pacman -S \
-    dhcpcd \
-    intel-ucode \
-    linux-firmware \
-    vim \
-    wpa_supplicant
-
-hostnamectl set-hostname lithium
-timedatectl set-timezone Europe/Kiev
-
-vim /etc/locale.gen
-locale-gen
-
-locale > /etc/locale.conf
-
-vim /etc/sudoers
-    # Uncomment '%wheel ALL=(ALL) ALL'
-
-vim /etc/mkinitcpio.conf
-    # edit HOOKS
-    # HOOKS="base udev autodetect modconf block keyboard encrypt lvm2 resume filesystems fsck"
-mkinitcpio -p linux
-
-passwd
+pacman -S iwd intel-ucode vim
 
 # Install bootloader.
-bootctl --path=/boot install
+bootctl install
 vim /boot/loader/loader.conf
     # default arch
     # timeout 5
@@ -82,48 +47,50 @@ vim /boot/loader/entries/arch.conf
     # linux   /vmlinuz-linux
     # initrd  /intel-ucode.img
     # initrd  /initramfs-linux.img
-    # options cryptdevice=UUID=<...>:arch root=/dev/mapper/arch-root rw resume=/dev/mapper/arch-swap
+    # options root=UUID=<...> rootflags=subvol=@ rw
     #
     # HINT: use the following in vim: `read ! blkid /dev/sda2`
+
+# Configure hostname.
+hostnamectl set-hostname lithium
+
+# Configure time.
+timedatectl set-ntp true
+timedatectl set-timezone Europe/Kyiv
+
+# Configure locale.
+vim /etc/locale.gen
+locale-gen
+localectl set-locale en_US.UTF-8
+
+# Configure sudo (uncomment `%wheel ALL=(ALL) ALL`)
+vim /etc/sudoers
+
+# Build initramfs.
+mkinitcpio -p linux
+
+# Set root password.
+passwd
 
 # Install apps.
 sudo pacman -Syu
 sudo pacman -S \
-    apper \
+    plasma \
     ark \
     dolphin \
-    dolphin-plugins \
-    extra-cmake-modules \
     ffmpegthumbs \
     gwenview \
-    kaccounts-providers \
     kate \
-    kcalc \
-    kdeconnect \
     kdegraphics-thumbnailers \
     kdialog \
-    kget \
-    kgpg \
-    kfind \
-    kmines \
     konsole \
-    ksudoku \
     okular \
-    plasma \
     spectacle \
-    android-udev \
-    autoconf \
-    automake \
-    avahi \
-    bind-tools \
     bluez-utils \
-    boost \
     clang \
     cmake \
     cups \
     curl \
-    devtools \
-    dialog \
     firefox \
     fish \
     flatpak \
@@ -135,105 +102,41 @@ sudo pacman -S \
     gst-plugins-base \
     gst-plugins-good \
     gvfs \
-    gvim \
-    hddtemp \
     hplip \
     htop \
     imagemagick \
-    inkscape \
     keepassxc \
-    libdbusmenu-glib \
     libreoffice-fresh \
-    linux-headers \
-    linux-lts \
-    linux-lts-headers \
     lldb \
     llvm \
-    lm_sensors \
-    man-db \
-    man-pages \
     meson \
     mpv \
-    neofetch \
-    net-tools \
     ninja \
     noto-fonts \
     noto-fonts-emoji \
-    nvidia \
-    nvidia-lts \
     openssh \
     otf-fira-mono \
     otf-fira-sans \
-    p7zip \
-    packagekit \
-    packagekit-qt5 \
-    pacman-contrib \
-    perf \
-    pipewire-pulse \
-    python-pip \
-    qt5-doc \
-    qtcreator \
-    ranger \
     ripgrep \
     rsync \
-    sshfs \
     thunderbird \
     tmux \
-    transmission-qt \
     ttf-croscore \
     ttf-liberation \
     ttf-ubuntu-font-family \
     ufw \
-    unrar \
     unzip \
-    valgrind \
     wireless_tools \
     xcursor-vanilla-dmz \
     xcursor-vanilla-dmz-aa \
-    xdg-desktop-portal \
-    xdg-desktop-portal-kde \
     xdg-user-dirs \
-    xorg-server-xephyr \
-    xorg-server-xvfb \
-    xorg-server-xwayland \
     xterm
 
-# Configure SDDM.
-sddm --example-config | sudo tee /etc/sddm.conf.d/sddm.conf > /dev/null
-    # Set MinimumVT to 7.
-sudo systemctl enable sddm
-sudo cp /etc/systemd/system/display-manager.service /etc/systemd/system/sddm.service
-    # Delete Conflicts field in /etc/systemd/system/sddm.service
-sudo systemctl disable sddm
+# Enable SDDM.
 sudo systemctl enable sddm
 
-# Configure dnscrypt-proxy.
-sudo vim /etc/dnscrypt-proxy/dnscrypt-proxy.toml
-    # Edit server_names = ['cloudflare', 'google'].
-sudo vim /etc/resolvconf.conf
-    # Uncomment name_servers=127.0.0.1.
-sudo resolvconf -u
-sudo vim /etc/NetworkManager/conf.d/rc-manager.conf
-    # [main]
-    # rc-manager=resolvconf
-sudo systemctl enable --now dnscrypt-proxy.service
-
-# Enable avahi.
-sudo vim /etc/nsswitch.conf
-    # Change the hosts line to include `mdns_minimal [NOTFOUND=return]`
-    # before `resolve` and `dns`.
-sudo cp /usr/share/doc/avahi/*.service /etc/avahi/services/
-sudo systemctl enable avahi-daemon
-sudo systemctl start avahi-daemon
-
-# Configure ufw.
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-sudo ufw allow mdns
-sudo ufw allow ssh
-sudo ufw allow 1714:1764/udp # KDE Connect over UDP
-sudo ufw allow 1714:1764/tcp # KDE Connect over TCP
-sudo ufw allow 24800 # Synergy
+# Enable systemd-resolved.
+sudo systemctl enable systemd-resolved
 
 # Enable ssh daemon.
 sudo systemctl enable sshd
@@ -241,25 +144,29 @@ sudo systemctl enable sshd
 # Enable NetworkManager.
 sudo systemctl enable NetworkManager
 
+# Enable CUPS.
+sudo systemctl enable org.cups.cupsd
+
+# Enable bluetooth.
+sudo systemctl enable bluetooth
+
+# Configure ufw.
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw limit ssh
+sudo ufw enable
+sudo systemctl enable ufw
+
+# Configure home.
+sudo systemctl enable systemd-homed
+sudo homectl create vlad --shell=/usr/bin/fish --storage=luks
+
 # Use subpixel font rendering.
-sudo vim /etc/profile.d/freetype2.sh
-    # Add the following line:
-    # export FREETYPE_PROPERTIES="truetype:interpreter-version=40 cff:no-stem-darkening=0 cff:darkening-parameters=500,500,1000,350,1667,350,2333,0"
 sudo rm /etc/fonts/conf.d/10-hinting-slight.conf
 sudo ln -s /etc/fonts/conf.avail/10-hinting-none.conf /etc/fonts/conf.d/10-hinting-none.conf
 sudo ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d/10-sub-pixel-rgb.conf
 sudo ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d/11-lcdfilter-default.conf
 sudo cp fonts.conf /etc/fonts/local.conf
-
-# Use LTS kernel.
-sudo cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-lts.conf
-sudo vim /boot/loader/entries/arch-lts.conf
-    # Point initrd and linux to the LTS kernel.
-sudo vim /boot/loader/loader.conf
-    # Change default kernel.
-
-# Enable systemd-timesyncd.
-sudo timedatectl set-ntp true
 
 # Setup ccache.
 sudo pacman -S ccache
@@ -272,15 +179,6 @@ makepkg -si
 
 # Install ScanGearMP.
 yay -S scangearmp2
-
-# Enable CUPS.
-sudo systemctl enable org.cups.cupsd
-
-# Install RTL8812AU driver.
-yay -S rtl88xxau-aircrack-dkms-git
-
-# Enable bluetooth.
-sudo systemctl enable --now bluetooth
 
 # Configure the SSH key agent.
 mkdir -p ~/.config/systemd/user/
