@@ -165,7 +165,7 @@ sudo ufw enable
 sudo systemctl enable ufw
 
 # Configure home.
-sudo systemctl enable systemd-homed
+sudo systemctl enable --now systemd-homed
 sudo homectl create vlad --shell=/usr/bin/fish --storage=luks
 
 # Use subpixel font rendering.
