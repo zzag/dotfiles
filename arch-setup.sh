@@ -177,7 +177,8 @@ sudo cp fonts.conf /etc/fonts/local.conf
 
 # Setup ccache.
 sudo pacman -S ccache
-ccache --set-config=max_size=<max cache size, e.g. 100.0G>
+ccache --set-config=max_size=100G
+ccache --set-config=cache_dir=/data/ccache
 
 # Install yay.
 git clone https://aur.archlinux.org/yay.git
