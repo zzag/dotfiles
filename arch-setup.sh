@@ -1,3 +1,10 @@
+# Wi-Fi setup.
+iwctl
+[iwd] device list
+[iwd] station <device> scan
+[iwd] station <device> get-networks
+[iwd] station <device> connect <SSID>
+
 # Create partitions.
 cgdisk /dev/sda
     # Create /dev/sda1 (type ef00)
