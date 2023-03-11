@@ -332,3 +332,5 @@ mkdir -p ~/.config/systemd/user/
 ln -s systemd/ssh-agent.service ~/.config/systemd/user/
 systemctl --user enable ssh-agent
 systemctl --user start ssh-agent
+
+    # Add `SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket` to `~/.config/environment.d/ssh-agent.conf`
