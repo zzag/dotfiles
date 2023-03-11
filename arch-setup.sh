@@ -184,7 +184,6 @@ sudo pacman -S \
     ripgrep \
     rsync \
     sshfs \
-    synergy \
     the_silver_searcher \
     thunderbird \
     tmux \
@@ -288,35 +287,6 @@ makepkg -si
 
 # Install ScanGearMP.
 yay -S scangearmp2
-
-# Configure Synergy.
-sudo vim /etc/synergy.conf
-    # section: screens
-    # 	MacMini:
-    # 	Desktop:
-    # end
-    #
-    # section: links
-    # 	# Mac Mini is to the left of Desktop.
-    # 	MacMini:
-    # 		right = Desktop
-    #
-    # 	# Desktop is to the right of Mac Mini.
-    # 	Desktop:
-    # 		left = MacMini
-    # end
-    #
-    # section: aliases
-    # 	MacMini:
-    # 		Vlads-Mac-mini.local
-    #
-    # 	Desktop:
-    # 		lithium
-    # end
-    #
-    # section: options
-    # 	screenSaverSync = false
-    # end
 
 # Enable CUPS.
 sudo systemctl enable org.cups.cupsd
