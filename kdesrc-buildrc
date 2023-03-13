@@ -17,3 +17,7 @@ end global
 
 include ~/.local/share/kdesrc-build/kf6-qt6-build-include
 include ~/.local/share/kdesrc-build/kf6-extragear-build-include
+
+options selenium-webdriver-at-spi
+    cmake-options -DBUILD_WITH_QT6=ON
+end options
