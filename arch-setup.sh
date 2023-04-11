@@ -142,8 +142,9 @@ sudo pacman -S \
 # Enable SDDM.
 sudo systemctl enable sddm
 
-# Enable systemd-resolved.
-sudo systemctl enable systemd-resolved
+# Enable systemd-resolved (note that systemd-resolvconf should be installed too).
+sudo systemctl enable --now systemd-resolved
+sudo ln -rsf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
 # Enable ssh daemon.
 sudo systemctl enable sshd
