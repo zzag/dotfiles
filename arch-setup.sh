@@ -143,6 +143,17 @@ sudo pacman -S \
 sudo systemctl enable sddm
 
 # Enable systemd-resolved (note that systemd-resolvconf should be installed too).
+#
+# /etc/systemd/resolved.conf.d/dns_over_tls.conf
+# [Resolve]
+# DNS=9.9.9.9#dns.quad9.net 8.8.8.8#dns.google
+# FallbackDNS=
+# DNSOverTLS=yes
+#
+# /etc/NetworkManager/conf.d/rc-manager.conf
+# [main]
+# dns=none
+# systemd-resolved=false
 sudo systemctl enable --now systemd-resolved
 sudo ln -rsf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
