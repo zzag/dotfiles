@@ -30,6 +30,7 @@
     },
     "files.trimTrailingWhitespace": true,
     "telemetry.telemetryLevel": "off",
+    "terminal.integrated.fontSize": 12,
     "window.menuBarVisibility": "toggle",
     "window.restoreFullscreen": true,
     "window.titleBarStyle": "native",
