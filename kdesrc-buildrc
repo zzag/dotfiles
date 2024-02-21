@@ -12,6 +12,7 @@ global
     cmake-generator Kate - Ninja
     cmake-options -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_EXE_LINKER_FLAGS="-fuse-ld=lld" -DCMAKE_MODULE_LINKER_FLAGS="-fuse-ld=lld" -DCMAKE_SHARED_LINKER_FLAGS="-fuse-ld=lld" -DCMAKE_STATIC_LINKER_FLAGS="-fuse-ld=lld" -DBUILD_TESTING=OFF
 
+    include-dependencies false
     install-environment-driver true
 end global
 
