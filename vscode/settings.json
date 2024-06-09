@@ -1,12 +1,12 @@
 {
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "Cascadia Mono",
-    "editor.fontSize": 11,
+    "editor.fontSize": 11.5,
     "editor.fontLigatures": "'calt', 'ss01'",
     "editor.guides.indentation": false,
     "editor.inlayHints.enabled": "off",
-    "editor.lineHeight": 1.6,
-    "editor.minimap.maxColumn": 100,
+    "editor.lineHeight": 1.75,
+    "editor.minimap.maxColumn": 150,
     "editor.minimap.renderCharacters": false,
     "editor.multiCursorModifier": "alt",
     "editor.semanticHighlighting.enabled": true,
@@ -34,7 +34,7 @@
     "terminal.integrated.fontSize": 12,
     "window.menuBarVisibility": "toggle",
     "window.restoreFullscreen": true,
-    "window.titleBarStyle": "native",
+    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${profileName}${separator}",
     "workbench.startupEditor": "none",
     "workbench.tree.renderIndentGuides": "none",
     // vscode-clangd
@@ -49,6 +49,7 @@
     // file specific
     "[cpp]": {
         "editor.formatOnSave": false,
+        "editor.links": false,
         "editor.rulers": [
             100
         ]
@@ -76,6 +77,6 @@
         "editor.suggest.snippetsPreventQuickSuggestions": false,
         "editor.suggestSelection": "first",
         "editor.tabCompletion": "onlySnippets",
-        "editor.wordBasedSuggestions": false
-    }
+        "editor.wordBasedSuggestions": "off"
+    },
 }
