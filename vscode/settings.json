@@ -1,7 +1,7 @@
 {
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "Cascadia Mono",
-    "editor.fontSize": 11.5,
+    "editor.fontSize": 13,
     "editor.fontLigatures": "'calt', 'ss01'",
     "editor.guides.indentation": false,
     "editor.inlayHints.enabled": "off",
