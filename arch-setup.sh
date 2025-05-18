@@ -187,6 +187,9 @@ sudo ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d/10-sub-
 sudo ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d/11-lcdfilter-default.conf
 sudo cp fonts.conf /etc/fonts/local.conf
 
+# Enable stem darkening
+echo 'export FREETYPE_PROPERTIES="autofitter:no-stem-darkening=0 cff:no-stem-darkening=0 type1:no-stem-darkening=0 t1cid:no-stem-darkening=0"' | sudo tee -a /etc/profile.d/freetype2.sh
+
 # Setup ccache.
 sudo pacman -S ccache
 ccache --set-config=max_size=100G
