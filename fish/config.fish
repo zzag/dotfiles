@@ -5,6 +5,10 @@ else
     set -gx EDITOR nano
 end
 
+if test -e ~/.profile.fish
+    source ~/.profile.fish
+end
+
 # Add $HOME/.cargo/bin to PATH.
 if test -d ~/.cargo/bin
     set -gx fish_user_paths ~/.cargo/bin $fish_user_paths
