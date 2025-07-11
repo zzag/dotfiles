@@ -1,0 +1,15 @@
+[font]
+normal = { family = "Cascadia Mono" }
+size = 10
+
+[mouse]
+hide_when_typing = true
+
+[terminal]
+shell = "tmux"
+
+[window]
+dimensions = { columns = 180, lines = 60 }
+
+[general]
+import = ["~/.config/alacritty/breeze.toml"]
