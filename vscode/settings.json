@@ -1,8 +1,8 @@
 {
     "editor.bracketPairColorization.enabled": true,
-    "editor.fontFamily": "Cascadia Mono",
+    "editor.fontFamily": "MonoLisa",
     "editor.fontSize": 13,
-    "editor.fontLigatures": "'calt', 'ss01'",
+    "editor.fontLigatures": "'calt', 'ss02', 'ss07', 'ss10'",
     "editor.guides.indentation": false,
     "editor.inlayHints.enabled": "off",
     "editor.lineHeight": 1.75,
@@ -35,6 +35,8 @@
     "window.menuBarVisibility": "toggle",
     "window.restoreFullscreen": true,
     "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${profileName}${separator}",
+    "window.titleBarStyle": "native",
+    "workbench.colorTheme": "Default Dark+",
     "workbench.startupEditor": "none",
     "workbench.tree.renderIndentGuides": "none",
     // vscode-clangd
