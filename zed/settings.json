@@ -16,6 +16,7 @@
     "liga": false,
     "ss02": true, // italics
     "ss07": true, // alt. curly bracket
+    "ss08": true, // alt. parethesis
     "ss10": true // alt. greater equal
   },
   "buffer_font_weight": 500,
