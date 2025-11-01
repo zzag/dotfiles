@@ -1,0 +1,99 @@
+// Documentation at https://www.sublimetext.com/docs/color_schemes.html
+{
+	"variables":
+	{
+	},
+	"globals":
+	{
+	},
+	"rules":
+	[
+		{
+			"scope": "meta.semantic-token.method",
+			"foreground": "var(green)"
+		},
+		{
+			"scope": "meta.semantic-token.function",
+			"foreground": "var(green)"
+		},
+
+		{
+			"scope": "meta.semantic-token.namespace",
+			"foreground": "var(blue6)"
+		},
+
+		{
+			"scope": "meta.semantic-token.type",
+			"foreground": "var(blue5)"
+		},
+		{
+			"scope": "meta.semantic-token.class",
+			"foreground": "var(blue5)"
+		},
+		{
+			"scope": "meta.semantic-token.struct",
+			"foreground": "var(blue5)"
+		},
+
+		{
+			"scope": "meta.semantic-token.enum",
+			"foreground": "var(blue5)"
+		},
+		{
+			"scope": "meta.semantic-token.enummember",
+			"foreground": "var(blue-vibrant)"
+		},
+
+		{
+			"scope": "meta.semantic-token.property",
+			"foreground": "var(white3)"
+		},
+		{
+			"scope": "meta.semantic-token.parameter",
+			"foreground": "var(white3)"
+		},
+
+		{
+			"scope": "meta.semantic-token.macro",
+			"foreground": "var(blue)"
+		},
+
+		{
+			"scope": "string.quoted.double.c",
+			"foreground": "var(green)"
+		},
+
+		{
+			"scope": "keyword.control.c++",
+			"font_style": ""
+		},
+		{
+			"scope": "source.c++ storage.type.c",
+			"font_style": ""
+		},
+		{
+			"scope": "keyword.declaration.class.c++",
+			"font_style": ""
+		},
+		{
+			"scope": "keyword.declaration.enum.type.c++",
+			"font_style": ""
+		},
+		{
+			"scope": "keyword.declaration.struct.type.c++",
+			"font_style": ""
+		},
+		{
+			"scope": "comment.line.double-slash.c",
+			"font_style": "italic"
+		},
+		{
+			"scope": "source.c++ comment.block.c",
+			"font_style": "italic"
+		},
+		{
+			"scope": "comment.block.documentation.c",
+			"font_style": "italic"
+		},
+	]
+}
