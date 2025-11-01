@@ -1,0 +1,7 @@
+// Settings in here override those in "LSP-clangd/LSP-clangd.sublime-settings"
+{
+	"initializationOptions": {
+		"clangd.header-insertion": "never",
+		"clangd.completion-style": "detailed"
+	}
+}
