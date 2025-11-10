@@ -9,4 +9,7 @@
 	"line_padding_bottom": 1,
 	"trim_trailing_white_space_on_save": "all",
 	"trim_only_modified_white_space": true,
+	"theme": "Default.sublime-theme",
+	"color_scheme": "Mariana.sublime-color-scheme",
+	"translate_tabs_to_spaces": true,
 }
