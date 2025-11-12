@@ -1,0 +1,7 @@
+filetype indent plugin on
+
+syntax on
+filetype on
+
+set expandtab
+set softtabstop=4
