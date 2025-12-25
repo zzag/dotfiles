@@ -7,43 +7,56 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "disable_ai": true,
+  "inlay_hints": {
+    "show_background": true,
+    "enabled": true,
+  },
+  "gutter": {
+    "breakpoints": true,
+  },
   "ui_font_family": "Inter Display",
   "ui_font_size": 15,
   "buffer_font_family": "MonoLisa",
-  "buffer_font_size": 13,
+  "buffer_font_size": 14,
   "buffer_font_features": {
     "calt": true,
     "liga": false,
     "ss02": true, // italics
     "ss07": true, // alt. curly bracket
     "ss08": true, // alt. parethesis
-    "ss10": true // alt. greater equal
+    "ss10": true, // alt. greater equal
+    "ss14": true, // alt. ampersand
   },
   "buffer_font_weight": 500,
   "theme": {
     "mode": "system",
     "light": "One Dark",
-    "dark": "One Dark"
+    "dark": "One Dark",
+  },
+  "title_bar": {
+    "show_branch_icon": true,
+    "show_sign_in": false,
   },
   "preferred_line_length": 100,
   "languages": {
     "C++": {
-      "wrap_guides": [100]
-    }
+      "wrap_guides": [100],
+    },
   },
   "lsp": {
     "clangd": {
       "binary": {
         "path": "/usr/bin/clangd",
-        "arguments": ["--header-insertion=never", "--completion-style=detailed"]
-      }
-    }
+        "arguments": ["--header-insertion=never", "--completion-style=detailed"],
+      },
+    },
   },
   "experimental.theme_overrides": {
     "syntax": {
       "comment": {
-        "font_style": "italic"
-      }
-    }
-  }
+        "font_style": "italic",
+      },
+    },
+  },
 }

@@ -1,7 +1,7 @@
 {
 	"draw_white_space": ["selection", "trailing"],
 	"font_face": "MonoLisa SemiBold",
-	"font_options": ["calt", "ss02", "ss07", "ss08", "ss10"],
+	"font_options": ["calt", "ss02", "ss07", "ss08", "ss10", "ss14"],
 	"font_size": 11,
 	"hardware_acceleration": "opengl",
 	"hot_exit": "disabled",
