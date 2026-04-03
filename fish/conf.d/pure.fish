@@ -1,4 +1,4 @@
-set --global pure_version 4.12.0 # For bug report and tag-after-merge workflow
+set --global pure_version 4.16.0  # For bug report and tag-after-merge workflow
 
 # Base colors
 _pure_set_default pure_color_primary blue
@@ -55,7 +55,7 @@ _pure_set_default pure_symbol_nixdevshell_prefix "❄️" # otherwise nerdfonts:
 _pure_set_default pure_color_nixdevshell_prefix pure_color_info
 _pure_set_default pure_color_nixdevshell_symbol pure_color_mute
 
-#  env for Python
+# env for Python
 _pure_set_default pure_enable_virtualenv true
 _pure_set_default pure_symbol_virtualenv_prefix "" # 🐍
 _pure_set_default pure_color_virtualenv pure_color_mute
@@ -70,10 +70,17 @@ _pure_set_default pure_color_aws_profile pure_color_warning
 # false:            user@hostname (ssh-only), current directory, git, command duration
 _pure_set_default pure_begin_prompt_with_current_directory true
 
-# Show exit code of last command as a separate prompt character (cf. https://github.com/sindresorhus/pure/wiki#show-exit-code-of-last-command-as-a-separate-prompt-character)
+# Show exit code of last command as a separate prompt character (cf. https://github.com/sindresorhus/pure/wiki/Customizations,-hacks-and-tweaks#show-exit-code-of-last-command-as-a-separate-prompt-character)
 # false - single prompt character, default
 # true - separate prompt character
 _pure_set_default pure_separate_prompt_on_error false
+
+# Prefix the prompt with a list of exit statuses ($pipestatus) if at least one is non-zero
+_pure_set_default pure_show_exit_status false
+_pure_set_default pure_convert_exit_status_to_signal false
+_pure_set_default pure_symbol_exit_status_prefix "|"
+_pure_set_default pure_symbol_exit_status_separator "|"
+_pure_set_default pure_color_exit_status pure_color_danger
 
 # Max execution time of a process before its run time is shown when it exits
 _pure_set_default pure_threshold_command_duration 5

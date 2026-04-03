@@ -22,9 +22,5 @@ end
 # Load aliases.
 source ~/.config/fish/aliases.fish
 
-# Customize default colors.
-set -g fish_color_command normal
-set -g fish_color_param green
-
-# Customize pure prompt.
-set -g pure_color_success (set_color green)
+# Remove the greeting banner.
+set -U fish_greeting
