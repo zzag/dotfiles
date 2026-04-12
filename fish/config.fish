@@ -24,3 +24,6 @@ source ~/.config/fish/aliases.fish
 
 # Remove the greeting banner.
 set -U fish_greeting
+
+# Pure fish prompt.
+set -gx pure_show_numbered_git_indicator true
