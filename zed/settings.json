@@ -26,6 +26,7 @@
     "ss07": true, // alt. curly bracket
     "ss08": true, // alt. parethesis
     "ss10": true, // alt. greater equal
+    "ss13": true, // alt. dollar
     "ss14": true, // alt. ampersand
   },
   "buffer_font_weight": 500,
