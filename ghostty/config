@@ -1,0 +1,12 @@
+alpha-blending = linear
+cursor-style = block
+cursor-style-blink = false
+font-family = "MonoLisa SemiBold"
+font-feature = +ss02,+ss07,+ss08,+ss10,+ss13,+ss14
+font-size = 10.0
+scrollbar = never
+shell-integration-features = no-cursor
+theme = Monokai Classic
+window-padding-x = 0
+window-padding-y = 0
+window-decoration = server
