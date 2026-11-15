@@ -10,3 +10,5 @@ theme = Monokai Classic
 window-padding-x = 0
 window-padding-y = 0
 window-decoration = server
+window-height = 35
+window-width = 115
