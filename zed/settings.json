@@ -7,10 +7,13 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "project_panel": {
+    "dock": "right"
+  },
   "disable_ai": true,
   "inlay_hints": {
     "show_background": true,
-    "enabled": true,
+    "enabled": false,
   },
   "gutter": {
     "breakpoints": true,
@@ -32,12 +35,12 @@
   },
   "buffer_font_weight": 500,
   "theme": {
-    "mode": "system",
+    "mode": "dark",
     "light": "One Dark",
-    "dark": "One Dark",
+    "dark": "JetBrains Dark",
   },
   "title_bar": {
-    "show_branch_icon": true,
+    "show_branch_status_icon": true,
     "show_sign_in": false,
   },
   "preferred_line_length": 100,
