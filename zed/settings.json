@@ -20,6 +20,10 @@
     "breakpoints": true,
   },
   "ui_font_family": "MonoLisaText",
+  "ui_font_features": {
+    "ss14": true,
+    "zero": true,
+  },
   "ui_font_size": 14,
   "ui_font_weight": 400,
   "buffer_font_family": "MonoLisaCode",
