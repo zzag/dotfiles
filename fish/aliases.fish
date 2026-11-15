@@ -39,3 +39,7 @@ end
 function gpl
     git pretty-log $argv
 end
+
+function vim
+    command vim -X $argv
+end
