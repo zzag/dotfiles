@@ -15,20 +15,20 @@
   "gutter": {
     "breakpoints": true,
   },
-  "ui_font_family": "Inter Display",
-  "ui_font_size": 15,
+  "ui_font_family": "MonoLisaText",
+  "ui_font_size": 14,
+  "ui_font_weight": 400,
   "buffer_font_family": "MonoLisa",
   "buffer_font_size": 14,
   "buffer_font_features": {
-    "calt": true,
     "liga": false,
-    "ss02": true, // italics
-    "ss07": true, // alt. curly bracket
-    "ss08": true, // alt. parethesis
-    "ss10": true, // alt. greater equal
-    "ss13": true, // alt. dollar
-    "ss14": true, // alt. ampersand
-    "zero": true, // slashed zero
+    "ss01": true,
+    "ss08": true,
+    "ss09": true,
+    "ss10": true,
+    "ss11": true,
+    "ss14": true,
+    "zero": true,
   },
   "buffer_font_weight": 500,
   "theme": {
