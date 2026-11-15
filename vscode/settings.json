@@ -32,7 +32,7 @@
     },
     "files.trimTrailingWhitespace": true,
     "telemetry.telemetryLevel": "off",
-    "terminal.integrated.fontFamily": "MonoLisa SemiBold",
+    "terminal.integrated.fontFamily": "MonoLisaCode SemiBold",
     "terminal.integrated.fontLigatures.featureSettings": "'liga' off, 'ss01' on, 'ss09' on, 'ss10' on, 'ss11' on, 'ss14' on, 'zero' on",
     "terminal.integrated.fontSize": 12,
     "window.menuBarVisibility": "toggle",
