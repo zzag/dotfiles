@@ -28,6 +28,7 @@
     "ss10": true, // alt. greater equal
     "ss13": true, // alt. dollar
     "ss14": true, // alt. ampersand
+    "zero": true, // slashed zero
   },
   "buffer_font_weight": 500,
   "theme": {

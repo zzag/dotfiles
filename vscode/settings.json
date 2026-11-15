@@ -3,7 +3,7 @@
     "editor.bracketPairColorization.enabled": true,
     "editor.fontFamily": "MonoLisa SemiBold",
     "editor.fontSize": 14,
-    "editor.fontLigatures": "'calt', 'ss02', 'ss07', 'ss08', 'ss10', 'ss13', 'ss14'",
+    "editor.fontLigatures": "'calt', 'ss02', 'ss07', 'ss08', 'ss10', 'ss13', 'ss14', 'zero'",
     "editor.guides.indentation": false,
     "editor.inlayHints.enabled": "off",
     "editor.lineHeight": 1.75,
