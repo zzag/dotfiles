@@ -22,22 +22,8 @@ function cp
     command cp -v $argv
 end
 
-function purge
-    ls -A1 | xargs rm -rf $argv
-end
-
 function ports
     sudo netstat -vatnp $argv
-end
-
-function pacman-delete-orphans
-    if set -l orphans (pacman -Qtdq)
-        sudo pacman -Rns $orphans
-    end
-end
-
-function gpl
-    git pretty-log $argv
 end
 
 function vim
